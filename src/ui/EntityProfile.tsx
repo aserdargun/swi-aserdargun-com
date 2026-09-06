@@ -6,6 +6,8 @@ import { getEntityRelationships } from '@/research/selectors'
 import { deriveFreshness } from '@/research/freshness'
 import { EvidenceList } from './EvidenceList'
 import styles from './entity.module.css'
+import { laboratoryForEntity } from '@/research/laboratories'
+import { LaboratoryContext } from './workbench/Laboratory'
 
 export function EntityProfile({ locale, catalog, entity, today }: { locale: Locale; catalog: Catalog; entity: Entity; today: Date }) {
   const ui = getCopy(locale)
@@ -13,6 +15,7 @@ export function EntityProfile({ locale, catalog, entity, today }: { locale: Loca
   const statuses = { current: ui.freshness.current, 'review-due': ui.freshness.reviewDue, historical: ui.freshness.historical, superseded: ui.freshness.superseded }
   const kinds = { evidence: ui.evidence.label, synthesis: ui.evidence.synthesis, hypothesis: ui.evidence.hypothesis }
   const relationships = getEntityRelationships(catalog, entity.id)
+  const laboratory = laboratoryForEntity(entity.id)
   const claims = entity.claimIds.map(id => catalog.claimById.get(id)!)
   const sourceAccessStates = claims.flatMap(claim => (catalog.claimToEvidence.get(claim.id) ?? []).map(item => {
     const access = catalog.sourceById.get(item.sourceId)!.access
@@ -45,6 +48,7 @@ export function EntityProfile({ locale, catalog, entity, today }: { locale: Loca
     </aside>
     <article className={styles.article}>
       <section><h2>{text.mechanism}</h2><p>{entity.description[locale]}</p></section>
+      {laboratory && <LaboratoryContext laboratory={laboratory} locale={locale} />}
       <section><h2>{text.claims}</h2><EvidenceList locale={locale} catalog={catalog} claims={claims} /></section>
       <section><h2>{text.freshness}</h2><dl className={styles.freshness}>
         <dt>{ui.freshness.reviewed}</dt><dd>{entity.reviewedAt ? <time dateTime={entity.reviewedAt}>{entity.reviewedAt}</time> : text.pending}</dd>

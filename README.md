@@ -35,6 +35,14 @@ atlas, searchable research library, protocol configurator, knowledge map and
 personal agenda in Turkish and English. The original four-entity ant chain and
 its source-linked claims remain available.
 
+The live [ANT](https://ant.aserdargun.com/) and [BEE](https://bee.aserdargun.com/)
+laboratories connect the workspace, atlas, recipes and knowledge map to interactive
+models. ANT also connects the original ant, stigmergy and ACO profiles to trail
+formation. BEE explores foraging and dance recruitment; the honeybee dossier’s
+nest-site selection, stop signals and quorum remain a separate research context.
+Localized links, observation exercises and transfer boundaries are maintained in
+`src/research/laboratories.ts`. Each laboratory has its own TR / EN controls.
+
 The dossiers cover ants, honeybees, starlings, termites, Physarum, collective
 motion, bacterial quorum sensing and firefly synchronization. Each separates
 biological evidence, engineering adaptation, transfer limits and a controlled

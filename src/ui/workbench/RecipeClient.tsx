@@ -12,6 +12,8 @@ import { Icon } from './Icon'
 import { PageIntro, TextLink, tx, WorkbenchTopline } from './shared'
 import { StudyCard } from './StudyCard'
 import { useUrlState } from './useUrlState'
+import { laboratoryForDossier } from '@/research/laboratories'
+import { LaboratoryContext } from './Laboratory'
 
 function subscribeReadiness() { return () => {} }
 function clientReady() { return true }
@@ -20,6 +22,7 @@ function serverReady() { return false }
 export function RecipeClient({ dossier, studies, locale }: { dossier: Dossier; studies: Study[]; locale: Locale }) {
   const ready=useSyncExternalStore(subscribeReadiness,clientReady,serverReady)
   const p=dossier.protocol
+  const laboratory=laboratoryForDossier(dossier.id)
   const {values,update}=useUrlState()
   const tab=['experiment','sources'].includes(values.get('tab')??'')?values.get('tab')!:'protocol'
   const [config,setConfig]=useState<RecipeConfig>({task:p.exampleTask[locale],agents:6,rounds:3,tokenBudget:12000})
@@ -59,6 +62,7 @@ export function RecipeClient({ dossier, studies, locale }: { dossier: Dossier; s
       {tab==='protocol'&&<><ol className="wb-step-list">{p.steps.map((step,index)=><li key={index}><span className="wb-step-number" aria-hidden="true">0{index+1}</span><div><h3>{step.title[locale]}</h3><p>{step.body[locale]}</p></div></li>)}</ol><section><h2>{tx(locale,'Rollerin sorumluluğu','Role responsibilities')}</h2><dl className="wb-definition-list">{p.roles.map(role=><div key={role.name.en}><dt>{role.name[locale]}</dt><dd>{role.task[locale]}</dd></div>)}</dl></section><section><h2>{tx(locale,'Ortak hafıza sözleşmesi','Shared memory contract')}</h2><div className="wb-memory-fields">{p.memory.map(field=><code key={field}>{field}</code>)}</div><dl className="wb-definition-list"><dt>{tx(locale,'Durma koşulu','Stop condition')}</dt><dd>{p.stop[locale]}</dd><dt>{tx(locale,'Başlıca hata biçimi','Primary failure mode')}</dt><dd>{p.failure[locale]}</dd></dl></section></>}
       {tab==='experiment'&&<section><h2>{tx(locale,'Aynı işi, aynı bütçeyle karşılaştır','Compare the same work at the same budget')}</h2><p>{p.experiment[locale]}</p><div className="wb-note"><strong>{tx(locale,'Üç kontrol koşulu','Three control conditions')}</strong>{tx(locale,'Tek agent / bağımsız paralel / koordine sürü. Aynı görevleri, kaynakları ve kabul testlerini kullan. Sonuçları görmeden değerlendirme ölçütlerini belirle; yalnızca başarılı koşuları raporlama.','Single agent / independent parallel / coordinated swarm. Use the same tasks, sources and acceptance tests. Set evaluation criteria before inspecting results; report unsuccessful runs too.')}</div><dl className="wb-definition-list"><dt>{tx(locale,'Mekanizmayı kaldırma deneyi','Ablation experiment')}</dt><dd>{p.ablation[locale]}</dd></dl><h2 style={{marginTop:32}}>{tx(locale,'Neyi ölçeceksin?','What will you measure?')}</h2><dl className="wb-definition-list">{p.metrics.map(metric=><div key={metric.name.en}><dt>{metric.name[locale]}</dt><dd>{metric.definition[locale]}</dd></div>)}</dl><div className="wb-note" style={{marginTop:24}}>{tx(locale,'Burada gösterilenler deney tasarımıdır. SWI bu agentları çalıştırmadı; başarı oranı, hız veya maliyet sonucu üretilmedi.','This is an experiment design. SWI has not run these agents; no success-rate, speed or cost result has been produced.')}</div></section>}
       {tab==='sources'&&<section><h2>{tx(locale,'Dayanaklar ve aktarım sınırı','Evidence and transfer boundary')}</h2><p>{dossier.boundary[locale]}</p>{studies.map(study=><StudyCard key={study.id} study={study} locale={locale} headingLevel={3}/>)}</section>}
+      {laboratory && <LaboratoryContext laboratory={laboratory} locale={locale} />}
     </article><aside className="wb-reading-rail wb-config"><h2>{tx(locale,'Deneyi yapılandır','Configure the experiment')}</h2><form className="wb-form" onSubmit={submit}>
       <label>{tx(locale,'Görevin','Your task')}<textarea disabled={!ready} value={config.task} onChange={event=>changeConfig({task:event.target.value})} required minLength={10} maxLength={6000} rows={5}/></label>
       <label>{tx(locale,'Agent sayısı','Agent count')}<input disabled={!ready} type="number" min="3" max="32" step="1" value={Number.isFinite(config.agents)?config.agents:''} onChange={event=>changeConfig({agents:event.target.valueAsNumber})} required /></label>
