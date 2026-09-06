@@ -1,0 +1,36 @@
+.layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); gap: 24px; align-items: start; }
+.visual { grid-column: 1; grid-row: 1; min-width: 0; }
+.rail { grid-column: 2; grid-row: 1; min-width: 0; border-inline-start: 1px solid var(--rule); padding-inline-start: 24px; }
+.rail h2 { color: var(--evidence); }
+.list { list-style: decimal; padding-inline-start: 28px; margin-block: 24px 0; }
+.list li { padding: 20px 0 24px 8px; border-bottom: 1px solid var(--rule); overflow-wrap: anywhere; }
+.list li::marker { color: var(--evidence); font-size: 24px; }
+.list a { display: flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 600; }
+.list li > span { display: block; }
+.type, .status, .selected, .note { font-size: 14px; line-height: 20px; }
+.type { color: var(--muted-ink); margin-bottom: 8px; }
+.status { margin-block: 12px 8px; font-weight: 600; }
+.selected { color: var(--evidence); }
+.note { color: var(--muted-ink); }
+.desktop { border: 1px solid var(--rule); border-radius: 2px; }
+.svg { display: block; width: 100%; height: 650px; background: #0E1A17; color: #F7F8F3; fill: currentColor; }
+.node { cursor: pointer; }
+.node:focus-visible { outline: 2px solid #F7F8F3; outline-offset: 5px; }
+.node:focus-visible rect { stroke: #A9BAFF; stroke-width: 3px; }
+.controls { display: flex; flex-wrap: wrap; border-top: 1px solid var(--rule); }
+.controls button { flex: 1; min-height: 48px; border: 0; padding: 12px; }
+.controls button + button { border-inline-start: 1px solid var(--rule); }
+.selection { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding: 12px 16px; border-top: 1px solid var(--rule); font-size: 14px; line-height: 20px; }
+.selection a { display: inline-flex; align-items: center; min-height: 44px; }
+.count { border-top: 1px solid var(--rule); padding-top: 24px; }
+.mobile, .mobileNote { display: none; }
+@media (max-width: 767px) {
+  .layout { display: flex; flex-direction: column; gap: 32px; }
+  .rail { border: 0; padding: 0; width: 100%; }
+  .list li { padding-block: 20px 24px; }
+  .list a { margin-block: 8px; }
+  .visual { width: 100%; }
+  .desktop { display: none; }
+  .mobile { display: block; width: 100%; max-width: 350px; height: auto; background: #0E1A17; fill: #F7F8F3; border-radius: 2px; }
+  .mobileNote { display: block; }
+}
