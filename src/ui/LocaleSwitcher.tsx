@@ -8,9 +8,11 @@ import { localizedPath, locales, type Locale } from '@/i18n/locales'
 function subscribe(onChange: () => void) {
   window.addEventListener('hashchange', onChange)
   window.addEventListener('popstate', onChange)
+  window.addEventListener('swi:locationchange', onChange)
   return () => {
     window.removeEventListener('hashchange', onChange)
     window.removeEventListener('popstate', onChange)
+    window.removeEventListener('swi:locationchange', onChange)
   }
 }
 function currentPath() {

@@ -1,0 +1,50 @@
+.explore > h1 { margin-bottom: 32px; }
+.search { position: relative; margin-bottom: 24px; }
+.search > svg { position: absolute; left: 20px; top: 18px; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+.search input { width: 100%; height: 56px; padding: 14px 20px 14px 52px; }
+.search input::placeholder { color: var(--muted-ink); opacity: 1; }
+.filters { margin-bottom: 24px; gap: 8px 20px; }
+.columns, .row { display: grid; grid-template-columns: minmax(0, 1fr) 88px 90px 56px 76px; column-gap: 12px; align-items: center; }
+.columns { padding: 12px 12px 16px; color: var(--muted-ink); font-size: 14px; line-height: 20px; }
+.results { padding: 0; margin: 0; list-style: none; border-top: 1px solid var(--rule); }
+.row { width: 100%; min-height: 120px; padding: 20px 12px; border: 0; border-bottom: 1px solid var(--rule); border-inline-start: 3px solid transparent; border-radius: 0; text-align: start; }
+.row:hover { text-decoration: none; background: var(--selected-surface); }
+.row:focus-visible { position: relative; z-index: 1; }
+.selected { background: var(--selected-surface); border-inline-start-color: var(--evidence); }
+.identity { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.summary { color: var(--muted-ink); font-size: 14px; line-height: 20px; }
+.metadata { font-size: 14px; line-height: 20px; overflow-wrap: anywhere; }
+.selection { display: flex; align-items: center; justify-content: flex-end; gap: 4px; color: var(--evidence); font-size: 14px; line-height: 20px; }
+.selection svg { width: 20px; height: 20px; flex: 0 0 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.mobileLabel { display: none; }
+.resultFooter { min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 14px; line-height: 20px; }
+.resultFooter button { padding: 8px 12px; }
+.empty { padding: 32px 12px; }
+.preview h2 { font-size: 40px; line-height: 48px; margin-bottom: 16px; }
+.preview h3 { font: 500 20px/28px var(--font-ui); margin-bottom: 16px; }
+.relationships { margin: 0; padding: 0; list-style: none; counter-reset: relationships; }
+.relationships li { position: relative; counter-increment: relationships; padding: 0 0 8px 40px; border-bottom: 1px solid var(--rule); margin-bottom: 8px; }
+.relationships li::before { content: counter(relationships); position: absolute; left: 0; top: 12px; width: 28px; height: 28px; border: 1px solid var(--rule); display: grid; place-items: center; font-size: 14px; line-height: 20px; }
+.relationships li.related::before { border-color: var(--evidence); }
+.relationships a { display: flex; align-items: center; min-height: 44px; width: fit-content; color: var(--ink); text-decoration: underline; text-underline-offset: 4px; font-size: 16px; line-height: 24px; font-weight: 500; }
+.predicate { display: flex; align-items: center; gap: 12px; min-height: 28px; color: var(--evidence); font-size: 14px; line-height: 20px; }
+.predicate svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 24px; }
+.actions a { flex: 1; }
+@media (max-width: 1199px) { .columns, .row { grid-template-columns: minmax(0, 1fr) 72px 76px 48px 76px; gap: 8px; } }
+@media (max-width: 1023px) { .columns, .row { grid-template-columns: minmax(0, 1fr) 88px 90px 56px 76px; gap: 12px; } .selection > span { display: block; } }
+@media (max-width: 767px) {
+  .explore > h1 { margin-bottom: 24px; }
+  .filters { gap: 8px; }
+  .filters > button { padding-inline: 8px; }
+  .columns { display: none; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; padding: 20px 12px; }
+  .identity { flex-basis: 100%; }
+  .metadata { display: inline; }
+  .mobileLabel { display: inline; color: var(--muted-ink); }
+  .selection { margin-left: auto; }
+  .preview h2 { font-size: 32px; line-height: 40px; }
+  .relationships li { padding-bottom: 20px; }
+  .predicate { margin-block: 8px; }
+  .actions { flex-direction: column; }
+}
