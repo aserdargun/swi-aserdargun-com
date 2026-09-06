@@ -31,7 +31,7 @@ export function StaticRecovery() {
   }, [detectedLocale])
 
   return <>
-    <title>{`${ui.title} — SWI`}</title>
+    <title>{`${ui.title} - SWI`}</title>
     <main data-swi-recovery>
       <section lang={locale}>
         <h1>{ui.title}</h1>
