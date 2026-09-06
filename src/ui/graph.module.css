@@ -24,7 +24,7 @@
 .selection a { display: inline-flex; align-items: center; min-height: 44px; }
 .count { border-top: 1px solid var(--rule); padding-top: 24px; }
 .mobile, .mobileNote { display: none; }
-@media (max-width: 767px) {
+@media (max-width: 1199px) {
   .layout { display: flex; flex-direction: column; gap: 32px; }
   .rail { border: 0; padding: 0; width: 100%; }
   .list li { padding-block: 20px 24px; }

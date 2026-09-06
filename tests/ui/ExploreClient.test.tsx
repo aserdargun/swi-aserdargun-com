@@ -19,6 +19,13 @@ beforeEach(() => window.history.replaceState({ preserved: true }, '', '/en/explo
 afterEach(() => { cleanup(); vi.restoreAllMocks() })
 
 describe('Explore interactions', () => {
+  it('labels synthesis and carries the selected entity into the graph', async () => {
+    const user = userEvent.setup()
+    explore()
+    expect(screen.getAllByText(/Synthesis/)).toHaveLength(2)
+    await user.click(screen.getByRole('button', { name: 'Select Stigmergy' }))
+    expect(screen.getByRole('link', { name: 'View graph' })).toHaveAttribute('href', '/en/graph/?entity=stigmergy')
+  })
   it('searches, filters, shows count and resets to all four entities', async () => {
     const user = userEvent.setup()
     explore()

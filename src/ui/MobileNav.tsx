@@ -7,8 +7,8 @@ import { getCopy } from '@/i18n/copy'
 import { localizedPath, type Locale } from '@/i18n/locales'
 
 const destinations = [
-  ['home', '/'], ['explore', '/explore/'], ['research', '/research/'],
-  ['timeline', '/timeline/'], ['experiments', '/experiments/'], ['graph', '/graph/'],
+  ['home', '/'], ['explore', '/explore/'], ['research', '/methodology/'],
+  ['timeline', null], ['experiments', null], ['graph', '/graph/'],
 ] as const
 
 function NavLinks({ locale, onNavigate }: Readonly<{ locale: Locale; onNavigate?: () => void }>) {
@@ -16,7 +16,8 @@ function NavLinks({ locale, onNavigate }: Readonly<{ locale: Locale; onNavigate?
   const section = pathname.split('/')[2] ?? ''
   const ui = getCopy(locale)
   return destinations.map(([key, path]) => {
-    const active = key === 'home' ? !section : section === key || (key === 'explore' && section === 'entities')
+    if (!path) return <span key={key} className="nav-deferred" aria-disabled="true">{ui.navigation[key]}<span className="sr-only"> — {locale === 'en' ? 'planned; unavailable' : 'planlandı; henüz kullanılamıyor'}</span></span>
+    const active = key === 'home' ? !section : section === key || (key === 'explore' && section === 'entities') || (key === 'research' && section === 'methodology')
     return <Link key={key} href={localizedPath(path, locale)} aria-current={active ? 'page' : undefined} onClick={onNavigate}>{ui.navigation[key]}</Link>
   })
 }

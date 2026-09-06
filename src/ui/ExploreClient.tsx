@@ -5,6 +5,7 @@ import type { Entity, Relationship } from '@/research/schema'
 import type { Locale } from '@/i18n/locales'
 import { localizedPath } from '@/i18n/locales'
 import { getCopy } from '@/i18n/copy'
+import { exploreCopy } from '@/i18n/explore-copy'
 import { parseExploreState, searchEntities, serializeExploreState, type ExploreState, type SearchDocument } from '@/research/search'
 import styles from './explore.module.css'
 
@@ -27,16 +28,12 @@ function replaceState(state: ExploreState) {
   }
 }
 
-const labels = {
-  en: { all: 'All', placeholder: 'Search entities, principles, algorithms…', entity: 'Entity', type: 'Type', freshness: 'Freshness', sources: 'Sources', selected: 'Selected', select: 'Select', relationships: 'Relationships', open: 'Open entity', graph: 'View graph', reset: 'Reset filters', pending: 'Pending review', result: 'entity', results: 'entities', principle: 'Principle', algorithm: 'Algorithm' },
-  tr: { all: 'Tümü', placeholder: 'Varlıklar, ilkeler, algoritmalar ara…', entity: 'Varlık', type: 'Tür', freshness: 'Güncellik', sources: 'Kaynaklar', selected: 'Seçili', select: 'Seç', relationships: 'İlişkiler', open: 'Varlığı aç', graph: 'Grafiği gör', reset: 'Filtreleri sıfırla', pending: 'İnceleme bekliyor', result: 'varlık', results: 'varlık', principle: 'İlke', algorithm: 'Algoritma' },
-} as const
 
 function Chevron() { return <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" /></svg> }
 
 export function ExploreClient({ locale, documents, entities, relationships }: ExploreProps) {
   const ui = getCopy(locale)
-  const text = labels[locale]
+  const text = exploreCopy[locale]
   const search = useSyncExternalStore(subscribe, getSearch, serverSearch)
   const state = parseExploreState(new URLSearchParams(search))
   const [draftQuery, setDraftQuery] = useState<string | null>(null)
@@ -54,6 +51,7 @@ export function ExploreClient({ locale, documents, entities, relationships }: Ex
   ]
   const typeName = (type: Entity['type']) => type === 'principle' ? text.principle : type === 'algorithm' ? text.algorithm : groups.find(group => group.types.includes(type))?.label ?? type
   const statuses = { current: ui.freshness.current, 'review-due': ui.freshness.reviewDue, historical: ui.freshness.historical, superseded: ui.freshness.superseded }
+  const kinds = { evidence: ui.evidence.label, synthesis: ui.evidence.synthesis, hypothesis: ui.evidence.hypothesis }
   const relationshipOrder = [...relationships].sort((a, b) => (documents.find(doc => doc.entityId === a.sourceEntityId)?.order ?? 0) - (documents.find(doc => doc.entityId === b.sourceEntityId)?.order ?? 0))
 
   useEffect(() => {
@@ -116,12 +114,12 @@ export function ExploreClient({ locale, documents, entities, relationships }: Ex
           const target = entities.find(entity => entity.id === edge.targetEntityId)!
           return <li key={edge.id} className={source.id === selected.id || target.id === selected.id ? styles.related : ''}>
             <a href={localizedPath(`/entities/${source.slug}/`, locale)}>{source.title[locale]}</a>
-            <span className={styles.predicate}>{ui.home.predicates[edge.relationType] ?? edge.relationType}<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v18m-6-6 6 6 6-6" /></svg></span>
+            <span className={styles.predicate}>{ui.home.predicates[edge.relationType] ?? edge.relationType} · {kinds[edge.status]}<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v18m-6-6 6 6 6-6" /></svg></span>
             <a href={localizedPath(`/entities/${target.slug}/`, locale)}>{target.title[locale]}</a>
           </li>
         })}</ol>
         <div className={styles.actions}><a className="action action-primary" href={localizedPath(`/entities/${selected.slug}/`, locale)}>{text.open}</a>
-          <a className="action action-secondary action-outlined" href={localizedPath(`/graph/?selected=${selected.slug}`, locale)}>{text.graph}</a></div>
+          <a className="action action-secondary action-outlined" href={localizedPath(`/graph/?entity=${selected.id}`, locale)}>{text.graph}</a></div>
       </aside> : null}
     </div>
   </div>

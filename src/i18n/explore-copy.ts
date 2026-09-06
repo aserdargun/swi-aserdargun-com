@@ -1,0 +1,4 @@
+export const exploreCopy = {
+  en: { all: 'All', placeholder: 'Search entities, principles, algorithms…', entity: 'Entity', type: 'Type', freshness: 'Freshness', sources: 'Sources', selected: 'Selected', select: 'Select', relationships: 'Relationships', open: 'Open entity', graph: 'View graph', reset: 'Reset filters', pending: 'Pending review', result: 'entity', results: 'entities', principle: 'Principle', algorithm: 'Algorithm' },
+  tr: { all: 'Tümü', placeholder: 'Varlıklar, ilkeler, algoritmalar ara…', entity: 'Varlık', type: 'Tür', freshness: 'Güncellik', sources: 'Kaynaklar', selected: 'Seçili', select: 'Seç', relationships: 'İlişkiler', open: 'Varlığı aç', graph: 'Grafiği gör', reset: 'Filtreleri sıfırla', pending: 'İnceleme bekliyor', result: 'varlık', results: 'varlık', principle: 'İlke', algorithm: 'Algoritma' },
+} as const

@@ -1,12 +1,9 @@
-import { execFile } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
 import { createServer, type Server } from 'node:http'
 import { normalize, resolve } from 'node:path'
-import { promisify } from 'node:util'
 
 import { expect, test, type Page } from '@playwright/test'
 
-const execFileAsync = promisify(execFile)
 const outDirectory = resolve(process.cwd(), 'out')
 let server: Server | undefined
 let origin: string
@@ -97,7 +94,6 @@ async function settleRecovery(page: Page, pathname: string) {
 }
 
 test.beforeAll(async () => {
-  await execFileAsync('npm', ['run', 'build'], { env: process.env })
   await startStaticExportServer()
 })
 
