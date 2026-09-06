@@ -110,11 +110,16 @@ test.describe('exported unknown-route recovery', () => {
 
   for (const [pathname, language, heading, summary, href] of recoveryCases) {
     test(`settles ${pathname} without a React hydration error`, async ({ page }) => {
+      if (language === 'tr') {
+        const session = await page.context().newCDPSession(page)
+        await session.send('Emulation.setCPUThrottlingRate', { rate: 6 })
+      }
       const { response, hydrationErrors } = await settleRecovery(page, pathname)
 
       expect(response?.status()).toBe(404)
       await expect(page.locator('html')).toHaveAttribute('lang', language)
       await expect(page).toHaveTitle(`${heading} — SWI`)
+      await expect(page.locator('head title')).toHaveCount(1)
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(heading)
       await expect(page.getByText(summary, { exact: true })).toBeVisible()
       await expect(page.getByRole('link', { name: /catalog|kataloğa/i })).toHaveAttribute('href', href)

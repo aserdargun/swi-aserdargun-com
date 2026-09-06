@@ -118,7 +118,7 @@ describe('localized recovery and shared copy', () => {
       const markup = renderToStaticMarkup(createElement(GlobalNotFound))
 
       expect(markup).toContain('&lt;/script&gt;&lt;script&gt;window.swiRecoveryInjected = true&lt;/script&gt;')
-      expect(markup.match(/<script/g)).toHaveLength(1)
+      expect(markup).not.toContain('<script')
     } finally {
       mutableEnglishCopy.title = originalTitle
     }
