@@ -9,6 +9,7 @@ import {
   generateStaticParams as generateEntityParams,
 } from '@/app/[locale]/entities/[slug]/page'
 import { LocalizedNotFoundContent } from '@/app/[locale]/not-found'
+import GlobalNotFound from '@/app/global-not-found'
 import { copy } from '@/i18n/copy'
 import { isLocale, locales, localizedPath } from '@/i18n/locales'
 
@@ -104,5 +105,22 @@ describe('localized recovery and shared copy', () => {
     })
     expect(copy.en.evidence.openQuestion).toBe('Open question')
     expect(copy.tr.evidence.openQuestion).toBe('Açık soru')
+  })
+
+  it('keeps hostile recovery copy as content instead of executable inline code', () => {
+    const hostileTitle = '</script><script>window.swiRecoveryInjected = true</script>'
+    const mutableEnglishCopy = copy.en.notFound as { title: string }
+    const originalTitle = mutableEnglishCopy.title
+
+    mutableEnglishCopy.title = hostileTitle
+
+    try {
+      const markup = renderToStaticMarkup(createElement(GlobalNotFound))
+
+      expect(markup).toContain('&lt;/script&gt;&lt;script&gt;window.swiRecoveryInjected = true&lt;/script&gt;')
+      expect(markup.match(/<script/g)).toHaveLength(1)
+    } finally {
+      mutableEnglishCopy.title = originalTitle
+    }
   })
 })

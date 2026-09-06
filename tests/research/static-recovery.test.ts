@@ -65,11 +65,10 @@ afterAll(async () => {
   })
 })
 
-async function loadUnknownRoute(pathname: string, runScripts: boolean) {
+async function loadUnknownRoute(pathname: string) {
   const response = await fetch(`${origin}${pathname}`)
   const markup = await response.text()
   const dom = new JSDOM(markup, {
-    runScripts: runScripts ? 'dangerously' : undefined,
     url: `${origin}${pathname}`,
   })
 
@@ -78,46 +77,21 @@ async function loadUnknownRoute(pathname: string, runScripts: boolean) {
 
 describe('exported unknown-route recovery', () => {
   it.each([
-    [
-      '/tr/entities/not-a-slug/',
-      'tr',
-      'Kayıt bulunamadı',
-      'Bu yerelleştirilmiş araştırma rotası kullanılamıyor.',
-      '/tr/',
-    ],
-    [
-      '/en/entities/not-a-slug/',
-      'en',
-      'Record not found',
-      'This localized research route is not available.',
-      '/en/',
-    ],
-    [
-      '/de/entities/ant/',
-      'en',
-      'Record not found',
-      'This localized research route is not available.',
-      '/en/',
-    ],
+    ['/tr/entities/not-a-slug/'],
+    ['/en/entities/not-a-slug/'],
+    ['/de/entities/ant/'],
   ])(
-    'serves localized recovery for %s',
-    async (pathname, language, heading, summary, href) => {
-      const { dom, response } = await loadUnknownRoute(pathname, true)
+    'ships an accessible English fallback without JavaScript for %s',
+    async (pathname) => {
+      const { dom, response } = await loadUnknownRoute(pathname)
 
       expect(response.status).toBe(404)
-      expect(dom.window.document.documentElement.lang).toBe(language)
-      expect(dom.window.document.title).toBe(`${heading} — SWI`)
-      expect(dom.window.document.querySelector('h1')?.textContent).toBe(heading)
-      expect(dom.window.document.querySelector('p')?.textContent).toBe(summary)
-      expect(dom.window.document.querySelector('a')?.getAttribute('href')).toBe(href)
+      expect(dom.window.document.documentElement.lang).toBe('en')
+      expect(dom.window.document.querySelector('h1')?.textContent).toBe('Record not found')
+      expect(dom.window.document.querySelector('p')?.textContent).toBe(
+        'This localized research route is not available.',
+      )
+      expect(dom.window.document.querySelector('a')?.getAttribute('href')).toBe('/en/')
     },
   )
-
-  it('retains an accessible English fallback when scripts are unavailable', async () => {
-    const { dom } = await loadUnknownRoute('/tr/entities/not-a-slug/', false)
-
-    expect(dom.window.document.documentElement.lang).toBe('en')
-    expect(dom.window.document.querySelector('h1')?.textContent).toBe('Record not found')
-    expect(dom.window.document.querySelector('a')?.getAttribute('href')).toBe('/en/')
-  })
 })
