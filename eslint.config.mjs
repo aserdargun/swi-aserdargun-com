@@ -6,6 +6,8 @@ export default defineConfig([
   ...nextCoreWebVitals,
   ...nextTypeScript,
   globalIgnores([
+    '.worktrees/**',
+    '.superpowers/**',
     '.next/**',
     'coverage/**',
     'out/**',

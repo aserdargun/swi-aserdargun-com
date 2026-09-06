@@ -1,0 +1,36 @@
+name: Deploy SWI to Azure
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: swa-swi-aserdargun-com-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22.23.1'
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run validate:codex
+      - name: Deploy prebuilt static export
+        # Enable only after the intended Azure resource has been provisioned.
+        if: vars.AZURE_SWI_DEPLOY_READY == 'true'
+        uses: Azure/static-web-apps-deploy@4d27395796ac319302594769cfe812bd207490b1 # v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_SWA_SWI_ASERDARGUN_COM }}
+          action: upload
+          app_location: out
+          output_location: ''
+          skip_app_build: true
+          skip_api_build: true
+          production_branch: main
+          is_static_export: true
