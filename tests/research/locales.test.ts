@@ -1,10 +1,15 @@
 import { describe, expect, it } from 'vitest'
+import { createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 
 import { generateStaticParams as generateLocaleParams } from '@/app/[locale]/layout'
+import LocaleLayout from '@/app/[locale]/layout'
 import {
   generateMetadata,
   generateStaticParams as generateEntityParams,
 } from '@/app/[locale]/entities/[slug]/page'
+import { LocalizedNotFoundContent } from '@/app/[locale]/not-found'
+import { copy } from '@/i18n/copy'
 import { isLocale, locales, localizedPath } from '@/i18n/locales'
 
 describe('locale helpers', () => {
@@ -26,6 +31,15 @@ describe('locale helpers', () => {
 })
 
 describe('static localized routes', () => {
+  it('renders each localized document with its route language', async () => {
+    const document = await LocaleLayout({
+      children: createElement('main', undefined, 'Turkish route'),
+      params: Promise.resolve({ locale: 'tr' }),
+    })
+
+    expect(renderToStaticMarkup(document)).toMatch(/^<html lang="tr">/)
+  })
+
   it('generates a page for each supported locale', () => {
     expect(generateLocaleParams()).toEqual([{ locale: 'en' }, { locale: 'tr' }])
   })
@@ -51,5 +65,44 @@ describe('static localized routes', () => {
       description: 'Feromonla besin aramanın biyolojik başlangıç noktası.',
       alternates: { canonical: '/tr/entities/ant/' },
     })
+  })
+})
+
+describe('localized recovery and shared copy', () => {
+  it('uses Turkish recovery copy and a same-locale route', () => {
+    const markup = renderToStaticMarkup(createElement(LocalizedNotFoundContent, { locale: 'tr' }))
+
+    expect(markup).toContain('Kayıt bulunamadı')
+    expect(markup).toContain('href="/tr"')
+    expect(markup).not.toContain('Record not found')
+  })
+
+  it('provides accepted navigation, filter, and evidence labels in both locales', () => {
+    expect(copy.en.navigation).toMatchObject({
+      research: 'Research',
+      timeline: 'Timeline',
+      experiments: 'Experiments',
+    })
+    expect(copy.tr.navigation).toMatchObject({
+      research: 'Araştırma',
+      timeline: 'Zaman Çizelgesi',
+      experiments: 'Deneyler',
+    })
+    expect(copy.en.filters).toMatchObject({
+      nature: 'Nature',
+      principles: 'Principles',
+      algorithms: 'Algorithms',
+      aiSwarms: 'AI Swarms',
+      robotics: 'Robotics',
+    })
+    expect(copy.tr.filters).toMatchObject({
+      nature: 'Doğa',
+      principles: 'İlkeler',
+      algorithms: 'Algoritmalar',
+      aiSwarms: 'Yapay Zekâ Sürüleri',
+      robotics: 'Robotik',
+    })
+    expect(copy.en.evidence.openQuestion).toBe('Open question')
+    expect(copy.tr.evidence.openQuestion).toBe('Açık soru')
   })
 })

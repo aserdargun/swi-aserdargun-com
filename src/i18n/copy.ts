@@ -5,6 +5,9 @@ export interface UiCopy {
     readonly home: string
     readonly explore: string
     readonly graph: string
+    readonly research: string
+    readonly timeline: string
+    readonly experiments: string
     readonly methodology: string
     readonly openMenu: string
     readonly closeMenu: string
@@ -22,6 +25,11 @@ export interface UiCopy {
     readonly entityType: string
     readonly topic: string
     readonly lifecycle: string
+    readonly nature: string
+    readonly principles: string
+    readonly algorithms: string
+    readonly aiSwarms: string
+    readonly robotics: string
   }
   readonly evidence: {
     readonly label: string
@@ -32,6 +40,7 @@ export interface UiCopy {
     readonly contextualizes: string
     readonly synthesis: string
     readonly hypothesis: string
+    readonly openQuestion: string
   }
   readonly freshness: {
     readonly current: string
@@ -68,6 +77,9 @@ export const copy: Record<Locale, UiCopy> = {
       home: 'Home',
       explore: 'Explore',
       graph: 'Graph',
+      research: 'Research',
+      timeline: 'Timeline',
+      experiments: 'Experiments',
       methodology: 'Methodology',
       openMenu: 'Open navigation',
       closeMenu: 'Close navigation',
@@ -85,6 +97,11 @@ export const copy: Record<Locale, UiCopy> = {
       entityType: 'Entity type',
       topic: 'Topic',
       lifecycle: 'Lifecycle status',
+      nature: 'Nature',
+      principles: 'Principles',
+      algorithms: 'Algorithms',
+      aiSwarms: 'AI Swarms',
+      robotics: 'Robotics',
     },
     evidence: {
       label: 'Evidence',
@@ -95,6 +112,7 @@ export const copy: Record<Locale, UiCopy> = {
       contextualizes: 'Contextualizes',
       synthesis: 'Synthesis',
       hypothesis: 'Hypothesis',
+      openQuestion: 'Open question',
     },
     freshness: {
       current: 'Current',
@@ -129,6 +147,9 @@ export const copy: Record<Locale, UiCopy> = {
       home: 'Ana Sayfa',
       explore: 'Keşfet',
       graph: 'Grafik',
+      research: 'Araştırma',
+      timeline: 'Zaman Çizelgesi',
+      experiments: 'Deneyler',
       methodology: 'Metodoloji',
       openMenu: 'Gezinmeyi aç',
       closeMenu: 'Gezinmeyi kapat',
@@ -146,6 +167,11 @@ export const copy: Record<Locale, UiCopy> = {
       entityType: 'Varlık türü',
       topic: 'Konu',
       lifecycle: 'Yaşam döngüsü durumu',
+      nature: 'Doğa',
+      principles: 'İlkeler',
+      algorithms: 'Algoritmalar',
+      aiSwarms: 'Yapay Zekâ Sürüleri',
+      robotics: 'Robotik',
     },
     evidence: {
       label: 'Kanıt',
@@ -156,6 +182,7 @@ export const copy: Record<Locale, UiCopy> = {
       contextualizes: 'Bağlam sağlar',
       synthesis: 'Sentez',
       hypothesis: 'Hipotez',
+      openQuestion: 'Açık soru',
     },
     freshness: {
       current: 'Güncel',

@@ -1,14 +1,27 @@
+'use client'
+
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
-import { copy } from '@/i18n/copy'
+import { getCopy } from '@/i18n/copy'
+import { isLocale, type Locale } from '@/i18n/locales'
 
-export default function LocalizedNotFound() {
+export function LocalizedNotFoundContent({ locale }: Readonly<{ locale: Locale }>) {
+  const ui = getCopy(locale)
+
   return (
     <main>
-      <h1>{copy.en.notFound.title}</h1>
-      <p>{copy.en.notFound.summary}</p>
-      <p lang="tr">{copy.tr.notFound.summary}</p>
-      <Link href="/en/">{copy.en.notFound.action}</Link>
+      <h1>{ui.notFound.title}</h1>
+      <p>{ui.notFound.summary}</p>
+      <Link href={`/${locale}/`}>{ui.notFound.action}</Link>
     </main>
   )
+}
+
+export default function LocalizedNotFound() {
+  const params = useParams<{ locale?: string }>()
+  const localeParam = params.locale ?? ''
+  const locale: Locale = isLocale(localeParam) ? localeParam : 'en'
+
+  return <LocalizedNotFoundContent locale={locale} />
 }
