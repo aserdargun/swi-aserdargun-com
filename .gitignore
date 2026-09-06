@@ -1,0 +1,11 @@
+.worktrees/
+.superpowers/sdd/
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+.codex/runtime/
+*.log
+.DS_Store
