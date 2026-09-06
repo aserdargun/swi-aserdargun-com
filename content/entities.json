@@ -96,7 +96,7 @@
     "coordinationMode": "stigmergic",
     "title": {
       "tr": "Yapay Ajan Koordinasyonu",
-      "en": "Artificial-Agent Coordination"
+      "en": "Artificial Agent Coordination"
     },
     "summary": {
       "tr": "Ortam aracılı koordinasyon için AntNet örneği.",

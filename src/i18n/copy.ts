@@ -1,6 +1,18 @@
 import type { Locale } from './locales'
 
 export interface UiCopy {
+  readonly home: {
+    readonly hero: string
+    readonly explore: string
+    readonly method: string
+    readonly chain: string
+    readonly research: string
+    readonly stages: readonly string[]
+    readonly predicates: Readonly<Record<string, string>>
+    readonly pauseMotion: string
+    readonly resumeMotion: string
+    readonly motionPaused: string
+  }
   readonly navigation: {
     readonly home: string
     readonly explore: string
@@ -77,6 +89,14 @@ export interface UiCopy {
 
 export const copy: Record<Locale, UiCopy> = {
   en: {
+    home: {
+      hero: 'Study how simple agents produce complex collective intelligence.',
+      explore: 'Explore the map', method: 'Read the method', chain: 'Follow the first chain',
+      research: 'Research, with evidence',
+      stages: ['Nature', 'Collective behavior', 'Principles', 'Algorithms', 'Artificial agents'],
+      predicates: { exhibits: 'exhibits', inspires: 'inspires', 'applies-to': 'informs' },
+      pauseMotion: 'Pause motion', resumeMotion: 'Resume motion', motionPaused: 'Motion paused',
+    },
     navigation: {
       home: 'Home',
       explore: 'Explore',
@@ -151,6 +171,14 @@ export const copy: Record<Locale, UiCopy> = {
     },
   },
   tr: {
+    home: {
+      hero: 'Basit ajanların karmaşık kolektif zekâyı nasıl ortaya çıkardığını inceleyin.',
+      explore: 'Haritayı keşfet', method: 'Yöntemi oku', chain: 'İlk zinciri takip edin',
+      research: 'Kanıta dayalı araştırma',
+      stages: ['Doğa', 'Kolektif davranış', 'İlkeler', 'Algoritmalar', 'Yapay ajanlar'],
+      predicates: { exhibits: 'sergiler', inspires: 'ilham verir', 'applies-to': 'katkı sağlar' },
+      pauseMotion: 'Hareketi duraklat', resumeMotion: 'Hareketi sürdür', motionPaused: 'Hareket duraklatıldı',
+    },
     navigation: {
       home: 'Ana Sayfa',
       explore: 'Keşfet',

@@ -1,0 +1,69 @@
+.hero { position: relative; }
+.heroCopy { align-self: center; }
+.actions { display: flex; align-items: center; gap: 32px; margin-top: 40px; }
+.actions svg, .research svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.swarm { min-width: 0; position: relative; align-self: stretch; display: flex; align-items: center; }
+.swarmArt { width: 100%; height: 420px; color: var(--evidence); overflow: visible; }
+.swarmTrails { fill: none; stroke: currentColor; stroke-width: .6; opacity: .5; }
+.swarmDots { fill: currentColor; }
+.mobileTrails { display: none; }
+.drift { animation: drift 8s linear infinite alternate; animation-play-state: paused; }
+.swarm[data-running='true'] .drift { animation-play-state: running; }
+.motionControl { position: absolute; right: 0; bottom: -32px; padding: 8px 0 8px 12px; font-size: 14px; line-height: 20px; border: 0; color: var(--muted-ink); }
+.staticLabel { position: absolute; left: 0; bottom: -28px; font-size: 14px; line-height: 20px; color: var(--muted-ink); }
+.stages { display: grid; grid-template-columns: 1fr 1.4fr 1fr 1fr 1.1fr; list-style: none; padding: 32px 0; margin: 0; border-block: 1px solid var(--rule); }
+.stage { position: relative; padding-inline: 28px; border-left: 1px solid var(--rule); display: flex; flex-direction: column; gap: 8px; }
+.stage:first-child { padding-left: 0; border-left: 0; }
+.stage:last-child { padding-right: 0; }
+.stageNumber { color: var(--evidence); font-family: var(--font-editorial); font-size: 26px; line-height: 32px; }
+.stageIdentity { display: flex; gap: 24px; align-items: center; }
+.stageIcon { width: 32px; height: 32px; fill: none; stroke: var(--evidence); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.stageLabel { font-size: 16px; line-height: 24px; }
+.stageArrow { position: absolute; right: 20px; top: 4px; width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.chain { padding-block: 32px 24px; border-bottom: 1px solid var(--rule); }
+.chainList { display: flex; align-items: stretch; list-style: none; padding: 0; margin: 20px 0 0; }
+.chainItem { display: flex; align-items: center; flex: 1 1 0; min-width: 0; }
+.chainItem:last-child { flex: .75 1 0; }
+.entityLink { min-height: 72px; display: flex; align-items: center; justify-content: center; color: var(--ink); border: 1px solid var(--evidence); font-size: 20px; line-height: 28px; text-decoration: none; padding: 12px 20px; flex: 1 1 0; }
+.entityLink:hover { text-decoration: underline; }
+.relationship { display: flex; flex: 0 0 104px; flex-direction: column; align-items: center; gap: 4px; padding-inline: 12px; font-size: 14px; line-height: 20px; color: var(--muted-ink); }
+.relationship svg { height: 16px; width: 100%; fill: none; stroke: var(--ink); stroke-width: 1; }
+.evidenceState { color: var(--evidence); }
+.research { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 32px 64px; }
+@keyframes drift { from { transform: translate(-6px, 0); } to { transform: translate(6px, 0); } }
+@media (min-width: 768px) and (max-width: 1199px) {
+  .actions { align-items: stretch; flex-direction: column; gap: 8px; }
+  .chainList { flex-direction: column; }
+  .chainItem { flex-direction: column; align-items: stretch; }
+  .relationship { flex-basis: auto; padding: 12px; }
+  .relationship svg { width: 32px; transform: rotate(90deg); }
+  .stage { padding-inline: 16px; }
+  .stageArrow { right: 12px; }
+}
+@media (max-width: 767px) {
+  .hero { padding-block: 40px 0; gap: 12px; }
+  .actions { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 24px; }
+  .actions a { width: 100%; }
+  .actions a:last-child { border-color: var(--interaction); }
+  .actions svg { display: none; }
+  .swarm { height: 90px; margin-bottom: 28px; }
+  .swarmArt { height: 90px; }
+  .desktopTrails { display: none; }
+  .mobileTrails { display: block; }
+  .drift { animation: none; }
+  .stages { display: flex; flex-direction: column; border: 0; padding: 12px 0; }
+  .stage { flex-direction: row; align-items: center; gap: 24px; padding: 0; border: 0; min-height: 40px; }
+  .stageIcon { display: none; }
+  .stageNumber { display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--evidence); color: var(--canvas); font: 400 16px/24px var(--font-ui); width: 24px; height: 24px; flex-shrink: 0; }
+  .stageLabel { flex: 1; padding-block: 6px; border-bottom: 1px solid var(--rule); font-size: 16px; line-height: 26px; }
+  .stage:last-child .stageLabel { border: 0; }
+  .stageArrow { left: 2px; top: 30px; height: 16px; width: 20px; transform: rotate(90deg); color: var(--evidence); }
+  .chain { padding-block: 20px 32px; }
+  .chainList { flex-direction: column; gap: 8px; margin-top: 16px; }
+  .chainItem { flex-direction: column; align-items: flex-start; }
+  .entityLink { border: 0; padding: 8px 0; min-height: 44px; color: var(--interaction); text-decoration: underline; font: 400 26px/32px var(--font-editorial); }
+  .relationship { flex-basis: auto; align-items: flex-start; padding: 8px 0; }
+  .relationship svg { display: none; }
+  .research { align-items: flex-start; flex-direction: column; padding-block: 32px; }
+}
+@media (prefers-reduced-motion: reduce) { .drift { animation: none; } }
