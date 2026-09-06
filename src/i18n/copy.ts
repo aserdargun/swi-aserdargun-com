@@ -257,3 +257,32 @@ export const copy: Record<Locale, UiCopy> = {
 export function getCopy(locale: Locale): UiCopy {
   return copy[locale]
 }
+
+export const profileCopy = {
+  en: {
+    mechanism: 'Mechanism', claims: 'Claims & sources', freshness: 'Freshness', related: 'Related research',
+    chain: 'First chain', graph: 'View graph', confidence: 'Confidence', sources: 'Sources', updated: 'Updated', evaluated: 'Freshness evaluated',
+    published: 'Publication date', accessed: 'Accessed', authors: 'Authors', organization: 'Organization',
+    type: 'Source type', identifier: 'Publication / identifier', dateUnknown: 'Exact date not established; see publication details',
+    notEstablished: 'Not established', newTab: 'opens in a new tab', incoming: 'Incoming', outgoing: 'Outgoing',
+    noRelated: 'No related records', pending: 'Pending review', access: 'Source availability',
+    confidenceNote: 'Confidence is an editorial assessment of support, not a mathematical probability.',
+    confidenceLabels: { high: 'High', medium: 'Medium', low: 'Low', contested: 'Contested', 'not-assessed': 'Not assessed' },
+    sourceTypes: { 'peer-reviewed-paper': 'Peer-reviewed paper', 'scholarly-book': 'Scholarly book', 'institutional-publication': 'Institutional publication', 'conference-proceeding': 'Conference proceeding', standard: 'Standard', 'official-repository': 'Official repository', 'technical-documentation': 'Technical documentation', 'technical-reporting': 'Technical reporting' },
+    accessLabels: { available: 'Available', unavailable: 'Unavailable', superseded: 'Superseded' },
+    entityTypes: { species: 'Nature', 'swarm-behavior': 'Collective behavior', 'biological-mechanism': 'Biological mechanism', principle: 'Principle', algorithm: 'Algorithm', 'ai-technique': 'AI Swarms', 'robotics-system': 'Robotics', project: 'Project', paper: 'Paper', researcher: 'Researcher', organization: 'Organization' },
+  },
+  tr: {
+    mechanism: 'Mekanizma', claims: 'İddialar ve kaynaklar', freshness: 'Güncellik', related: 'İlgili araştırmalar',
+    chain: 'İlk zincir', graph: 'Grafiği gör', confidence: 'Güven', sources: 'Kaynaklar', updated: 'Güncellendi', evaluated: 'Güncellik değerlendirildi',
+    published: 'Yayın tarihi', accessed: 'Erişim tarihi', authors: 'Yazarlar', organization: 'Kurum',
+    type: 'Kaynak türü', identifier: 'Yayın / tanımlayıcı', dateUnknown: 'Kesin tarih belirlenmedi; yayın bilgilerine bakın',
+    notEstablished: 'Henüz ortaya konmadı', newTab: 'yeni sekmede açılır', incoming: 'Gelen', outgoing: 'Giden',
+    noRelated: 'İlgili kayıt yok', pending: 'İnceleme bekliyor', access: 'Kaynağın erişilebilirliği',
+    confidenceNote: 'Güven düzeyi, desteğin editoryal değerlendirmesidir; matematiksel bir olasılık değildir.',
+    confidenceLabels: { high: 'Yüksek', medium: 'Orta', low: 'Düşük', contested: 'Tartışmalı', 'not-assessed': 'Değerlendirilmedi' },
+    sourceTypes: { 'peer-reviewed-paper': 'Hakemli makale', 'scholarly-book': 'Akademik kitap', 'institutional-publication': 'Kurumsal yayın', 'conference-proceeding': 'Konferans bildirisi', standard: 'Standart', 'official-repository': 'Resmî depo', 'technical-documentation': 'Teknik dokümantasyon', 'technical-reporting': 'Teknik habercilik' },
+    accessLabels: { available: 'Erişilebilir', unavailable: 'Erişilemiyor', superseded: 'Yerine yenisi geldi' },
+    entityTypes: { species: 'Doğa', 'swarm-behavior': 'Kolektif davranış', 'biological-mechanism': 'Biyolojik mekanizma', principle: 'İlke', algorithm: 'Algoritma', 'ai-technique': 'Yapay Zekâ Sürüleri', 'robotics-system': 'Robotik', project: 'Proje', paper: 'Makale', researcher: 'Araştırmacı', organization: 'Kurum' },
+  },
+} as const

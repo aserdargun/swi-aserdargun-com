@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getCopy } from '@/i18n/copy'
+import { EntityProfile } from '@/ui/EntityProfile'
 import { isLocale, localizedPath, locales } from '@/i18n/locales'
 import { catalog } from '@/research/raw-content'
 import { getEntityBySlug } from '@/research/selectors'
@@ -48,14 +47,5 @@ export async function generateMetadata({ params }: EntityPageProps): Promise<Met
 
 export default async function EntityPage({ params }: EntityPageProps) {
   const { entity, locale } = await resolveEntity({ params })
-  const ui = getCopy(locale)
-
-  return (
-    <main id="main-content" className="container page-content" tabIndex={-1}>
-      <Link href={`/${locale}/`}>{ui.entity.backToExplore}</Link>
-      <h1>{entity.title[locale]}</h1>
-      <p>{entity.summary[locale]}</p>
-      <p>{entity.description[locale]}</p>
-    </main>
-  )
+  return <EntityProfile locale={locale} catalog={catalog} entity={entity} today={new Date()} />
 }
