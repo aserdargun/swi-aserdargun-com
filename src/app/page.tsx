@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { RootLocaleRedirect } from '@/ui/RootLocaleRedirect'
 
 export default function RootPage() {
@@ -6,8 +8,8 @@ export default function RootPage() {
       <h1>SWI / Swarm Intelligence</h1>
       <p>Select a language / Dil seçin</p>
       <nav aria-label="Language selection">
-        <a href="/en/">English</a>
-        <a href="/tr/">Türkçe</a>
+        <Link href="/en/">English</Link>
+        <Link href="/tr/">Türkçe</Link>
       </nav>
       <RootLocaleRedirect />
     </main>
