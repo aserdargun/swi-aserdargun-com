@@ -2,11 +2,12 @@ import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 test.use({ reducedMotion: 'reduce' })
 for (const locale of ['en', 'tr']) test(`${locale} keyboard landmarks and axe`, async ({ page }) => {
-  for (const route of ['', 'explore/', 'graph/', 'methodology/', 'entities/ant/']) {
+  test.setTimeout(120_000)
+  for (const route of ['', 'atlas/', 'atlas/bees/', 'research/', 'recipes/bees/', 'agenda/', 'map/', 'explore/', 'graph/', 'methodology/', 'entities/ant/']) {
     await page.goto(`/${locale}/${route}`)
     if (!route) {
-      await expect(page.locator('[data-running]')).toHaveAttribute('data-running', 'false')
-      expect(await page.locator('[data-running] svg g').first().evaluate(element => getComputedStyle(element).animationName)).toBe('none')
+      await expect(page.locator('.wb-hero-art img')).toBeVisible()
+      expect(await page.locator('.mechanism-diagram').first().evaluate(element => getComputedStyle(element).animationName)).toBe('none')
     }
     await expect(page.locator('html')).toHaveAttribute('lang', locale)
     await expect(page.getByRole('main')).toHaveCount(1)

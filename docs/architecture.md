@@ -1,5 +1,9 @@
 # Architecture
 
+> Revision 02 (2026-09-06): [current implementation and boundaries](revision-02.md).
+> The planning sections below retain the original foundation direction;
+> simulation, ingestion and future database proposals are not shipped features.
+
 ## Decision
 
 SWI will begin as a static-first Next.js application using the App Router,

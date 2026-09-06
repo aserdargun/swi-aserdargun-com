@@ -27,17 +27,37 @@ Each substantive statement and relationship must be traceable to explicit
 claims and sources. Synthesis, hypotheses, and open research questions must not
 be presented as settled evidence.
 
-## Status
+## Status — revision 02, 6 September 2026
 
-The first bilingual knowledge chain is implemented: four entities, three
-relationships, source-linked claims, catalog search, graph/list navigation, and
-research methodology. Six approved visual concepts guide the interface.
+SWI now connects eight biological dossiers to 21 selected studies and eight
+framework-independent agent experiment recipes. The workspace has a biology
+atlas, searchable research library, protocol configurator, knowledge map and
+personal agenda in Turkish and English. The original four-entity ant chain and
+its source-linked claims remain available.
 
-The approved technical direction is a static-first Next.js application with
-React, strict TypeScript, Tailwind CSS, Zod validation, Vitest, Testing Library,
-and Playwright. Repository-managed research records will be validated at build
-time. A persistent database, ingestion service, and advanced simulations remain
-outside the first release.
+The dossiers cover ants, honeybees, starlings, termites, Physarum, collective
+motion, bacterial quorum sensing and firefly synchronization. Each separates
+biological evidence, engineering adaptation, transfer limits and a controlled
+experiment. The library spans 1987–2026; it is a dated selection, not a live or
+exhaustive feed. Review depth and publication/revision dates are visible.
+
+Recipes generate Markdown and JSON using the entered task, agent count, rounds
+and aggregate token budget. They specify roles, shared records, stopping rules,
+metrics, ablations and single-agent / independent-parallel / coordinated-swarm
+controls. They do not execute agents or invent benchmark results.
+
+The agenda supports URLs and notes, UTF-8 Markdown/text and versioned SWI JSON
+backups. It supports editing, statuses, mechanism links, archive/undo and merging
+imports without overwriting local entries. Data stays in this browser; export a
+backup to move it or protect against browser storage removal. There is no cloud
+sync, automatic source download or automatic publication. Limits: 1 MB per file,
+100,000 characters per note, 500 entries, 1 MB total serialized agenda. Storage
+failures expose temporary-session and recovery flows.
+
+The first design was rejected by the user. The revision-02 visual direction is
+an implementation choice for that requested redesign, not a new user approval.
+See [the revision brief](docs/revision-02.md) and
+[design contract](docs/design/revision-02/contract.md).
 
 ## Local workflow
 
@@ -63,7 +83,8 @@ Static checks verify all localized routes, referenced framework assets, favicon,
 robots, security headers, absence of source maps, and common secret patterns.
 This pattern scan is a limited safeguard, not a proof that every possible
 credential is absent. Browser checks exercise bilingual traversal, evidence,
-search, graph/list links, mobile overflow/navigation, and accessibility.
+search, graph/list links, recipe exports, agenda imports and persistence, mobile
+overflow/navigation, and accessibility.
 
 The root entry uses the last visited language (`swi-locale`), then the browser's
 first supported Turkish/English language, falling back to English. Language
@@ -85,15 +106,15 @@ root-portfolio integration require separate authorization.
 - [Research methodology](docs/research-methodology.md)
 - [Experiments](docs/experiments.md)
 - [Roadmap](docs/roadmap.md)
+- [Deployment](docs/deployment.md)
 - [Foundation design specification](docs/superpowers/specs/2026-09-05-swi-foundation-design.md)
 
 ## Public target
 
 - Product code: `SWI`
 - Repository: `swi-aserdargun-com`
-- Intended public URL: <https://swi.aserdargun.com>
+- Public URL: <https://swi.aserdargun.com>
 - Languages: Turkish and English
-- Intended deployment platform: Azure Static Web Apps
+- Deployment platform: Azure Static Web Apps
 
-No GitHub, Azure, DNS, or portfolio-registry changes are part of the foundation
-documentation phase.
+Local implementation does not update GitHub, Azure, DNS or the portfolio registry.

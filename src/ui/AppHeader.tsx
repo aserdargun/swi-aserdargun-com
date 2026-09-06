@@ -11,7 +11,7 @@ export function AppHeader({ locale }: Readonly<{ locale: Locale }>) {
       <a className="skip-link" href="#main-content">{ui.navigation.skipToContent}</a>
       <div className="header-inner">
         <Link className="wordmark" href={localizedPath('/', locale)}>
-          <strong>SWI</strong><span>/ Swarm Intelligence</span>
+          <strong>SWI</strong><span>Swarm Intelligence</span>
         </Link>
         <DesktopNav locale={locale} />
         <div className="header-utilities">

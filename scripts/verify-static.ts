@@ -1,11 +1,12 @@
 import { readFile, readdir, stat } from 'node:fs/promises'
 import { resolve, relative } from 'node:path'
 import { catalog } from '../src/research/raw-content'
+import { dossiers } from '../src/research/workbench'
 
 const root = resolve('out')
-const required = ['index.html', '404.html', 'favicon.svg', 'robots.txt', 'staticwebapp.config.json']
+const required = ['index.html', '404.html', 'favicon.svg', 'robots.txt', 'staticwebapp.config.json', 'images/honeybee-field.webp']
 for (const locale of ['en', 'tr']) {
-  for (const page of ['', 'explore/', 'graph/', 'methodology/', ...catalog.entities.map(entity => `entities/${entity.slug}/`)]) required.push(`${locale}/${page}index.html`)
+  for (const page of ['', 'explore/', 'graph/', 'methodology/', 'atlas/', 'research/', 'recipes/', 'agenda/', 'map/', ...catalog.entities.map(entity => `entities/${entity.slug}/`), ...dossiers.flatMap(dossier=>[`atlas/${dossier.id}/`,`recipes/${dossier.id}/`])]) required.push(`${locale}/${page}index.html`)
 }
 for (const file of required) if (!(await stat(resolve(root, file))).isFile()) throw new Error(`Missing artifact: ${file}`)
 async function walk(directory: string): Promise<string[]> {

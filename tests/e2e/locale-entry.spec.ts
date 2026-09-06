@@ -39,7 +39,7 @@ test('a selected language overrides browser language and survives a new root vis
   await expect(page).toHaveURL(/\/en\/$/)
   const menu = page.getByRole('button', { name: /Menu:/ })
   await menu.click()
-  await expect(page.getByRole('dialog').getByRole('link')).toHaveCount(4)
+  await expect(page.getByRole('dialog').getByRole('link')).toHaveCount(7)
   await page.keyboard.press('Escape')
   await expect(menu).toBeFocused()
 })

@@ -1,0 +1,1822 @@
+[
+  {
+    "id": "ants",
+    "name": {
+      "tr": "Karıncalar",
+      "en": "Ants"
+    },
+    "scientificName": "Linepithema humile",
+    "mechanism": {
+      "tr": "Ortak hafıza",
+      "en": "Shared memory"
+    },
+    "hook": {
+      "tr": "İzi paylaş, eskimiş bilgiyi söndür.",
+      "en": "Share the trail. Let stale information fade."
+    },
+    "question": {
+      "tr": "Agentlar aynı araştırmayı tekrar tekrar yapmadan nasıl birlikte ilerler?",
+      "en": "How can agents make progress without repeating the same research?"
+    },
+    "category": "memory",
+    "observation": {
+      "tr": "Arjantin karıncasının yol seçimi deneyleri, yerel feromon izlerinin kolektif kısa yol seçimine katkısını gösterdi. Ant System bu esini, çözüm kalitesiyle güçlenen yapay izler ve olasılıksal seçimle hesaplamaya taşıdı.",
+      "en": "Route-choice experiments with Argentine ants demonstrated the contribution of local pheromone trails to collective shortcut selection. Ant System translated this inspiration into artificial trails reinforced by solution quality and probabilistic selection."
+    },
+    "boundary": {
+      "tr": "Biyolojik yol bulma ile metin üretimi farklı problemlerdir. Bu reçetede 'feromon', yaşlanan bir yarar kaydıdır; agentın kendine verdiği güven puanı veya gerçek bir kimyasal model değildir.",
+      "en": "Biological route finding and text generation are different problems. Here, 'pheromone' is an aging utility record, not an agent's confidence rating or a chemical model."
+    },
+    "studyIds": [
+      "goss-1989",
+      "stigmergy-1999",
+      "ant-system-1996",
+      "antnet-1998",
+      "swarmsys-2025",
+      "mast-2025"
+    ],
+    "mappings": [
+      {
+        "nature": {
+          "tr": "Feromon izi",
+          "en": "Pheromone trail"
+        },
+        "agent": {
+          "tr": "Kaynağı ve sürümü belli ortak bulgu kaydı",
+          "en": "Shared finding with source and version"
+        }
+      },
+      {
+        "nature": {
+          "tr": "İzin güçlenmesi",
+          "en": "Trail reinforcement"
+        },
+        "agent": {
+          "tr": "Bağımsız doğrulama sonrası yarar artışı",
+          "en": "Utility increase after independent verification"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Buharlaşma",
+          "en": "Evaporation"
+        },
+        "agent": {
+          "tr": "Süre dolumu ve eski bulguyu yeniden inceleme",
+          "en": "Expiry and revalidation of stale findings"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Keşif davranışı",
+          "en": "Exploration"
+        },
+        "agent": {
+          "tr": "Henüz denenmemiş yaklaşımlara ayrılmış bütçe",
+          "en": "Reserved budget for unexplored approaches"
+        }
+      }
+    ],
+    "protocol": {
+      "title": {
+        "tr": "İz tabanlı araştırma sürüsü",
+        "en": "Trail-based research swarm"
+      },
+      "purpose": {
+        "tr": "Tekrarlanan araştırmayı azaltırken bulguların kaynağını ve güncelliğini koru.",
+        "en": "Reduce repeated research while retaining provenance and freshness."
+      },
+      "suitable": {
+        "tr": "Birçok alt sorusu olan literatür taraması, hata araştırması, kaynak keşfi.",
+        "en": "Literature review, fault investigation and source discovery with many subquestions."
+      },
+      "unsuitable": {
+        "tr": "Tek bir kısa yanıt veya sürekli değişen, doğrulanabilir çıktı üretmeyen görevler.",
+        "en": "A short single response or tasks with no verifiable intermediate output."
+      },
+      "topology": "blackboard",
+      "roles": [
+        {
+          "name": {
+            "tr": "Keşifçi",
+            "en": "Explorer"
+          },
+          "task": {
+            "tr": "Atanmamış alt soruyu seç; kaynak ve kısa bulgu üret.",
+            "en": "Select an unassigned subquestion; produce a source and concise finding."
+          }
+        },
+        {
+          "name": {
+            "tr": "Doğrulayıcı",
+            "en": "Verifier"
+          },
+          "task": {
+            "tr": "Kaynağı aç, kapsamı kontrol et ve bulguyu kabul et veya itiraz yaz.",
+            "en": "Open the source, check its scope, and accept the finding or record an objection."
+          }
+        },
+        {
+          "name": {
+            "tr": "Sentezleyici",
+            "en": "Synthesizer"
+          },
+          "task": {
+            "tr": "Yalnızca doğrulanmış kayıtları birleştir; çelişkileri sakla.",
+            "en": "Combine verified records only; retain contradictions."
+          }
+        }
+      ],
+      "steps": [
+        {
+          "title": {
+            "tr": "Araştırmayı böl",
+            "en": "Partition the research"
+          },
+          "body": {
+            "tr": "Alt soruları kimlik ve kabul ölçütüyle yaz. Bir görevi süreli sahiplikle al; iki agentın aynı işi üstlenmesini görünür kıl.",
+            "en": "Give each subquestion an ID and acceptance criteria. Claim it with a lease; make duplicate ownership visible."
+          }
+        },
+        {
+          "title": {
+            "tr": "İzi kaydet",
+            "en": "Record the trail"
+          },
+          "body": {
+            "tr": "Her bulguya kaynak URL'si, erişim tarihi, kapsam, task_id ve artifact_version ekle. Ham alıntıyla kendi yorumunu ayır.",
+            "en": "Attach source URL, access date, scope, task_id and artifact_version. Separate source material from interpretation."
+          }
+        },
+        {
+          "title": {
+            "tr": "Doğrulanan izi güçlendir",
+            "en": "Reinforce verified trails"
+          },
+          "body": {
+            "tr": "Yarar ağırlığını yalnızca dış kontrol sonrasında artır. Tükenen kaynak veya çürütülen bulguyu işaretle; geçmişi sessizce silme.",
+            "en": "Increase utility only after external checking. Mark unavailable sources and refuted findings without silently erasing history."
+          }
+        },
+        {
+          "title": {
+            "tr": "Yaşlandır ve yeniden keşfet",
+            "en": "Age and explore again"
+          },
+          "body": {
+            "tr": "Sonraki turda eskimiş kayıtları yeniden kontrol et. Bütçenin bir bölümünü alternatif kaynaklara ayır; sentezi kaynaklarıyla teslim et.",
+            "en": "Recheck stale records in the next round. Reserve some budget for alternative sources; deliver a cited synthesis."
+          }
+        }
+      ],
+      "memory": [
+        "task_id",
+        "artifact_version",
+        "source_url",
+        "checked_at",
+        "evidence_status",
+        "utility",
+        "expires_at",
+        "owner_lease"
+      ],
+      "stop": {
+        "tr": "Tüm kabul ölçütleri karşılanınca veya ortak bütçe/tur sınırı dolunca bitir. Doğrulanmamış açıkları sonuçta listele.",
+        "en": "Stop when acceptance criteria are met or the shared budget/round limit is reached. List unverified gaps in the result."
+      },
+      "failure": {
+        "tr": "İlk yanlış bulgu çok okununca güçlenebilir. Okunma sayısını kalite sanma; kopya kaynakları bağımsız kanıt olarak sayma.",
+        "en": "An early false finding may gain visibility. Do not treat read counts as quality or copied sources as independent evidence."
+      },
+      "experiment": {
+        "tr": "Aynı kaynak koleksiyonundaki 10 araştırma sorusunu tek agent, bağımsız paralel ve ortak hafıza sürüsüyle çöz. Toplam token, araç ve süre bütçesini eşitle.",
+        "en": "Solve 10 questions over the same source collection with one agent, independent parallel agents and a shared-memory swarm. Match aggregate token, tool and time budgets."
+      },
+      "ablation": {
+        "tr": "Yaşlandırmayı kapat; kaynaklardan birini sonraki turda geçersiz kıl. Eski bulgunun yeniden kullanımı ve toparlanmayı karşılaştır.",
+        "en": "Disable aging; invalidate one source in the next round. Compare stale finding reuse and recovery."
+      },
+      "metrics": [
+        {
+          "name": {
+            "tr": "Doğrulanmış kapsama",
+            "en": "Verified coverage"
+          },
+          "definition": {
+            "tr": "Kaynakla doğrulanan kabul ölçütü / tüm kabul ölçütleri.",
+            "en": "Source-verified acceptance criteria / all acceptance criteria."
+          }
+        },
+        {
+          "name": {
+            "tr": "Tekrarlanan iş",
+            "en": "Duplicate work"
+          },
+          "definition": {
+            "tr": "Aynı alt soru ve kaynak için yinelenen araç çağrıları.",
+            "en": "Repeated tool calls for the same subquestion and source."
+          }
+        },
+        {
+          "name": {
+            "tr": "Eski bilgi kullanımı",
+            "en": "Stale reuse"
+          },
+          "definition": {
+            "tr": "Geçersiz işaretlenmiş bulgulara dayanan son iddia sayısı.",
+            "en": "Final claims relying on invalidated findings."
+          }
+        }
+      ],
+      "exampleTask": {
+        "tr": "Verilen altı makaleyi kullanarak bir agent sürüsünde ortak hafızanın hangi koşullarda yararlı olduğunu araştır. İddia, kaynak, karşı kanıt ve belirsizlikleri içeren bir karar notu hazırla.",
+        "en": "Using six supplied papers, investigate when shared memory helps an agent swarm. Produce a decision memo with claims, sources, counterevidence and uncertainties."
+      }
+    }
+  },
+  {
+    "id": "bees",
+    "name": {
+      "tr": "Bal arıları",
+      "en": "Honeybees"
+    },
+    "scientificName": "Apis mellifera",
+    "mechanism": {
+      "tr": "Kolektif karar",
+      "en": "Collective decisions"
+    },
+    "hook": {
+      "tr": "Kanıtı karşılaştır, itirazı kaybetme.",
+      "en": "Compare the evidence. Preserve dissent."
+    },
+    "question": {
+      "tr": "Agentların birbirine katılmasıyla doğru kararı nasıl ayırırsın?",
+      "en": "How do you distinguish agent agreement from a correct decision?"
+    },
+    "category": "decision",
+    "observation": {
+      "tr": "Yuva arayan bal arısı sürülerinde keşifçiler, başka alanları destekleyen dansçılara dur sinyalleri gönderebilir. Seeley ve arkadaşlarının çalışması bu karşılıklı baskılamayı gözledi; modeli, eşdeğer seçenekler arasındaki kilitlenmeye etkisini inceledi.",
+      "en": "In nest-seeking honeybee swarms, scouts can send stop signals to dancers supporting competing sites. Seeley and colleagues observed this cross-inhibition and modeled its effect on deadlock between equivalent alternatives."
+    },
+    "boundary": {
+      "tr": "Arıların karar süreci 'çoğunluk her zaman haklıdır' anlamına gelmez. Bağımsızlık, karşı kanıt ve dış doğrulama; burada LLM'ler için önerilen mühendislik tercihleridir.",
+      "en": "Bee decision making does not mean the majority is always right. Independence, counterevidence and external verification are engineering choices proposed here for LLMs."
+    },
+    "studyIds": [
+      "seeley-2012",
+      "debate-2023",
+      "moa-2024",
+      "mast-2025",
+      "scaling-2025"
+    ],
+    "mappings": [
+      {
+        "nature": {
+          "tr": "Bağımsız yuva keşfi",
+          "en": "Independent nest scouting"
+        },
+        "agent": {
+          "tr": "İlk turda birbirini görmeyen öneri üreticileri",
+          "en": "Proposers blinded to each other's first round"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Dansla destek",
+          "en": "Recruitment through dance"
+        },
+        "agent": {
+          "tr": "Kaynak, ölçüt ve alternatifle gerekçelendirilmiş öneri",
+          "en": "Proposal supported by sources, criteria and alternatives"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Dur sinyali",
+          "en": "Stop signal"
+        },
+        "agent": {
+          "tr": "Gerekçesi kaydedilen karşı kanıt kanalı",
+          "en": "Counterevidence channel with recorded rationale"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Karara geçiş eşiği",
+          "en": "Decision threshold"
+        },
+        "agent": {
+          "tr": "Önceden tanımlı kabul ölçütü ve bağımsız kontrol",
+          "en": "Predefined acceptance criteria and independent checking"
+        }
+      }
+    ],
+    "protocol": {
+      "title": {
+        "tr": "Arı kovanından karar protokolüne",
+        "en": "From honeybees to a decision protocol"
+      },
+      "purpose": {
+        "tr": "Bağımsız öneri, karşı kanıt ve sınırlı karar turları.",
+        "en": "Independent proposals, counterevidence and bounded decision rounds."
+      },
+      "suitable": {
+        "tr": "İki mimariyi karşılaştırma, hipotez seçimi, gerekçeli teknik karar.",
+        "en": "Comparing architectures, selecting hypotheses and making justified technical decisions."
+      },
+      "unsuitable": {
+        "tr": "Tek doğru hesabın doğrudan test edilebildiği işler; görüş çoğunluğu testin yerini almamalı.",
+        "en": "Tasks with a directly testable calculation; a majority opinion must not replace the test."
+      },
+      "topology": "quorum",
+      "roles": [
+        {
+          "name": {
+            "tr": "Keşifçi",
+            "en": "Scout"
+          },
+          "task": {
+            "tr": "Bağımsız bir öneri, kaynakları ve zayıf noktalarını yaz.",
+            "en": "Produce an independent proposal, sources and weaknesses."
+          }
+        },
+        {
+          "name": {
+            "tr": "İtirazcı",
+            "en": "Challenger"
+          },
+          "task": {
+            "tr": "En güçlü önerinin hangi durumda başarısız olacağını sınar.",
+            "en": "Test conditions under which the strongest proposal would fail."
+          }
+        },
+        {
+          "name": {
+            "tr": "Doğrulayıcı",
+            "en": "Verifier"
+          },
+          "task": {
+            "tr": "Kararı önceden belirlenmiş ölçütlerle kontrol eder.",
+            "en": "Check the decision against predefined criteria."
+          }
+        }
+      ],
+      "steps": [
+        {
+          "title": {
+            "tr": "Bağımsız keşif",
+            "en": "Independent scouting"
+          },
+          "body": {
+            "tr": "İlk yanıtları diğer önerileri göstermeden üret. Her öneri problem varsayımlarını, dayanaklarını ve bilinmeyenlerini içersin.",
+            "en": "Generate initial answers without showing other proposals. Include assumptions, supporting evidence and unknowns."
+          }
+        },
+        {
+          "title": {
+            "tr": "Kanıtı paylaş",
+            "en": "Share evidence"
+          },
+          "body": {
+            "tr": "Önerileri aynı ölçüt tablosuyla karşılaştır. Aynı kaynaktan kopyalanan destekleri tek kanıt olarak say; popülerliği puanlama.",
+            "en": "Compare proposals against the same criteria. Count copied support from a common source once; do not score popularity."
+          }
+        },
+        {
+          "title": {
+            "tr": "İtirazı koru",
+            "en": "Preserve dissent"
+          },
+          "body": {
+            "tr": "Her seçeneğe karşı doğrulanabilir bir itiraz iste. İtirazın yanıtlanıp yanıtlanmadığını kaydet; çoğunluğa uymayan agentı susturma.",
+            "en": "Request a verifiable objection to each option. Record whether it is resolved; do not suppress an agent for disagreeing."
+          }
+        },
+        {
+          "title": {
+            "tr": "Kararı doğrula",
+            "en": "Verify the decision"
+          },
+          "body": {
+            "tr": "Sınırlı tur sonunda bağımsız kontrolü çalıştır. Çözülemeyen çelişkide zorla uzlaşma üretmek yerine kararı belirsiz olarak teslim et.",
+            "en": "Run an independent check after bounded rounds. If contradictions persist, return an unresolved decision rather than forcing consensus."
+          }
+        }
+      ],
+      "memory": [
+        "proposal_id",
+        "independent_origin",
+        "evidence_ids",
+        "criterion_scores",
+        "objections",
+        "verifier_result"
+      ],
+      "stop": {
+        "tr": "Kabul ölçütleri sağlanırsa karar ver; aksi halde tur/bütçe sınırında gerekçeli belirsizlik raporu üret.",
+        "en": "Decide if acceptance criteria pass; otherwise produce a reasoned uncertainty report at the round/budget limit."
+      },
+      "failure": {
+        "tr": "Agentlar aynı modelin aynı hatasını tekrarlayabilir. Çok oy, bağımsız kaynak veya dış doğrulayıcı yerine geçmez.",
+        "en": "Agents may repeat the same model's mistake. More votes do not replace independent sources or an external verifier."
+      },
+      "experiment": {
+        "tr": "10 karar sorusunda bağımsız öneri + itiraz protokolünü, doğrudan ortak sohbet ve tek agentla karşılaştır. Değerlendirme ölçütlerini yanıtları görmeden sabitle.",
+        "en": "On 10 decision questions compare independent proposals plus objections against immediate shared discussion and a single agent. Fix evaluation criteria before reading answers."
+      },
+      "ablation": {
+        "tr": "İlk tur bağımsızlığını kaldır ve tüm agentlara aynı ilk yanıtı göster. Ortak hatanın yayılmasını ve itirazların kaybolmasını ölç.",
+        "en": "Remove first-round independence and show the same initial answer to all agents. Measure shared error propagation and lost objections."
+      },
+      "metrics": [
+        {
+          "name": {
+            "tr": "Karar doğruluğu",
+            "en": "Decision correctness"
+          },
+          "definition": {
+            "tr": "Kör değerlendiricide veya önceden belirlenen testte kabul edilen karar oranı.",
+            "en": "Decisions accepted by a blinded evaluator or predefined test."
+          }
+        },
+        {
+          "name": {
+            "tr": "İtiraz çözümü",
+            "en": "Objection resolution"
+          },
+          "definition": {
+            "tr": "Kanıtla yanıtlanmış geçerli itiraz / tüm geçerli itirazlar.",
+            "en": "Valid objections resolved with evidence / all valid objections."
+          }
+        },
+        {
+          "name": {
+            "tr": "Karar maliyeti",
+            "en": "Decision cost"
+          },
+          "definition": {
+            "tr": "Son karara kadar toplam token, araç çağrısı ve duvar saati süresi.",
+            "en": "Aggregate tokens, tool calls and wall-clock time to the final decision."
+          }
+        }
+      ],
+      "exampleTask": {
+        "tr": "Bir araştırma asistanı için ortak hafıza, bağımsız paralel çalışma ve yöneticili takım mimarilerini karşılaştır. Verilen gereksinimler ve kaynaklarla önerini gerekçelendir; güçlü karşı kanıtları ve çözülemeyen itirazları belirt.",
+        "en": "Compare shared-memory, independent-parallel and manager-led team architectures for a research assistant. Justify a recommendation using supplied requirements and sources; record strong counterevidence and unresolved objections."
+      }
+    }
+  },
+  {
+    "id": "starlings",
+    "name": {
+      "tr": "Sığırcıklar",
+      "en": "Starlings"
+    },
+    "scientificName": "Sturnus vulgaris",
+    "mechanism": {
+      "tr": "Seyrek iletişim",
+      "en": "Sparse communication"
+    },
+    "hook": {
+      "tr": "Herkesle konuşma, doğru komşuyu bul.",
+      "en": "Find the right neighbours instead of talking to everyone."
+    },
+    "question": {
+      "tr": "Sürün büyürken iletişim yükünün işi yutmasını nasıl önlersin?",
+      "en": "How can a growing swarm keep communication from consuming the work?"
+    },
+    "category": "communication",
+    "observation": {
+      "tr": "Ballerini ve arkadaşları, doğal sığırcık sürülerindeki etkileşimi fiziksel yarıçaptan çok sınırlı komşu sayısıyla ilişkilendirdi. Reynolds'ın Boids modeli ise ayrışma, hizalanma ve yakınlık gibi yerel kurallarla kolektif hareketin hesaplamalı bir örneğini verir.",
+      "en": "Ballerini and colleagues linked interactions in natural starling flocks to bounded neighbour counts rather than a physical radius. Reynolds's Boids provides a computational example of collective motion through local separation, alignment and cohesion rules."
+    },
+    "boundary": {
+      "tr": "Saha çalışmasındaki yaklaşık altı-yedi komşu sayısını LLM mimarisine sabit parametre diye taşımıyoruz. Agent komşuluğu, görev ilişkisi ve ölçülen sonuçlarla seçilmeli.",
+      "en": "We do not copy the observed six-to-seven-neighbour count into an LLM architecture as a fixed parameter. Choose agent neighbours through task relevance and measured outcomes."
+    },
+    "studyIds": [
+      "ballerini-2008",
+      "boids-1987",
+      "scaling-2025"
+    ],
+    "mappings": [
+      {
+        "nature": {
+          "tr": "Yerel komşular",
+          "en": "Local neighbours"
+        },
+        "agent": {
+          "tr": "Görev bağımlılığına göre sınırlı iletişim grubu",
+          "en": "Bounded communication by task dependency"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Hizalanma",
+          "en": "Alignment"
+        },
+        "agent": {
+          "tr": "Paylaşılan kısa hedef ve arayüz sözleşmesi",
+          "en": "Shared concise objective and interface contract"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Çarpışmadan kaçınma",
+          "en": "Collision avoidance"
+        },
+        "agent": {
+          "tr": "Çakışan dosya/görev sahipliğini engelleme",
+          "en": "Preventing conflicting file or task ownership"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Grup bütünlüğü",
+          "en": "Group cohesion"
+        },
+        "agent": {
+          "tr": "Periyodik küresel özet ve bağlantı kontrolü",
+          "en": "Periodic global digest and connectivity check"
+        }
+      }
+    ],
+    "protocol": {
+      "title": {
+        "tr": "Komşuluk tabanlı iletişim",
+        "en": "Neighbourhood-based communication"
+      },
+      "purpose": {
+        "tr": "Yerel çalışma gruplarıyla iletişimi sınırla; kritik bilgiyi erişilebilir tut.",
+        "en": "Bound communication with local work groups while keeping critical information reachable."
+      },
+      "suitable": {
+        "tr": "Birbirinden kısmen ayrılan modüller, çok kaynaklı araştırma ve geniş görev kümeleri.",
+        "en": "Partly independent modules, multi-source research and large task sets."
+      },
+      "unsuitable": {
+        "tr": "Her adımın bütün önceki sonuçlara bağlı olduğu küçük, sıralı görevler.",
+        "en": "Small sequential tasks where every step depends on all previous results."
+      },
+      "topology": "sparse",
+      "roles": [
+        {
+          "name": {
+            "tr": "İşçi",
+            "en": "Worker"
+          },
+          "task": {
+            "tr": "Yalnızca bağlı görevlerin sahipleriyle kısa çıktı sözleşmeleri paylaşır.",
+            "en": "Share concise output contracts only with owners of connected tasks."
+          }
+        },
+        {
+          "name": {
+            "tr": "Köprü",
+            "en": "Bridge"
+          },
+          "task": {
+            "tr": "Gruplar arasındaki bağımlılığı ve değişen arayüzleri taşır.",
+            "en": "Carry dependencies and interface changes across groups."
+          }
+        },
+        {
+          "name": {
+            "tr": "Bütünlük denetçisi",
+            "en": "Connectivity checker"
+          },
+          "task": {
+            "tr": "Kopuk grupları ve ulaşmayan kritik bilgiyi kontrol eder.",
+            "en": "Check disconnected groups and missing critical information."
+          }
+        }
+      ],
+      "steps": [
+        {
+          "title": {
+            "tr": "Bağımlılıkları çıkar",
+            "en": "Map dependencies"
+          },
+          "body": {
+            "tr": "Görevleri düğüm, zorunlu bilgi devrini kenar olarak yaz. Salt benzer rol adları yerine veri ihtiyacını kullan.",
+            "en": "Represent tasks as nodes and required handoffs as edges. Use information needs rather than similar role names."
+          }
+        },
+        {
+          "title": {
+            "tr": "Komşu sınırını seç",
+            "en": "Choose a neighbour bound"
+          },
+          "body": {
+            "tr": "Küçük bir komşuluk sınırıyla başla; parametreyi deneyde değiştir. Bir görevin zorunlu girdilerini sınır yüzünden saklama.",
+            "en": "Start with a small neighbourhood bound and vary it experimentally. Do not hide mandatory inputs to satisfy the limit."
+          }
+        },
+        {
+          "title": {
+            "tr": "Özetle ve yönlendir",
+            "en": "Summarize and route"
+          },
+          "body": {
+            "tr": "Mesaja task_id, artifact_ref ve açık soruyu koy. Tam konuşma geçmişini tüm gruba her tur yeniden gönderme.",
+            "en": "Include task_id, artifact_ref and the open question in messages. Avoid repeatedly sending the entire transcript to everyone."
+          }
+        },
+        {
+          "title": {
+            "tr": "Kopukluğu onar",
+            "en": "Repair disconnection"
+          },
+          "body": {
+            "tr": "Her kontrol noktasında kritik çıktının tüketicisine ulaştığını doğrula. Bir köprü kapanırsa yedek bağlantıyı aç.",
+            "en": "At each checkpoint verify that critical outputs reached their consumers. Open a fallback connection if a bridge fails."
+          }
+        }
+      ],
+      "memory": [
+        "task_id",
+        "neighbour_ids",
+        "required_inputs",
+        "artifact_ref",
+        "bridge_owner",
+        "delivery_ack"
+      ],
+      "stop": {
+        "tr": "Zorunlu tüm devirler doğrulanıp çıktı testleri geçtiğinde bitir; ağ bölünmesinde bekleme süresini sınırla.",
+        "en": "Finish when mandatory handoffs and output checks pass; bound waiting time under network partition."
+      },
+      "failure": {
+        "tr": "Seyrek ağ, bilgi siloları ve erişilemeyen doğrulayıcı üretebilir. Daha az mesaj tek başına daha iyi koordinasyon değildir.",
+        "en": "A sparse graph can create information silos and unreachable verifiers. Fewer messages alone do not mean better coordination."
+      },
+      "experiment": {
+        "tr": "Aynı görev grubunda tam bağlantı, yıldız ve seyrek komşuluk topolojilerini karşılaştır. Gerekli bilgi ve toplam model bütçesi aynı kalsın.",
+        "en": "Compare complete, star and sparse-neighbour topologies on the same task group. Keep required information and aggregate model budget fixed."
+      },
+      "ablation": {
+        "tr": "Bir köprü agentını devreden çıkar. Yedek bağlantılı ve bağlantısız yapıların tamamlanma oranını karşılaştır.",
+        "en": "Remove one bridge agent. Compare completion with and without fallback links."
+      },
+      "metrics": [
+        {
+          "name": {
+            "tr": "İletişim maliyeti",
+            "en": "Communication cost"
+          },
+          "definition": {
+            "tr": "Görev çözümüne ayrılan bütçeden ayrı raporlanan mesaj tokenları.",
+            "en": "Message tokens reported separately from task-solving budget."
+          }
+        },
+        {
+          "name": {
+            "tr": "Devir bütünlüğü",
+            "en": "Handoff completeness"
+          },
+          "definition": {
+            "tr": "Tüketicisine zamanında ulaşan zorunlu çıktıların oranı.",
+            "en": "Mandatory outputs reaching their consumer on time."
+          }
+        },
+        {
+          "name": {
+            "tr": "Dayanıklılık",
+            "en": "Resilience"
+          },
+          "definition": {
+            "tr": "Bir köprü kaybından sonra kabul ölçütlerini karşılayan görev oranı.",
+            "en": "Tasks meeting acceptance criteria after a bridge failure."
+          }
+        }
+      ],
+      "exampleTask": {
+        "tr": "Sekiz belgelik bir ürün gereksinim setinde çelişkileri bul. Agentlar yalnızca atanan komşularıyla iletişim kursun; her çelişki için belge konumunu ve çözüm önerisini ortak rapora ekle.",
+        "en": "Find contradictions across eight product-requirements documents. Agents communicate only with assigned neighbours; report the document location and proposed resolution for each contradiction."
+      }
+    }
+  },
+  {
+    "id": "termites",
+    "name": {
+      "tr": "Termitler",
+      "en": "Termites"
+    },
+    "scientificName": "Isoptera · TERMES",
+    "mechanism": {
+      "tr": "Yerel kurallarla inşa",
+      "en": "Building with local rules"
+    },
+    "hook": {
+      "tr": "Ortak yapıyı oku, hazır olan işi üstlen.",
+      "en": "Read the shared structure. Claim work that is ready."
+    },
+    "question": {
+      "tr": "Birçok agent tek bir ürünü çakışmadan nasıl inşa eder?",
+      "en": "How can many agents build one product without conflicting work?"
+    },
+    "category": "organization",
+    "observation": {
+      "tr": "Stigmerji, termit inşası bağlamında ortaya çıkan çevre aracılı koordinasyon fikridir. TERMES çalışması bu esinle, hedef yapıdan üretilen yerel kurallar ve yalnızca yerel algılama kullanan robotlarla kolektif inşa gösterdi.",
+      "en": "Stigmergy is the idea of environment-mediated coordination originating in termite construction. TERMES used this inspiration to demonstrate collective construction with rules derived from a target structure and robots using local sensing."
+    },
+    "boundary": {
+      "tr": "TERMES'in inşa garantileri, tanımlanmış fiziksel yapı ve kural sınıfıyla sınırlıdır. Agentların kod veya belge üretiminde aynı garanti bulunmaz; bağımlılık ve kabul testleri açık yazılmalıdır.",
+      "en": "TERMES construction guarantees are limited to its specified physical structures and rules. Code or document agents have no equivalent guarantee; dependencies and acceptance tests must be explicit."
+    },
+    "studyIds": [
+      "stigmergy-1999",
+      "werfel-2014",
+      "metagpt-2023",
+      "autogen-2023",
+      "agentless-2024",
+      "mast-2025"
+    ],
+    "mappings": [
+      {
+        "nature": {
+          "tr": "Kısmi yapı",
+          "en": "Partial structure"
+        },
+        "agent": {
+          "tr": "Sürümü belli depo, belge veya görev grafiği",
+          "en": "Versioned repository, document or task graph"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Yerel inşa koşulu",
+          "en": "Local construction condition"
+        },
+        "agent": {
+          "tr": "Bağımlılıkları tamamlanan görev için hazır olma koşulu",
+          "en": "Readiness condition for a task with completed dependencies"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Bir blok yerleştirme",
+          "en": "Placing a block"
+        },
+        "agent": {
+          "tr": "Tek sahipli, küçük ve test edilebilir değişiklik",
+          "en": "Small testable change with one owner"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Yapının geri bildirimi",
+          "en": "Structural feedback"
+        },
+        "agent": {
+          "tr": "Test sonucu ve artefakt sözleşmesinin kaydı",
+          "en": "Recorded test outcome and artifact contract"
+        }
+      }
+    ],
+    "protocol": {
+      "title": {
+        "tr": "Bağımlılık güdümlü inşa sürüsü",
+        "en": "Dependency-driven construction swarm"
+      },
+      "purpose": {
+        "tr": "Görev sahipliğini ve ara ürünleri görünür kılarak paralel üretim yap.",
+        "en": "Produce in parallel with visible task ownership and intermediate artifacts."
+      },
+      "suitable": {
+        "tr": "Çok modüllü yazılım, bölüm bazlı rapor ve veri hazırlama hatları.",
+        "en": "Multi-module software, sectioned reports and data-preparation pipelines."
+      },
+      "unsuitable": {
+        "tr": "Arayüzleri henüz kararlaştırılmamış çok küçük işler; görev bölmenin maliyeti kazancı aşabilir.",
+        "en": "Very small work with undecided interfaces; decomposition may cost more than it saves."
+      },
+      "topology": "dependency",
+      "roles": [
+        {
+          "name": {
+            "tr": "Planlayıcı",
+            "en": "Planner"
+          },
+          "task": {
+            "tr": "Hedefi bağımlılıklara, arayüzlere ve kabul ölçütlerine dönüştürür.",
+            "en": "Translate the target into dependencies, interfaces and acceptance criteria."
+          }
+        },
+        {
+          "name": {
+            "tr": "İnşacı",
+            "en": "Builder"
+          },
+          "task": {
+            "tr": "Yalnızca hazır ve sahipsiz görevi süreli sahiplikle alır.",
+            "en": "Claim only ready, unowned tasks with a lease."
+          }
+        },
+        {
+          "name": {
+            "tr": "Entegratör",
+            "en": "Integrator"
+          },
+          "task": {
+            "tr": "Ara çıktıları doğrular, birleştirir ve sonraki görevi açar.",
+            "en": "Verify and integrate artifacts, then unblock dependent tasks."
+          }
+        }
+      ],
+      "steps": [
+        {
+          "title": {
+            "tr": "Çıktıyı tarif et",
+            "en": "Specify the artifact"
+          },
+          "body": {
+            "tr": "Son ürünün kabul ölçütlerini ve modül arayüzlerini yaz. Dosya/alan sahipliğini görevlere dağıt.",
+            "en": "Write acceptance criteria and module interfaces. Assign file or section ownership to tasks."
+          }
+        },
+        {
+          "title": {
+            "tr": "Hazır görevi seç",
+            "en": "Select ready work"
+          },
+          "body": {
+            "tr": "Bir görevi ancak bağımlı olduğu çıktılar doğrulanmışsa başlat. Sahiplik kaydında süre ve sürüm olsun.",
+            "en": "Start a task only after its prerequisite outputs are verified. Include expiry and version in the ownership record."
+          }
+        },
+        {
+          "title": {
+            "tr": "Küçük değişiklik üret",
+            "en": "Produce a small change"
+          },
+          "body": {
+            "tr": "Çıktıyı beklenen biçimde ver; kaynak sürümünü, yapılan kontrolü ve kalan belirsizliği ekle.",
+            "en": "Deliver in the expected format; include the input version, checks performed and remaining uncertainty."
+          }
+        },
+        {
+          "title": {
+            "tr": "Birleştir ve aç",
+            "en": "Integrate and unblock"
+          },
+          "body": {
+            "tr": "Entegratör kabul testini çalıştırır; geçtiğinde bağımlı görevi açar. Başarısız çıktı, sonraki agentın girdisi olmasın.",
+            "en": "The integrator runs acceptance checks and unblocks dependent tasks on success. Do not feed failed artifacts to the next agent."
+          }
+        }
+      ],
+      "memory": [
+        "task_id",
+        "depends_on",
+        "owner",
+        "lease_until",
+        "base_version",
+        "artifact_ref",
+        "acceptance_result"
+      ],
+      "stop": {
+        "tr": "Tüm görevler doğrulandığında ve ürünün bütünleşik kabul testi geçtiğinde bitir. Döngüsel bağımlılığı başlamadan reddet.",
+        "en": "Finish when every task is verified and integrated acceptance checks pass. Reject cyclic dependencies before execution."
+      },
+      "failure": {
+        "tr": "Yerel testler geçerken bütün ürün bozulabilir. Arayüz sapması, eski sürüme yazma ve iki sahipli dosya değişikliğini ayrıca kontrol et.",
+        "en": "Local checks can pass while the integrated product breaks. Check interface drift, stale writes and conflicting file ownership."
+      },
+      "experiment": {
+        "tr": "Aynı küçük ürünü sıralı tek agent, serbest sohbet ekibi ve bağımlılık grafiği ekibiyle üret. Gizli kabul testleri ve toplam bütçe eşit olsun.",
+        "en": "Build the same small product with a sequential agent, a free-chat team and a dependency-graph team. Match hidden acceptance tests and aggregate budget."
+      },
+      "ablation": {
+        "tr": "Bir ara ürünün biçimini değiştir. Arayüz kontrolü açık/kapalı koşullarında hatanın kaç sonraki göreve yayıldığını say.",
+        "en": "Change an intermediate artifact format. Count downstream failures with and without interface checking."
+      },
+      "metrics": [
+        {
+          "name": {
+            "tr": "Entegrasyon başarısı",
+            "en": "Integration success"
+          },
+          "definition": {
+            "tr": "Son ürünün geçen gizli kabul testi / tüm gizli kabul testleri.",
+            "en": "Hidden acceptance checks passed by the integrated product / all checks."
+          }
+        },
+        {
+          "name": {
+            "tr": "Yeniden işleme",
+            "en": "Rework"
+          },
+          "definition": {
+            "tr": "Çakışma veya bozuk devir nedeniyle tekrar açılan görevler.",
+            "en": "Tasks reopened due to conflicts or broken handoffs."
+          }
+        },
+        {
+          "name": {
+            "tr": "Kritik yol süresi",
+            "en": "Critical-path time"
+          },
+          "definition": {
+            "tr": "Bağımlılık grafiğindeki en uzun zorunlu zincirin tamamlanma süresi.",
+            "en": "Completion time of the longest mandatory dependency chain."
+          }
+        }
+      ],
+      "exampleTask": {
+        "tr": "Verilen küçük uygulama için veri şeması, arama görünümü ve kabul testlerini geliştir. Önkoşulları ve dosya sahipliğini belirle; her parçayı bağımlılıkları sağlandıktan sonra birleştir.",
+        "en": "Implement a data schema, search view and acceptance tests for the supplied small application. Define prerequisites and file ownership; integrate each part only after dependencies are satisfied."
+      }
+    }
+  },
+  {
+    "id": "physarum",
+    "name": {
+      "tr": "Physarum",
+      "en": "Physarum"
+    },
+    "scientificName": "Physarum polycephalum",
+    "mechanism": {
+      "tr": "Uyarlanan ağlar",
+      "en": "Adaptive networks"
+    },
+    "hook": {
+      "tr": "İşe yarayan bağlantıyı güçlendir, yedeğini koru.",
+      "en": "Strengthen useful links. Preserve a fallback."
+    },
+    "question": {
+      "tr": "Sürünün iletişim ağı deneyimle nasıl değişmeli?",
+      "en": "How should a swarm's communication graph change with experience?"
+    },
+    "category": "adaptation",
+    "observation": {
+      "tr": "Tero ve arkadaşlarının deneyinde Physarum, besin noktaları arasında ulaşım ağı oluşturdu. Tokyo demiryolu örneğiyle yapılan karşılaştırma; ağ maliyeti, taşıma verimliliği ve hata dayanıklılığı arasındaki dengeyi inceledi.",
+      "en": "In Tero and colleagues' experiment, Physarum formed transport networks between food locations. A comparison with Tokyo rail infrastructure examined trade-offs among network cost, transport efficiency and fault tolerance."
+    },
+    "boundary": {
+      "tr": "Bu organizma bağımsız bireylerin sürüsü değil, çok çekirdekli tek hücreli bir yaşam biçimidir. Buradaki agent uyarlaması bir biyolojik eşitlik değil, ağ tasarımı hipotezidir.",
+      "en": "This organism is a multinucleate single-celled life form, not a swarm of independent individuals. The agent adaptation is a network-design hypothesis, not biological equivalence."
+    },
+    "studyIds": [
+      "tero-2010",
+      "antnet-1998",
+      "swarmsys-2025",
+      "meta-team-2026"
+    ],
+    "mappings": [
+      {
+        "nature": {
+          "tr": "Akış taşıyan tüp",
+          "en": "Flow-carrying tube"
+        },
+        "agent": {
+          "tr": "Çıktı tüketimi kaydedilen iletişim kenarı",
+          "en": "Communication edge with recorded output consumption"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Ağ maliyeti",
+          "en": "Network cost"
+        },
+        "agent": {
+          "tr": "Mesaj tokenı, gecikme ve yönlendirme yükü",
+          "en": "Message tokens, latency and routing overhead"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Uyarlanma",
+          "en": "Adaptation"
+        },
+        "agent": {
+          "tr": "Doğrulanmış deney sonuçlarından kenar ağırlığı güncellemesi",
+          "en": "Edge-weight updates from verified experiment results"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Alternatif yol",
+          "en": "Alternative route"
+        },
+        "agent": {
+          "tr": "Kritik bilgi için yedek devir hattı",
+          "en": "Fallback handoff for critical information"
+        }
+      }
+    ],
+    "protocol": {
+      "title": {
+        "tr": "Fayda ile uyarlanan iletişim ağı",
+        "en": "Utility-adaptive communication graph"
+      },
+      "purpose": {
+        "tr": "İletişim yollarını ölçülen katkıyla güncelle; tek bağlantıya bağımlılığı izle.",
+        "en": "Update communication paths using measured contribution and monitor single-link dependence."
+      },
+      "suitable": {
+        "tr": "Tekrarlanan benzer görevler ve birden fazla uzmanlık grubundan oluşan sürüler.",
+        "en": "Repeated related tasks and swarms spanning multiple specialist groups."
+      },
+      "unsuitable": {
+        "tr": "Ölçüm geçmişi olmayan tek seferlik görevler; erken budama yararlı yolları silebilir.",
+        "en": "One-off tasks with no measurement history; early pruning can remove useful routes."
+      },
+      "topology": "adaptive",
+      "roles": [
+        {
+          "name": {
+            "tr": "İşçi",
+            "en": "Worker"
+          },
+          "task": {
+            "tr": "Kullandığı girdiyi ve ürettiği doğrulanabilir çıktıyı kaydeder.",
+            "en": "Record consumed inputs and verifiable outputs."
+          }
+        },
+        {
+          "name": {
+            "tr": "Yönlendirici",
+            "en": "Router"
+          },
+          "task": {
+            "tr": "Geçmiş fayda ve maliyetle bağlantı seçer, keşif payı bırakır.",
+            "en": "Select links using historical utility and cost while reserving exploration."
+          }
+        },
+        {
+          "name": {
+            "tr": "Dayanıklılık denetçisi",
+            "en": "Resilience checker"
+          },
+          "task": {
+            "tr": "Kritik girdiler için alternatif yol ve kesinti testi yapar.",
+            "en": "Test alternate routes and interruptions for critical inputs."
+          }
+        }
+      ],
+      "steps": [
+        {
+          "title": {
+            "tr": "Başlangıç ağını dondur",
+            "en": "Freeze the initial graph"
+          },
+          "body": {
+            "tr": "İlk değerlendirme için değişmeyen bir ağ kaydet. Her kenarın taşıdığı bilgi ve maliyet birimi açık olsun.",
+            "en": "Record a fixed graph for initial evaluation. Define each edge's information payload and cost unit."
+          }
+        },
+        {
+          "title": {
+            "tr": "Katkıyı ölç",
+            "en": "Measure contribution"
+          },
+          "body": {
+            "tr": "Her devir için alıcının gerçekten kullandığı bilgiyi ve son test sonucunu ilişkilendir. Mesaj sayısını başarı sayma.",
+            "en": "Link each handoff to information actually used and the final test outcome. Message count is not success."
+          }
+        },
+        {
+          "title": {
+            "tr": "Kontrollü güncelle",
+            "en": "Update under control"
+          },
+          "body": {
+            "tr": "Ağı yalnızca değerlendirme turları arasında değiştir. Bir turda az sayıda kenarı değiştirerek etkinin izini koru.",
+            "en": "Update only between evaluation rounds. Change few edges per round so the effect remains traceable."
+          }
+        },
+        {
+          "title": {
+            "tr": "Yedek yolu sına",
+            "en": "Test the fallback"
+          },
+          "body": {
+            "tr": "Bir güçlü bağlantıyı çıkar ve görevi yeniden çalıştır. Tasarrufu, kesinti sonrası kalite kaybıyla birlikte raporla.",
+            "en": "Remove one strong connection and rerun the task. Report savings alongside quality loss after interruption."
+          }
+        }
+      ],
+      "memory": [
+        "edge_id",
+        "sender",
+        "receiver",
+        "consumed_artifact",
+        "verified_utility",
+        "message_cost",
+        "graph_version",
+        "fallback_edge"
+      ],
+      "stop": {
+        "tr": "Değerlendirme turu bitince ağı sürümle. Yeni sürüm sabit kontrol kümesinde kabul ölçütlerini karşılamıyorsa önceki sürüme dön.",
+        "en": "Version the graph after evaluation. Revert if the new version fails acceptance criteria on a fixed control set."
+      },
+      "failure": {
+        "tr": "Sık kullanılan yolların ödüllendirilmesi yankı odası yaratabilir. Nadir ama kritik uzmanlığa erişimi ve dağılım değişimini izle.",
+        "en": "Rewarding frequently used routes can create an echo chamber. Monitor access to rare expertise and distribution shifts."
+      },
+      "experiment": {
+        "tr": "Sabit ağ ile fayda tabanlı güncellenen ağı aynı görev dizisinde karşılaştır; son değerlendirme sorularını güncelleme döngüsünden uzak tut.",
+        "en": "Compare fixed and utility-updated graphs on the same task sequence; keep final evaluation questions outside the update loop."
+      },
+      "ablation": {
+        "tr": "Yedek bağlantıları kaldır; ardından bir uzmanı kullanılamaz yap. Maliyet kazancı ve toparlanma kaybını birlikte göster.",
+        "en": "Remove fallback links, then make one specialist unavailable. Show cost savings and recovery loss together."
+      },
+      "metrics": [
+        {
+          "name": {
+            "tr": "Katkı başına maliyet",
+            "en": "Cost per contribution"
+          },
+          "definition": {
+            "tr": "Doğrulanmış ve kullanılan bulgu başına iletişim tokenı.",
+            "en": "Communication tokens per verified, consumed finding."
+          }
+        },
+        {
+          "name": {
+            "tr": "Kesinti sonrası kalite",
+            "en": "Post-failure quality"
+          },
+          "definition": {
+            "tr": "Bağlantı kaybından sonraki kabul başarısının önceki başarıya oranı.",
+            "en": "Acceptance performance after a link failure relative to before."
+          }
+        },
+        {
+          "name": {
+            "tr": "Genelleme",
+            "en": "Generalization"
+          },
+          "definition": {
+            "tr": "Güncellemede kullanılmayan sorulardaki başarı farkı.",
+            "en": "Performance difference on questions excluded from adaptation."
+          }
+        }
+      ],
+      "exampleTask": {
+        "tr": "Bir soru-cevap görev kümesinde hangi uzmanlar arası bilgi aktarımının doğrulanmış sonuca katkı verdiğini incele. Sabit ağ ile faydaya göre bağlantıları seyrelten ağı aynı bütçede karşılaştır.",
+        "en": "Investigate which transfers between specialists contribute to verified answers on a question-answering task set. Compare a fixed network with a utility-pruned network at the same budget."
+      }
+    }
+  },
+  {
+    "id": "fish",
+    "name": {
+      "tr": "Balık sürüleri",
+      "en": "Fish schools"
+    },
+    "scientificName": "Collective motion · Couzin model",
+    "mechanism": {
+      "tr": "Bilgili azınlık",
+      "en": "Informed minorities"
+    },
+    "hook": {
+      "tr": "Uzmanlığı doğru anda devreye al.",
+      "en": "Bring expertise in at the right moment."
+    },
+    "question": {
+      "tr": "Pahalı veya güçlü bir modeli sürünün neresine koymalısın?",
+      "en": "Where should an expensive or stronger model sit in the swarm?"
+    },
+    "category": "decision",
+    "observation": {
+      "tr": "Couzin ve arkadaşlarının hareketli hayvan gruplarını inceleyen sayısal modeli, az sayıda bilgili bireyin yerel etkileşimlerle grubu yönlendirebildiğini gösterdi. Bu dosyanın dayanağı kontrollü bir modeldir; canlı balıklarla yapılmış bir LLM karşılaştırması değildir.",
+      "en": "Couzin and colleagues' numerical model of moving animal groups showed that a few informed individuals could guide the group through local interactions. The evidence here is a controlled model, not a live-fish experiment or LLM comparison."
+    },
+    "boundary": {
+      "tr": "Modeldeki yön bilgisiyle dil modelinin genel zekâsı aynı değişken değildir. Daha büyük modeli otomatik lider atamak yerine, hangi bilgi eksikliğini giderdiğini ölç.",
+      "en": "Directional knowledge in the model is not the same variable as general language-model capability. Measure which knowledge gap a larger model resolves rather than automatically appointing it leader."
+    },
+    "studyIds": [
+      "couzin-2005",
+      "boids-1987",
+      "debate-2023",
+      "moa-2024",
+      "scaling-2025"
+    ],
+    "mappings": [
+      {
+        "nature": {
+          "tr": "Hedef yönü bilen birey",
+          "en": "Individual knowing a target direction"
+        },
+        "agent": {
+          "tr": "Belirli alanda güçlü, sınırlı çağrılan uzman",
+          "en": "Specialist with bounded calls and domain strength"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Yerel etkileşim",
+          "en": "Local interaction"
+        },
+        "agent": {
+          "tr": "Kısa yönlendirici bilgi ve gerekçe paylaşımı",
+          "en": "Concise guidance and rationale"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Grubun birlikte hareketi",
+          "en": "Coherent group motion"
+        },
+        "agent": {
+          "tr": "Aynı kabul ölçütüne bağlı bağımsız üreticiler",
+          "en": "Independent producers sharing acceptance criteria"
+        }
+      }
+    ],
+    "protocol": {
+      "title": {
+        "tr": "Uzmanla yönlendirilen küçük model sürüsü",
+        "en": "Specialist-guided small-model team"
+      },
+      "purpose": {
+        "tr": "Sınırlı uzman bütçesini görevdeki en kritik belirsizliğe ayır.",
+        "en": "Spend a limited specialist budget on the task's critical uncertainty."
+      },
+      "suitable": {
+        "tr": "Alan bilgisi yoğun kararlar ve maliyeti farklı modellerden oluşan ekipler.",
+        "en": "Domain-heavy decisions and teams containing models of different costs."
+      },
+      "unsuitable": {
+        "tr": "Her alt görevin aynı düzeyde uzmanlık gerektirdiği işler.",
+        "en": "Tasks where every subtask requires the same level of expertise."
+      },
+      "topology": "specialist",
+      "roles": [
+        {
+          "name": {
+            "tr": "Üretici",
+            "en": "Producer"
+          },
+          "task": {
+            "tr": "Alt görevi çözer; eksik alan bilgisini açık soru olarak yazar.",
+            "en": "Solve a subtask and state missing domain knowledge as a concrete question."
+          }
+        },
+        {
+          "name": {
+            "tr": "Uzman",
+            "en": "Specialist"
+          },
+          "task": {
+            "tr": "Yalnızca gelen kritik soruya kaynaklı, sınırlı yanıt verir.",
+            "en": "Provide a bounded, sourced answer to the critical question."
+          }
+        },
+        {
+          "name": {
+            "tr": "Bağımsız değerlendirici",
+            "en": "Independent evaluator"
+          },
+          "task": {
+            "tr": "Uzman yanıtını otorite saymadan son ürünü kontrol eder.",
+            "en": "Check the final artifact without treating specialist output as authority."
+          }
+        }
+      ],
+      "steps": [
+        {
+          "title": {
+            "tr": "Bilgi açığını bul",
+            "en": "Locate the knowledge gap"
+          },
+          "body": {
+            "tr": "Üreticiler önce kendi ilk çözümünü üretir. Uzman çağrısını belirsiz bir 'yardım et' yerine somut soruya bağla.",
+            "en": "Producers first generate their own attempt. Tie specialist calls to concrete questions rather than vague requests for help."
+          }
+        },
+        {
+          "title": {
+            "tr": "Uzman bütçesini ayır",
+            "en": "Allocate specialist budget"
+          },
+          "body": {
+            "tr": "Toplam bütçeden ayrılan uzman payını görünür kıl. Planlama, araç ve sentez harcamalarını da aynı bütçede say.",
+            "en": "Make the specialist share of the total budget visible. Count planning, tools and synthesis in that same budget."
+          }
+        },
+        {
+          "title": {
+            "tr": "Kısa rehberliği aktar",
+            "en": "Deliver concise guidance"
+          },
+          "body": {
+            "tr": "Uzman; ilke, kaynak ve yanlış uygulanabileceği durumu versin. Üreticiler kendi çıktılarını bu bilgiyle revize etsin.",
+            "en": "Ask the specialist for a principle, source and misuse condition. Producers revise their own outputs using this information."
+          }
+        },
+        {
+          "title": {
+            "tr": "Sonucu kör değerlendir",
+            "en": "Evaluate the result blindly"
+          },
+          "body": {
+            "tr": "Uzman kullanılıp kullanılmadığını gizleyerek son ürünü değerlendir. Tek büyük model ve küçük model tek agent koşullarını da koru.",
+            "en": "Evaluate the final artifact blinded to specialist use. Retain single larger-model and single smaller-model conditions."
+          }
+        }
+      ],
+      "memory": [
+        "subtask_id",
+        "knowledge_gap",
+        "specialist_question",
+        "guidance_source",
+        "specialist_token_share",
+        "final_check"
+      ],
+      "stop": {
+        "tr": "Kritik sorular yanıtlandığında veya uzman çağrı sınırı dolduğunda üretime dön; tüm sürü aynı toplam bütçede dursun.",
+        "en": "Return to production when critical questions are answered or specialist call limits are reached; stop the whole team at the same aggregate budget."
+      },
+      "failure": {
+        "tr": "Uzmanın yanlış yanıtı bütün sürüyü aynı hataya çekebilir. Uzmanlık ile otoriteyi eşitleme; doğrulayıcı bağımsız kalsın.",
+        "en": "A specialist's wrong answer can pull the team toward one shared error. Do not equate expertise with authority; keep verification independent."
+      },
+      "experiment": {
+        "tr": "Küçük tek model, büyük tek model ve küçük modeller + sınırlı uzman çağrısını aynı soru setinde karşılaştır. Gerçekleşen toplam maliyeti ayrı raporla.",
+        "en": "Compare a single small model, single large model and small models with bounded specialist calls on the same questions. Report actual aggregate cost."
+      },
+      "ablation": {
+        "tr": "Uzman yanıtına kontrollü bir yanlış varsayım ekle. Doğrulayıcının yakalama oranını ve diğer agentlara yayılımı ölç.",
+        "en": "Insert a controlled false assumption into specialist guidance. Measure verifier detection and propagation to other agents."
+      },
+      "metrics": [
+        {
+          "name": {
+            "tr": "Başarı / maliyet",
+            "en": "Success / cost"
+          },
+          "definition": {
+            "tr": "Kabul edilen sonuç ve onun gerçekleşen toplam kullanım maliyeti.",
+            "en": "Accepted outcome and its actual total usage cost."
+          }
+        },
+        {
+          "name": {
+            "tr": "Uzman katkısı",
+            "en": "Specialist contribution"
+          },
+          "definition": {
+            "tr": "Uzmanlı ve uzmansız eşlenmiş görevler arasındaki doğruluk farkı.",
+            "en": "Correctness difference between paired tasks with and without a specialist."
+          }
+        },
+        {
+          "name": {
+            "tr": "Hata yayılımı",
+            "en": "Error propagation"
+          },
+          "definition": {
+            "tr": "Yerleştirilen yanlış varsayımı benimseyen sonraki çıktılar.",
+            "en": "Downstream outputs adopting the injected false assumption."
+          }
+        }
+      ],
+      "exampleTask": {
+        "tr": "Verilen mimari tasarımını genel uygulama agentları ve bir veri modelleme uzmanıyla incele. Uzmanın önerilerini kanıt ve kabul testleriyle değerlendir; bağımsız bir doğrulayıcı son raporu denetlesin.",
+        "en": "Review the supplied architecture with general implementation agents and a data-modelling specialist. Evaluate expert advice using evidence and acceptance tests; have an independent verifier audit the final report."
+      }
+    }
+  },
+  {
+    "id": "bacteria",
+    "name": {
+      "tr": "Bakteri toplulukları",
+      "en": "Bacterial communities"
+    },
+    "scientificName": "Vibrio harveyi",
+    "mechanism": {
+      "tr": "Eşikle harekete geçme",
+      "en": "Threshold-triggered action"
+    },
+    "hook": {
+      "tr": "Sinyali biriktir, kanıtı iki kez sayma.",
+      "en": "Accumulate signals without counting evidence twice."
+    },
+    "question": {
+      "tr": "Bir sonraki pahalı adımı başlatmak için ne zaman yeterli kanıt vardır?",
+      "en": "When is there enough evidence to trigger an expensive next step?"
+    },
+    "category": "organization",
+    "observation": {
+      "tr": "Vibrio harveyi'nin quorum sensing devresi, otoindükleyici adı verilen kimyasal sinyalleri algılayıp gen ifadesini düzenler. Mok, Wingreen ve Bassler iki sinyal kanalının birlikte işlenmesini ve bunun hedef genlerle ilişkisini inceledi.",
+      "en": "Vibrio harveyi's quorum-sensing circuit detects chemical signals called autoinducers and regulates gene expression. Mok, Wingreen and Bassler investigated the joint processing of two signal channels and its relationship to target genes."
+    },
+    "boundary": {
+      "tr": "Kimyasal sinyal birikimi, 'doğru bilgi sayacı' değildir. Agent uyarlamasında sinyalin bağımsızlığı, kaynağı ve yaşı açıkça kontrol edilmelidir.",
+      "en": "Chemical signal accumulation is not a truth counter. An agent adaptation must explicitly check signal independence, provenance and age."
+    },
+    "studyIds": [
+      "bassler-2003",
+      "mast-2025",
+      "scaling-2025"
+    ],
+    "mappings": [
+      {
+        "nature": {
+          "tr": "Otoindükleyici kanalı",
+          "en": "Autoinducer channel"
+        },
+        "agent": {
+          "tr": "Türü tanımlı doğrulama sinyali: test, kaynak, inceleme",
+          "en": "Typed validation signal: test, source or review"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Sinyal birikimi",
+          "en": "Signal accumulation"
+        },
+        "agent": {
+          "tr": "Süreli ve kaynak kimlikli kanıt kaydı",
+          "en": "Evidence record with expiry and source identity"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Koşula bağlı yanıt",
+          "en": "Conditional response"
+        },
+        "agent": {
+          "tr": "Önceden belirlenmiş kuralla açılan sonraki iş aşaması",
+          "en": "Next stage gated by a predefined rule"
+        }
+      }
+    ],
+    "protocol": {
+      "title": {
+        "tr": "Kanıt eşiğiyle görev kapısı",
+        "en": "Evidence-threshold task gate"
+      },
+      "purpose": {
+        "tr": "Bir sonraki iş aşamasını bağımsız ve geçerli girdiler hazır olduğunda aç.",
+        "en": "Open the next work stage when independent, valid inputs are ready."
+      },
+      "suitable": {
+        "tr": "Pahalı sentez, araç çalıştırma veya sonraki araştırma aşamasından önce girdi kontrolü.",
+        "en": "Input checks before costly synthesis, tool execution or a new research phase."
+      },
+      "unsuitable": {
+        "tr": "İnsan onayı gerektiren dış eylemler; agent oyları kullanıcı yetkilendirmesinin yerine geçmez.",
+        "en": "External actions requiring human approval; agent votes cannot replace user authorization."
+      },
+      "topology": "threshold",
+      "roles": [
+        {
+          "name": {
+            "tr": "Sinyal üretici",
+            "en": "Signal producer"
+          },
+          "task": {
+            "tr": "Kabul testini çalıştırıp türü, kaynağı ve zamanıyla sinyal üretir.",
+            "en": "Run an acceptance check and produce a typed, sourced, timestamped signal."
+          }
+        },
+        {
+          "name": {
+            "tr": "Kapı denetçisi",
+            "en": "Gate evaluator"
+          },
+          "task": {
+            "tr": "Bağımsız ve süresi dolmamış sinyalleri sayar.",
+            "en": "Count independent, unexpired signals."
+          }
+        },
+        {
+          "name": {
+            "tr": "Yürütücü",
+            "en": "Executor"
+          },
+          "task": {
+            "tr": "Açılan aşamayı görev sınırları içinde yürütür.",
+            "en": "Run the unblocked stage within task boundaries."
+          }
+        }
+      ],
+      "steps": [
+        {
+          "title": {
+            "tr": "Eşiği görevden türet",
+            "en": "Derive the threshold"
+          },
+          "body": {
+            "tr": "Önkoşulları baştan yaz: örneğin bir geçen test ve ayrı bir kaynak incelemesi. Sırf üç agent aynı şeyi söyledi diye açma.",
+            "en": "Specify prerequisites up front, such as one passing test and a separate source review. Agreement by three agents is not sufficient by itself."
+          }
+        },
+        {
+          "title": {
+            "tr": "Sinyalin kökenini tut",
+            "en": "Track signal origin"
+          },
+          "body": {
+            "tr": "Her sinyale evidence_id, origin_id ve expires_at ekle. Aynı kaynağı kopyalayan agentları ayrı destek sayma.",
+            "en": "Attach evidence_id, origin_id and expires_at. Do not count agents copying one source as separate support."
+          }
+        },
+        {
+          "title": {
+            "tr": "Geçerli girdiyi birleştir",
+            "en": "Combine valid inputs"
+          },
+          "body": {
+            "tr": "Kapı, gerekli sinyal türlerinin tümünü kontrol etsin. Olumsuz test varsa daha çok olumlu oyla onu geçersizleştirme.",
+            "en": "Check every required signal type. Do not override a failing test by collecting more positive votes."
+          }
+        },
+        {
+          "title": {
+            "tr": "Durumu kaydet",
+            "en": "Record the transition"
+          },
+          "body": {
+            "tr": "Geçişte kullanılan sinyal kimliklerini sakla. Koşullar sağlanmazsa açık bir bekleme nedeni veya zaman aşımı sonucu üret.",
+            "en": "Preserve the signal IDs used in a transition. If conditions fail, report an explicit waiting reason or timeout."
+          }
+        }
+      ],
+      "memory": [
+        "signal_id",
+        "signal_type",
+        "origin_id",
+        "evidence_id",
+        "issued_at",
+        "expires_at",
+        "gate_decision"
+      ],
+      "stop": {
+        "tr": "Önkoşullar karşılanınca tek seferlik geçiş yap; süre veya bütçe dolarsa açılmayan kapıyı gerekçesiyle raporla.",
+        "en": "Perform one transition when prerequisites pass; on time or budget exhaustion report the closed gate and its reason."
+      },
+      "failure": {
+        "tr": "Kopya raporlar sahte yeterlilik üretebilir. Eski başarılı test, yeni artefakt sürümünü doğrulamaz; sinyali sürüme bağla.",
+        "en": "Duplicate reports can create false sufficiency. An old passing test does not validate a new artifact version; bind signals to versions."
+      },
+      "experiment": {
+        "tr": "Sabit çoğunluk eşiği ile kaynak/yaş/tür denetleyen kapıyı karşılaştır. Veri setine kopya ve eski sinyaller ekle.",
+        "en": "Compare a fixed majority threshold with a gate checking source, age and type. Include duplicate and stale signals."
+      },
+      "ablation": {
+        "tr": "Kaynak tekilleştirmesini kapat. Aynı yanlış raporu beş agenttan geçirerek kapının yanlış açılmasını ölç.",
+        "en": "Disable source deduplication. Pass the same wrong report through five agents and measure false gate openings."
+      },
+      "metrics": [
+        {
+          "name": {
+            "tr": "Yanlış açılma",
+            "en": "False opening"
+          },
+          "definition": {
+            "tr": "Önkoşul gerçekte sağlanmadığı halde açılan kapılar.",
+            "en": "Gates opened despite unmet prerequisites."
+          }
+        },
+        {
+          "name": {
+            "tr": "Yanlış bekleme",
+            "en": "False blocking"
+          },
+          "definition": {
+            "tr": "Geçerli girdiler hazırken açılmayan kapılar.",
+            "en": "Gates remaining closed despite valid ready inputs."
+          }
+        },
+        {
+          "name": {
+            "tr": "Karar gecikmesi",
+            "en": "Decision latency"
+          },
+          "definition": {
+            "tr": "Son zorunlu girdinin gelişinden kapı kararına kadar geçen süre.",
+            "en": "Elapsed time from the last required input to the gate decision."
+          }
+        }
+      ],
+      "exampleTask": {
+        "tr": "Bir belge taslağını yayıma hazır saymak için kaynak kontrolü, gereksinim kapsamı ve bağımsız inceleme sinyallerini topla. Aynı kaynaktan türeyen tekrarları tek sinyal say; eksik ölçütleri açıkça raporla.",
+        "en": "Collect source-check, requirements-coverage and independent-review signals to assess whether a document draft is ready. Count repeats derived from the same source as one signal; report missing criteria explicitly."
+      }
+    }
+  },
+  {
+    "id": "fireflies",
+    "name": {
+      "tr": "Ateşböcekleri",
+      "en": "Fireflies"
+    },
+    "scientificName": "Photinus carolinus",
+    "mechanism": {
+      "tr": "Yerel eşzamanlama",
+      "en": "Local synchronization"
+    },
+    "hook": {
+      "tr": "İlerlemeyi eşleştir, en yavaşı sonsuza kadar bekleme.",
+      "en": "Align progress without waiting forever for the slowest."
+    },
+    "question": {
+      "tr": "Asenkron agentlar ne zaman çıktılarını bir araya getirmeli?",
+      "en": "When should asynchronous agents bring their outputs together?"
+    },
+    "category": "communication",
+    "observation": {
+      "tr": "Sarfati ve arkadaşları, doğal Photinus carolinus sürülerindeki ışık örüntülerini üç boyutlu olarak inceledi. Flaş kümeleri ortam boyunca yerel aktarım benzeri biçimde yayılıyor; bitki örtüsü bu etkileşimin uzamsal yapısını etkiliyor.",
+      "en": "Sarfati and colleagues studied light patterns in natural Photinus carolinus swarms in three dimensions. Flash bursts spread through the environment in a relay-like process, with vegetation influencing the spatial interaction structure."
+    },
+    "boundary": {
+      "tr": "Bu bulgu, bütün ateşböceklerinin tek bir merkezî saate bağlandığını göstermez. Önerilen yazılım kontrol noktaları, biyolojik davranışın birebir modeli değildir.",
+      "en": "The finding does not establish that all fireflies follow one central clock. The proposed software checkpoints are not a literal model of the biological behavior."
+    },
+    "studyIds": [
+      "sarfati-2021",
+      "autogen-2023",
+      "meta-team-2026"
+    ],
+    "mappings": [
+      {
+        "nature": {
+          "tr": "Yerel ışık etkileşimi",
+          "en": "Local flash interaction"
+        },
+        "agent": {
+          "tr": "Komşu görevlerin tamamlanma olayı",
+          "en": "Completion events from neighbouring tasks"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Birlikte ortaya çıkan örüntü",
+          "en": "Collective temporal pattern"
+        },
+        "agent": {
+          "tr": "Sürüm numaralı ortak kontrol noktası",
+          "en": "Versioned shared checkpoint"
+        }
+      },
+      {
+        "nature": {
+          "tr": "Ortamdaki görünürlük",
+          "en": "Visibility in the environment"
+        },
+        "agent": {
+          "tr": "Mesaj erişimi, gecikme ve teslim teyidi",
+          "en": "Message reachability, latency and acknowledgement"
+        }
+      }
+    ],
+    "protocol": {
+      "title": {
+        "tr": "Asenkron sürü için kontrol noktaları",
+        "en": "Checkpoints for an asynchronous swarm"
+      },
+      "purpose": {
+        "tr": "Bağımsız işleri kontrollü aralıklarla birleştir; geciken görevi açıkça yönet.",
+        "en": "Combine independent work at controlled intervals and handle stragglers explicitly."
+      },
+      "suitable": {
+        "tr": "Uzun süren tarama, parça parça veri işleme ve farklı hızdaki araç çağrıları.",
+        "en": "Long searches, chunked data processing and tool calls with different latencies."
+      },
+      "unsuitable": {
+        "tr": "Kesin işlem sırası veya atomik bütünlük gerektiren işler; uygun işlem protokolü gerekir.",
+        "en": "Work requiring strict ordering or atomic consistency; an appropriate transaction protocol is needed."
+      },
+      "topology": "pulse",
+      "roles": [
+        {
+          "name": {
+            "tr": "Asenkron işçi",
+            "en": "Asynchronous worker"
+          },
+          "task": {
+            "tr": "Çıktısını olay kimliği ve sürümle üretir; kontrol noktasını beklerken işi kaybetmez.",
+            "en": "Produce versioned output events without losing work while awaiting a checkpoint."
+          }
+        },
+        {
+          "name": {
+            "tr": "Birleştirici",
+            "en": "Merger"
+          },
+          "task": {
+            "tr": "Aynı kontrol noktası sürümündeki hazır çıktıları birleştirir.",
+            "en": "Merge ready outputs belonging to the same checkpoint version."
+          }
+        },
+        {
+          "name": {
+            "tr": "Gecikme denetçisi",
+            "en": "Straggler checker"
+          },
+          "task": {
+            "tr": "Eksik görev, yeniden deneme ve zaman aşımını kaydeder.",
+            "en": "Record missing tasks, retries and timeouts."
+          }
+        }
+      ],
+      "steps": [
+        {
+          "title": {
+            "tr": "Kontrol noktalarını tanımla",
+            "en": "Define checkpoints"
+          },
+          "body": {
+            "tr": "Hangi görevlerin birlikte okunması gerektiğini yaz. Her checkpoint için zorunlu ve isteğe bağlı girdileri ayır.",
+            "en": "Specify which tasks must be read together. Distinguish required and optional inputs for each checkpoint."
+          }
+        },
+        {
+          "title": {
+            "tr": "Olayla ilerle",
+            "en": "Progress through events"
+          },
+          "body": {
+            "tr": "İşçi tamamlandığında event_id, task_id, checkpoint_version ve artefakt referansı yayınlar. Tekrarlanan olayı tekilleştir.",
+            "en": "A finished worker emits event_id, task_id, checkpoint_version and artifact reference. Deduplicate repeated events."
+          }
+        },
+        {
+          "title": {
+            "tr": "Gecikmeyi sınırla",
+            "en": "Bound waiting"
+          },
+          "body": {
+            "tr": "Zaman aşımında eksik girdiyi açıkça raporla. Eksik zorunlu girdiyle tamamlanmış sonuç etiketi üretme.",
+            "en": "On timeout explicitly report missing inputs. Do not label a result complete when a mandatory input is missing."
+          }
+        },
+        {
+          "title": {
+            "tr": "Sürümü birleştir",
+            "en": "Merge the version"
+          },
+          "body": {
+            "tr": "Aynı sürüme ait çıktıları tekleştir; geç geleni sonraki incelemeye al. Deney sonunda bekleme maliyetini kaydet.",
+            "en": "Merge outputs of the same version; route late arrivals to the next review. Record waiting cost after the experiment."
+          }
+        }
+      ],
+      "memory": [
+        "event_id",
+        "task_id",
+        "checkpoint_version",
+        "artifact_ref",
+        "received_at",
+        "required",
+        "timeout_result"
+      ],
+      "stop": {
+        "tr": "Zorunlu girdiler doğrulanıp birleştirildiyse bitir. Süre dolmuş ve eksik girdi varsa tamamlanmamış durumla teslim et.",
+        "en": "Finish after mandatory inputs are verified and merged. If time expires with missing inputs, deliver an incomplete status."
+      },
+      "failure": {
+        "tr": "Sürümleri karıştırmak yanlış sentez; küresel bariyer ise tek yavaş işçiye bağımlılık yaratır. Tekrar mesajları idempotent işle.",
+        "en": "Mixing versions creates incorrect synthesis; a global barrier creates dependence on one slow worker. Process repeated messages idempotently."
+      },
+      "experiment": {
+        "tr": "Her tur tüm agentları bekleyen bariyer ile yerel kontrol noktalarını karşılaştır. Aynı bir göreve kontrollü gecikme ekle.",
+        "en": "Compare an all-agent barrier with local checkpoints. Add a controlled delay to the same task in each condition."
+      },
+      "ablation": {
+        "tr": "Olay tekilleştirmesini kapat ve aynı tamamlanma olayını iki kez gönder. Çift işleme ve çift maliyeti ölç.",
+        "en": "Disable event deduplication and send the same completion event twice. Measure duplicate processing and cost."
+      },
+      "metrics": [
+        {
+          "name": {
+            "tr": "Bekleme payı",
+            "en": "Waiting share"
+          },
+          "definition": {
+            "tr": "Toplam sürenin yeni iş üretmeden beklenen bölümü.",
+            "en": "Fraction of elapsed time spent waiting without producing new work."
+          }
+        },
+        {
+          "name": {
+            "tr": "Sürüm tutarlılığı",
+            "en": "Version consistency"
+          },
+          "definition": {
+            "tr": "Aynı checkpoint sürümüne ait girdilerle üretilen çıktıların oranı.",
+            "en": "Outputs built from inputs belonging to the same checkpoint version."
+          }
+        },
+        {
+          "name": {
+            "tr": "Çift işleme",
+            "en": "Duplicate processing"
+          },
+          "definition": {
+            "tr": "Tek bir olayın birden fazla uygulandığı durumların sayısı.",
+            "en": "Count of a single event being applied more than once."
+          }
+        }
+      ],
+      "exampleTask": {
+        "tr": "Farklı sürelerde tamamlanan alt araştırmaları tek bir raporda birleştir. Asenkron çalışma ile ortak kontrol noktalarını karşılaştır; bekleme, eski bağlam ve yeniden işleme kayıtlarını tut.",
+        "en": "Combine sub-research tasks of different durations into one report. Compare asynchronous work with shared checkpoints; record waiting time, stale context and rework."
+      }
+    }
+  }
+]

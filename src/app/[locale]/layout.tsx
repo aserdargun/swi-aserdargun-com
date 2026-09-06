@@ -9,6 +9,7 @@ import '@fontsource/inter/latin-ext-700.css'
 import '@fontsource/source-serif-4/latin-400.css'
 import '@fontsource/source-serif-4/latin-ext-400.css'
 import '../globals.css'
+import '../workbench.css'
 
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
@@ -47,7 +48,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body><LocalePreference locale={locale} /><AppHeader locale={locale} />{children}<AppFooter locale={locale} /></body>
+      <body className="app-body"><LocalePreference locale={locale} /><AppHeader locale={locale} />{children}<AppFooter locale={locale} /></body>
     </html>
   )
 }

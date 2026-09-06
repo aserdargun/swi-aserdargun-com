@@ -1,0 +1,51 @@
+import { act, cleanup, renderHook } from '@testing-library/react'
+import { afterEach, beforeEach, expect, it, vi } from 'vitest'
+import { AGENDA_KEY, exportAgenda, makeAgendaEntry, parseAgendaBackup } from '@/research/agenda'
+
+const entry=makeAgendaEntry({title:'Saved research',url:'',notes:'Original',kind:'note',status:'inbox',dossierId:'',sourceStudyId:''},'2026-09-06T12:00:00.000Z','stable-id')
+beforeEach(()=>{localStorage.clear();vi.resetModules()})
+afterEach(()=>{cleanup();vi.restoreAllMocks()})
+
+it('persists edits and observes updates from another tab',async()=>{
+  const {useAgenda,changeAgenda}=await import('@/ui/workbench/agendaStore')
+  const {result}=renderHook(()=>useAgenda())
+  act(()=>{changeAgenda(()=>[entry])})
+  expect(result.current.mode).toBe('saved')
+  expect(parseAgendaBackup(localStorage.getItem(AGENDA_KEY)!)).toEqual([entry])
+  const modified={...entry,notes:'Another tab changed this'}
+  act(()=>{localStorage.setItem(AGENDA_KEY,exportAgenda([modified]));window.dispatchEvent(new StorageEvent('storage',{key:AGENDA_KEY}))})
+  expect(result.current.entries).toEqual([modified])
+})
+it('keeps temporary edits available for export when storage is full',async()=>{
+  localStorage.setItem(AGENDA_KEY,exportAgenda([entry]))
+  const {useAgenda,changeAgenda}=await import('@/ui/workbench/agendaStore')
+  const {result}=renderHook(()=>useAgenda())
+  vi.spyOn(Storage.prototype,'setItem').mockImplementation(()=>{throw new DOMException('Full','QuotaExceededError')})
+  act(()=>{expect(changeAgenda(current=>current.map(value=>({...value,notes:'Unsaved edit'})))).toBe('temporary')})
+  expect(result.current.entries[0]?.notes).toBe('Unsaved edit')
+  expect(parseAgendaBackup(exportAgenda(result.current.entries))[0]?.notes).toBe('Unsaved edit')
+  expect(parseAgendaBackup(localStorage.getItem(AGENDA_KEY)!)[0]?.notes).toBe('Original')
+})
+it('preserves unreadable bytes and refuses changes until recovery is backed up',async()=>{
+  const raw='{broken personal notes'
+  localStorage.setItem(AGENDA_KEY,raw)
+  const {useAgenda,changeAgenda,recoverAgenda}=await import('@/ui/workbench/agendaStore')
+  const {result}=renderHook(()=>useAgenda())
+  expect(result.current).toMatchObject({mode:'corrupt',raw})
+  expect(()=>changeAgenda(()=>[entry])).toThrow('corrupt')
+  const write=vi.spyOn(Storage.prototype,'setItem').mockImplementation(()=>{throw new Error('Blocked')})
+  expect(()=>recoverAgenda()).toThrow('Blocked')
+  expect(localStorage.getItem(AGENDA_KEY)).toBe(raw)
+  write.mockRestore()
+  act(()=>recoverAgenda())
+  const recovery=Object.keys(localStorage).find(key=>key.startsWith(`${AGENDA_KEY}-recovery-`))!
+  expect(localStorage.getItem(recovery)).toBe(raw)
+  expect(result.current).toMatchObject({mode:'saved',entries:[]})
+})
+it('rejects an over-limit agenda without replacing the existing saved record',async()=>{
+  localStorage.setItem(AGENDA_KEY,exportAgenda([entry]))
+  const {changeAgenda}=await import('@/ui/workbench/agendaStore')
+  const before=localStorage.getItem(AGENDA_KEY)
+  expect(()=>changeAgenda(()=>Array.from({length:12},(_,index)=>({...entry,id:String(index),notes:'a'.repeat(100_000)})))).toThrow('too-large')
+  expect(localStorage.getItem(AGENDA_KEY)).toBe(before)
+})

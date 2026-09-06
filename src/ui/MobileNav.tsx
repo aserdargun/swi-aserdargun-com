@@ -5,20 +5,24 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useId, useRef, useState } from 'react'
 import { getCopy } from '@/i18n/copy'
 import { localizedPath, type Locale } from '@/i18n/locales'
+import { Icon, type IconName } from './workbench/Icon'
 
 const destinations = [
-  ['home', '/'], ['explore', '/explore/'], ['research', '/methodology/'],
-  ['timeline', null], ['experiments', null], ['graph', '/graph/'],
+  ['home', '/', 'Çalışma alanı', 'Workspace', 'home'],
+  ['atlas', '/atlas/', 'Biyoloji atlası', 'Biology atlas', 'book'],
+  ['research', '/research/', 'Araştırma', 'Research', 'search'],
+  ['recipes', '/recipes/', 'Sürü reçeteleri', 'Swarm recipes', 'flask'],
+  ['agenda', '/agenda/', 'Gündemim', 'My agenda', 'calendar'],
+  ['map', '/map/', 'Bilgi haritası', 'Knowledge map', 'network'],
+  ['methodology', '/methodology/', 'Metodoloji', 'Methodology', 'method'],
 ] as const
 
 function NavLinks({ locale, onNavigate }: Readonly<{ locale: Locale; onNavigate?: () => void }>) {
   const pathname = usePathname() ?? `/${locale}/`
   const section = pathname.split('/')[2] ?? ''
-  const ui = getCopy(locale)
-  return destinations.map(([key, path]) => {
-    if (!path) return <span key={key} className="nav-deferred" aria-disabled="true">{ui.navigation[key]}<span className="sr-only"> — {locale === 'en' ? 'planned; unavailable' : 'planlandı; henüz kullanılamıyor'}</span></span>
-    const active = key === 'home' ? !section : section === key || (key === 'explore' && section === 'entities') || (key === 'research' && section === 'methodology')
-    return <Link key={key} href={localizedPath(path, locale)} aria-current={active ? 'page' : undefined} onClick={onNavigate}>{ui.navigation[key]}</Link>
+  return destinations.map(([key, path, tr, en, icon]) => {
+    const active = key === 'home' ? !section : section === key || (key === 'atlas' && ['entities','explore'].includes(section)) || (key === 'map' && section === 'graph')
+    return <Link key={key} className={key === 'methodology' ? 'nav-methodology' : undefined} href={localizedPath(path, locale)} aria-current={active ? 'page' : undefined} onClick={onNavigate}><Icon name={icon as IconName} />{locale === 'tr' ? tr : en}</Link>
   })
 }
 

@@ -87,14 +87,14 @@ describe('localized application shell', () => {
     expect(within(languages).getByRole('link', { name: 'TR' })).toHaveAttribute('href', '/tr/entities/ant/?selected=ant#claims')
   })
 
-  it('marks Explore current and distinguishes the two deferred destinations', () => {
+  it('exposes all workbench destinations and marks biology active for foundation records', () => {
     shell()
     const nav = screen.getByRole('navigation', { name: 'Primary navigation' })
-    expect(within(nav).getAllByRole('link')).toHaveLength(4)
-    expect(within(nav).getByRole('link', { name: 'Research' })).toHaveAttribute('href', '/en/methodology')
-    expect(within(nav).getByText('Timeline')).toHaveAttribute('aria-disabled', 'true')
-    expect(within(nav).getByText('Experiments')).toHaveAttribute('aria-disabled', 'true')
-    expect(within(nav).getByRole('link', { name: 'Explore' })).toHaveAttribute('aria-current', 'page')
+    expect(within(nav).getAllByRole('link')).toHaveLength(7)
+    expect(within(nav).getByRole('link', { name: 'Research' })).toHaveAttribute('href', '/en/research')
+    expect(within(nav).getByRole('link', { name: 'Swarm recipes' })).toHaveAttribute('href', '/en/recipes')
+    expect(within(nav).getByRole('link', { name: 'My agenda' })).toHaveAttribute('href', '/en/agenda')
+    expect(within(nav).getByRole('link', { name: 'Biology atlas' })).toHaveAttribute('aria-current', 'page')
   })
 
   it('applies and persists the selected theme', async () => {

@@ -1,5 +1,25 @@
 # Research methodology
 
+## Current reading collection
+
+The 6 September 2026 snapshot contains 21 studies (1987–2026), eight biological
+dossiers and eight original engineering recipes. `content/studies.json` records
+source titles, authors, venue, publication/revision dates, reviewed date,
+reading depth and separate bilingual finding / takeaway / limitation fields.
+`content/dossiers.json` links each biological observation to these studies and
+to a proposed agent protocol. See [revision 02](revision-02.md).
+
+Publication-record and abstract reviews are explicitly labeled; neither claims
+a full-text audit. Null exact dates mean the day was not verified. arXiv records
+remain version-labeled without an inferred peer-review status. The Scaling
+Agent Systems record uses v3 (2026-04-08; 260 configurations / 6 benchmarks),
+not an older abstract's 180 / 4 figures. MAST uses v3 (2025-10-26).
+
+The original ant chain uses granular claim/evidence records. The expanded
+reading library uses source-level summaries and marked engineering synthesis;
+it does not pretend every recipe has been experimentally validated. Original
+proposed experiments are linked to evidence but are not source-reported results.
+
 ## Research loop
 
 ```text

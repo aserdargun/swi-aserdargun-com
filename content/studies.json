@@ -1,0 +1,646 @@
+[
+  {
+    "id": "goss-1989",
+    "title": "Self-organized shortcuts in the Argentine ant",
+    "shortTitle": "Ant shortcuts",
+    "authors": "S. Goss, S. Aron, J. L. Deneubourg, J. M. Pasteels",
+    "year": 1989,
+    "publishedAt": null,
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://doi.org/10.1007/BF00462870",
+    "venue": "Naturwissenschaften 76, 579–581",
+    "kind": "biology",
+    "format": "journal",
+    "depth": "publisher",
+    "finding": {
+      "tr": "Arjantin karıncaları, iz feromonuyla etkileşerek deney düzeneğinde kısa yolları seçebildi.",
+      "en": "Argentine ants interacting through trail pheromone selected shorter routes in the experimental setup."
+    },
+    "takeaway": {
+      "tr": "Ortak hafızaya yalnızca çıktı değil, doğrulanmış yarar ve yaş bilgisi de yaz.",
+      "en": "Record verified utility and age in shared memory, alongside the output."
+    },
+    "limitation": {
+      "tr": "Belirli tür ve yol düzeneği; her karınca türü veya LLM görevi için genellenemez.",
+      "en": "Specific species and route setup; not a universal result for ants or LLM tasks."
+    },
+    "dossierIds": [
+      "ants"
+    ]
+  },
+  {
+    "id": "stigmergy-1999",
+    "title": "A Brief History of Stigmergy",
+    "shortTitle": "Stigmergy",
+    "authors": "Guy Theraulaz, Eric Bonabeau",
+    "year": 1999,
+    "publishedAt": null,
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://doi.org/10.1162/106454699568700",
+    "venue": "Artificial Life 5(2), 97–116",
+    "kind": "biology",
+    "format": "review",
+    "depth": "publisher",
+    "finding": {
+      "tr": "Stigmerji, bireylerin çevrede bıraktığı değişikliklerle sonraki eylemleri koordine etmesini açıklayan bir mekanizma ailesidir.",
+      "en": "Stigmergy describes coordination through environmental modifications that stimulate subsequent actions."
+    },
+    "takeaway": {
+      "tr": "Mesajlaşma tasarlamadan önce, agentların okuyup değiştirdiği ortak nesneyi tanımla.",
+      "en": "Define the shared artifact agents read and modify before designing messaging."
+    },
+    "limitation": {
+      "tr": "Tarihsel derleme; tek başına belirli bir agent mimarisinin performans deneyi değildir.",
+      "en": "A historical review, not a performance experiment for a particular agent architecture."
+    },
+    "dossierIds": [
+      "ants",
+      "termites"
+    ]
+  },
+  {
+    "id": "ant-system-1996",
+    "title": "Ant system: optimization by a colony of cooperating agents",
+    "shortTitle": "Ant System",
+    "authors": "Marco Dorigo, Vittorio Maniezzo, Alberto Colorni",
+    "year": 1996,
+    "publishedAt": null,
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://doi.org/10.1109/3477.484436",
+    "venue": "IEEE TSMC Part B 26(1), 29–41",
+    "kind": "algorithm",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Ant System; pozitif geri besleme, dağıtık hesaplama ve sezgisel seçimle kombinatoryal optimizasyonu ele alır.",
+      "en": "Ant System combines positive feedback, distributed computation and heuristic selection for combinatorial optimization."
+    },
+    "takeaway": {
+      "tr": "Başarılı izleri güçlendir; keşif payını koru ve eski izlerin ağırlığını azalt.",
+      "en": "Reinforce useful trails, reserve exploration and decay stale trail weights."
+    },
+    "limitation": {
+      "tr": "Tanımlı bir amaç fonksiyonu gerektirir; metin kalitesi doğal olarak yol uzunluğu değildir.",
+      "en": "Requires a defined objective function; text quality is not inherently a path length."
+    },
+    "dossierIds": [
+      "ants"
+    ]
+  },
+  {
+    "id": "antnet-1998",
+    "title": "AntNet: Distributed Stigmergetic Control for Communications Networks",
+    "shortTitle": "AntNet",
+    "authors": "Gianni Di Caro, Marco Dorigo",
+    "year": 1998,
+    "publishedAt": "1998-12-01",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://jair.org/index.php/jair/article/view/10217",
+    "venue": "JAIR 9, 317–365",
+    "kind": "algorithm",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Dağıtık hareketli agentlar ağın kendisi üzerinden dolaylı, asenkron bilgi paylaşımıyla yönlendirme tablolarını uyarlar.",
+      "en": "Distributed mobile agents adapt routing tables through indirect, asynchronous information exchange mediated by the network."
+    },
+    "takeaway": {
+      "tr": "Görev yönlendirmesini statik unvanlardan çok gözlenen sonuçlarla güncelle.",
+      "en": "Update task routing from observed results rather than fixed role titles."
+    },
+    "limitation": {
+      "tr": "Ağ paketlerinin maliyeti ölçülebilir; LLM doğruluğu için ayrıca dış değerlendirici gerekir.",
+      "en": "Network packet costs are measurable; LLM correctness requires an additional external evaluator."
+    },
+    "dossierIds": [
+      "ants",
+      "physarum"
+    ]
+  },
+  {
+    "id": "boids-1987",
+    "title": "Flocks, Herds, and Schools: A Distributed Behavioral Model",
+    "shortTitle": "Boids",
+    "authors": "Craig W. Reynolds",
+    "year": 1987,
+    "publishedAt": null,
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://www.red3d.com/cwr/papers/1987/boids.html",
+    "venue": "ACM SIGGRAPH 1987",
+    "kind": "algorithm",
+    "format": "conference",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Yerel hareket kurallarıyla her bireyin yolunu tek tek yazmadan kolektif sürü animasyonu üretildi.",
+      "en": "Local motion rules produced collective flock animation without scripting every individual trajectory."
+    },
+    "takeaway": {
+      "tr": "Çakışmayı önleme, yön paylaşma ve gruptan kopmama hedeflerini ayrı kurallar yap.",
+      "en": "Separate collision avoidance, alignment and group cohesion into distinct rules."
+    },
+    "limitation": {
+      "tr": "Bir davranışsal animasyon modeli; gerçek hayvanların bütün etkileşim kurallarının keşfi değildir.",
+      "en": "A behavioral animation model, not a discovery of every interaction rule in real animals."
+    },
+    "dossierIds": [
+      "starlings",
+      "fish"
+    ]
+  },
+  {
+    "id": "couzin-2005",
+    "title": "Effective leadership and decision-making in animal groups on the move",
+    "shortTitle": "Informed minorities",
+    "authors": "Iain D. Couzin, Jens Krause, Nigel R. Franks, Simon A. Levin",
+    "year": 2005,
+    "publishedAt": "2005-02-03",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://www.nature.com/articles/nature03236",
+    "venue": "Nature 433, 513–516",
+    "kind": "biology",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Sayısal modelde, bilgili küçük bir azınlık üyelerin kimin bilgili olduğunu tanımasına gerek kalmadan grubu yönlendirebildi.",
+      "en": "In a numerical model, a small informed minority could guide the group without members recognizing who was informed."
+    },
+    "takeaway": {
+      "tr": "Uzman agentı her adımın yöneticisi yapmak yerine kritik bilgi taşıyıcısı olarak sınırla.",
+      "en": "Use a specialist as a carrier of critical knowledge rather than a controller of every step."
+    },
+    "limitation": {
+      "tr": "Buradaki kanıt model sonucudur; gerçek balık deneyinde veya LLM süründe evrensel bir uzman oranı vermez.",
+      "en": "The evidence is a model result, not a universal specialist ratio for fish experiments or LLM teams."
+    },
+    "dossierIds": [
+      "fish"
+    ]
+  },
+  {
+    "id": "ballerini-2008",
+    "title": "Interaction ruling animal collective behavior depends on topological rather than metric distance: Evidence from a field study",
+    "shortTitle": "Topological neighbours",
+    "authors": "M. Ballerini et al.",
+    "year": 2008,
+    "publishedAt": null,
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/0709.1916",
+    "venue": "PNAS 105(4), 1232–1237 · author manuscript",
+    "kind": "biology",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Sığırcık sürülerinin üç boyutlu rekonstrüksiyonu, etkileşimin sabit mesafe yerine yaklaşık altı-yedi komşuyla ilişkili olduğunu buldu.",
+      "en": "Three-dimensional starling reconstructions linked interactions to about six or seven neighbours rather than a fixed metric distance."
+    },
+    "takeaway": {
+      "tr": "Tüm agentların herkese yazması yerine görevle ilgili sınırlı bir komşu kümesini deneyebilirsin.",
+      "en": "Test a bounded set of relevant neighbours instead of all-to-all agent messaging."
+    },
+    "limitation": {
+      "tr": "Altı-yedi bir saha bulgusudur; agent iletişimi için önerilmiş optimum sayı değildir.",
+      "en": "Six or seven is a field observation, not a recommended optimum for agent communication."
+    },
+    "dossierIds": [
+      "starlings"
+    ]
+  },
+  {
+    "id": "tero-2010",
+    "title": "Rules for biologically inspired adaptive network design",
+    "shortTitle": "Physarum networks",
+    "authors": "Atsushi Tero et al.",
+    "year": 2010,
+    "publishedAt": "2010-01-22",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/20093467/",
+    "venue": "Science 327(5964), 439–442",
+    "kind": "biology",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Physarum ağları Tokyo demiryolu örneğinde verimlilik, maliyet ve hata dayanıklılığı arasında karşılaştırılabilir dengeler kurdu.",
+      "en": "Physarum networks achieved comparable trade-offs in efficiency, cost and fault tolerance in a Tokyo rail-network example."
+    },
+    "takeaway": {
+      "tr": "İletişim kenarını yalnızca sık kullanıldığı için değil, fayda/maliyet dengesi için koru.",
+      "en": "Retain communication edges for utility relative to cost, not frequency alone."
+    },
+    "limitation": {
+      "tr": "Physarum çok çekirdekli tek hücreli bir organizmadır; bağımsız LLM agentlarından oluşan bir koloni değildir.",
+      "en": "Physarum is a multinucleate single-celled organism, not a colony of independent LLM agents."
+    },
+    "dossierIds": [
+      "physarum"
+    ]
+  },
+  {
+    "id": "seeley-2012",
+    "title": "Stop signals provide cross inhibition in collective decision-making by honeybee swarms",
+    "shortTitle": "Honeybee stop signals",
+    "authors": "Thomas D. Seeley et al.",
+    "year": 2012,
+    "publishedAt": "2012-01-06",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/22157081/",
+    "venue": "Science 335(6064), 108–111",
+    "kind": "biology",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Yuva seçen keşif arıları, başka yerleri destekleyen dansçılara dur sinyalleri yöneltti; analitik model eşdeğer seçeneklerde kilitlenmenin çözülmesini açıkladı.",
+      "en": "Nest-site scouts directed stop signals at dancers supporting other sites; an analytic model explained resolution of deadlock between equal alternatives."
+    },
+    "takeaway": {
+      "tr": "Öneri üretimine ek olarak kaynaklı itiraz ve sınırlı karar turu tanımla.",
+      "en": "Add sourced objections and bounded decision rounds alongside proposal generation."
+    },
+    "limitation": {
+      "tr": "Karşılıklı baskılama doğruluğun garantisi değildir; LLM uyarlamasında bağımsız doğrulama ayrıca tasarlanmalıdır.",
+      "en": "Cross-inhibition does not guarantee truth; independent verification must be designed for an LLM adaptation."
+    },
+    "dossierIds": [
+      "bees"
+    ]
+  },
+  {
+    "id": "werfel-2014",
+    "title": "Designing Collective Behavior in a Termite-Inspired Robot Construction Team",
+    "shortTitle": "TERMES",
+    "authors": "Justin Werfel, Kirstin Petersen, Radhika Nagpal",
+    "year": 2014,
+    "publishedAt": null,
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://ssr.princeton.edu/publications/designing-collective-behavior-termite-inspired-robot-construction-team",
+    "venue": "Science 343(6172), 754–758",
+    "kind": "algorithm",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "TERMES, istenen yapıdan yerel kurallar üretip üç otonom robotun paylaşılan çevre üzerinden koordinasyonuyla inşa gerçekleştirdi.",
+      "en": "TERMES derived local rules from a target structure and demonstrated construction by three autonomous robots coordinating through the shared environment."
+    },
+    "takeaway": {
+      "tr": "Her görev için önkoşul, sahiplik ve bitmiş çıktı sözleşmesi tanımla.",
+      "en": "Define prerequisites, ownership and completion contracts for each task."
+    },
+    "limitation": {
+      "tr": "Robotik kanıt kısıtlı yapı kuralları altında geçerlidir; serbest biçimli kod üretimi aynı garantiyi taşımaz.",
+      "en": "Robotics evidence applies under constrained construction rules; free-form code generation has no equivalent guarantee."
+    },
+    "dossierIds": [
+      "termites"
+    ]
+  },
+  {
+    "id": "bassler-2003",
+    "title": "Vibrio harveyi quorum sensing: a coincidence detector for two autoinducers controls gene expression",
+    "shortTitle": "Quorum signal integration",
+    "authors": "Kenny C. Mok, Ned S. Wingreen, Bonnie L. Bassler",
+    "year": 2003,
+    "publishedAt": null,
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC145445/",
+    "venue": "The EMBO Journal 22(4), 870–881",
+    "kind": "biology",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "V. harveyi, iki otoindükleyici kanalından gelen sinyalleri gen ifadesini düzenleyen devrede birleştirir.",
+      "en": "V. harveyi integrates signals from two autoinducer channels in a circuit regulating gene expression."
+    },
+    "takeaway": {
+      "tr": "Yüksek maliyetli bir adımı tetiklemeden önce birden fazla bağımsız sinyali bir araya getir.",
+      "en": "Combine multiple independent signals before triggering an expensive action."
+    },
+    "limitation": {
+      "tr": "Kimyasal yoğunluk doğrudan güven puanı değildir; kopyalanmış agent raporları bağımsız kanıt sayılmaz.",
+      "en": "Chemical concentration is not a confidence score; copied agent reports are not independent evidence."
+    },
+    "dossierIds": [
+      "bacteria"
+    ]
+  },
+  {
+    "id": "sarfati-2021",
+    "title": "Self-organization in natural swarms of Photinus carolinus synchronous fireflies",
+    "shortTitle": "Firefly synchrony",
+    "authors": "Raphaël Sarfati, Julie C. Hayes, Orit Peleg",
+    "year": 2021,
+    "publishedAt": "2021-07-07",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8262802/",
+    "venue": "Science Advances 7(28), eabg9259",
+    "kind": "biology",
+    "format": "journal",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Doğal Photinus carolinus sürülerinde flaş kümeleri, bitki örtüsünün biçimlendirdiği ortamda yerel aktarım benzeri yayılım gösterdi.",
+      "en": "Flash bursts in natural Photinus carolinus swarms propagated in a relay-like process shaped by vegetation."
+    },
+    "takeaway": {
+      "tr": "Yerel kontrol noktalarıyla ilerlemeyi eşleştir; bütün sistemi en yavaş agente bağlama.",
+      "en": "Align progress through local checkpoints without coupling the entire system to its slowest agent."
+    },
+    "limitation": {
+      "tr": "Gözlenen flaş örüntüsü, dağıtık yazılımda küresel saat veya hata toleransı protokolü sağlamaz.",
+      "en": "The observed flash pattern does not provide a global clock or fault-tolerance protocol for distributed software."
+    },
+    "dossierIds": [
+      "fireflies"
+    ]
+  },
+  {
+    "id": "debate-2023",
+    "title": "Improving Factuality and Reasoning in Language Models through Multiagent Debate",
+    "shortTitle": "Multiagent debate",
+    "authors": "Yilun Du, Shuang Li, Antonio Torralba, Joshua B. Tenenbaum, Igor Mordatch",
+    "year": 2023,
+    "publishedAt": "2023-05-23",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2305.14325",
+    "venue": "arXiv:2305.14325",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Çalışma, birden fazla model örneğinin yanıtlarını turlar boyunca tartışmasını inceler ve belirli görevlerde kazanım bildirir.",
+      "en": "The study examines model instances debating answers over rounds and reports gains on selected tasks."
+    },
+    "takeaway": {
+      "tr": "İlk önerileri birbirinden bağımsız üret; sonra yalnızca gerekçe ve karşı kanıtı karşılaştır.",
+      "en": "Generate initial proposals independently, then compare rationale and counterevidence."
+    },
+    "limitation": {
+      "tr": "Tartışma maliyetini ve ortak yanlış varsayımları ayrıca ölç; sonuçları tüm görev türlerine genelleme.",
+      "en": "Measure debate cost and shared false assumptions; do not extrapolate to every task class."
+    },
+    "dossierIds": [
+      "bees",
+      "fish"
+    ]
+  },
+  {
+    "id": "metagpt-2023",
+    "title": "MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework",
+    "shortTitle": "MetaGPT",
+    "authors": "Sirui Hong et al.",
+    "year": 2023,
+    "publishedAt": "2023-08-01",
+    "revisedAt": "2024-11-01",
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2308.00352v7",
+    "venue": "arXiv:2308.00352v7 · ICLR 2024",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "MetaGPT, standart iş akışlarını ve farklı uzmanlık rollerini ara çıktıların doğrulandığı bir yazılım üretim hattında birleştirir.",
+      "en": "MetaGPT combines standardized workflows and specialist roles in a software production pipeline with intermediate verification."
+    },
+    "takeaway": {
+      "tr": "Görev devrini serbest sohbetten ziyade kontrol edilebilir ara ürün sözleşmesine bağla.",
+      "en": "Tie handoffs to inspectable intermediate artifacts and contracts."
+    },
+    "limitation": {
+      "tr": "Standartlaştırma tek başına doğruluk kanıtı değildir; entegrasyon ve test başarısını ayrı değerlendir.",
+      "en": "Standardization alone is not correctness; evaluate integration and test outcomes separately."
+    },
+    "dossierIds": [
+      "termites"
+    ]
+  },
+  {
+    "id": "autogen-2023",
+    "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+    "shortTitle": "AutoGen",
+    "authors": "Qingyun Wu et al.",
+    "year": 2023,
+    "publishedAt": "2023-08-16",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2308.08155",
+    "venue": "arXiv:2308.08155 · COLM 2024",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "AutoGen; model, araç ve insan girdilerini özelleştirilebilir agent konuşma örüntülerinde birleştiren bir çerçeve sunar.",
+      "en": "AutoGen combines models, tools and human input in customizable agent conversation patterns."
+    },
+    "takeaway": {
+      "tr": "Mesaj şemasını, tur sınırını ve görev bitişini kullanacağın çatıdan bağımsız tanımla.",
+      "en": "Specify message schemas, round limits and completion independently of the framework."
+    },
+    "limitation": {
+      "tr": "Bir çerçevenin yetenekleri, belirli bir sürü topolojisinin daha iyi olduğunu kanıtlamaz.",
+      "en": "A framework's capabilities do not establish superiority of a particular swarm topology."
+    },
+    "dossierIds": [
+      "termites",
+      "fireflies"
+    ]
+  },
+  {
+    "id": "moa-2024",
+    "title": "Mixture-of-Agents Enhances Large Language Model Capabilities",
+    "shortTitle": "Mixture-of-Agents",
+    "authors": "Junlin Wang, Jue Wang, Ben Athiwaratkun, Ce Zhang, James Zou",
+    "year": 2024,
+    "publishedAt": "2024-06-07",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2406.04692",
+    "venue": "arXiv:2406.04692 · ICLR 2025",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Katmanlı yapı, önceki katmandaki model çıktılarından sonraki yanıtları üretir; yazarlar seçili değerlendirmelerde iyileşme bildirir.",
+      "en": "A layered architecture uses previous-layer outputs to produce subsequent responses; authors report improvements on selected evaluations."
+    },
+    "takeaway": {
+      "tr": "Öneri çeşitliliğini koruyan üreticileri, kanıtı birleştiren sentez rolünden ayır.",
+      "en": "Separate diverse proposers from the role that synthesizes evidence."
+    },
+    "limitation": {
+      "tr": "Yanıt değerlendirmesi, araç kullanan uzun görevlerde aynı kazancın elde edileceğini göstermez.",
+      "en": "Response evaluation does not establish equivalent gains in long-horizon tool-using tasks."
+    },
+    "dossierIds": [
+      "bees",
+      "fish"
+    ]
+  },
+  {
+    "id": "agentless-2024",
+    "title": "Agentless: Demystifying LLM-based Software Engineering Agents",
+    "shortTitle": "Agentless",
+    "authors": "Chunqiu Steven Xia, Yinlin Deng, Soren Dunn, Lingming Zhang",
+    "year": 2024,
+    "publishedAt": "2024-07-01",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2407.01489",
+    "venue": "arXiv:2407.01489",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Agentless, yazılım sorunlarını yer belirleme, onarım ve yama doğrulama adımlarına ayıran sade bir yaklaşımı değerlendirir.",
+      "en": "Agentless evaluates a simple approach split into localization, repair and patch validation."
+    },
+    "takeaway": {
+      "tr": "Sürüyü değerlendirirken sade, sabit bir iş akışını da karşılaştırmaya ekle.",
+      "en": "Include a simple fixed workflow when evaluating a swarm."
+    },
+    "limitation": {
+      "tr": "2024 benchmark ve model koşulları güncel ürün sıralaması değildir.",
+      "en": "The 2024 benchmark and model conditions are not a current product ranking."
+    },
+    "dossierIds": [
+      "termites"
+    ]
+  },
+  {
+    "id": "mast-2025",
+    "title": "Why Do Multi-Agent LLM Systems Fail?",
+    "shortTitle": "MAST",
+    "authors": "Mert Cemri et al.",
+    "year": 2025,
+    "publishedAt": "2025-03-17",
+    "revisedAt": "2025-10-26",
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2503.13657v3",
+    "venue": "arXiv:2503.13657v3",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "v3, 1.600'den fazla iz içeren veri kümesini ve tasarım, agent uyumsuzluğu, doğrulama altında gruplanan 14 hata türünü sunar.",
+      "en": "Version 3 presents a dataset of over 1,600 traces and 14 failure modes grouped into design, inter-agent misalignment and verification."
+    },
+    "takeaway": {
+      "tr": "Her deneyde sonucun yanında yanlış görev, bozuk devir ve erken bitiş gibi hata nedenlerini kaydet.",
+      "en": "Log failure causes such as wrong tasks, broken handoffs and premature termination alongside outcomes."
+    },
+    "limitation": {
+      "tr": "Taksonomi kapsamlı bir başlangıçtır; tüm sistemlerde bütün hataları kapsadığı iddia edilmez.",
+      "en": "The taxonomy is a substantial starting point, not a claim to cover every failure in all systems."
+    },
+    "dossierIds": [
+      "ants",
+      "bees",
+      "termites",
+      "bacteria"
+    ]
+  },
+  {
+    "id": "swarmsys-2025",
+    "title": "SwarmSys: Decentralized Swarm-Inspired Agents for Scalable and Adaptive Reasoning",
+    "shortTitle": "SwarmSys",
+    "authors": "Ruohao Li et al.",
+    "year": 2025,
+    "publishedAt": "2025-10-11",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2510.10047v1",
+    "venue": "arXiv:2510.10047v1",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "SwarmSys; keşif, işçi ve doğrulayıcı rollerini uyarlanan eşleştirme ve feromon esinli güçlendirme mekanizmasıyla birleştirir.",
+      "en": "SwarmSys combines explorer, worker and validator roles with adaptive matching and pheromone-inspired reinforcement."
+    },
+    "takeaway": {
+      "tr": "İz gücünü agentın kendi güven beyanına değil, doğrulanmış iş sonucuna bağla.",
+      "en": "Tie trail strength to verified task outcomes rather than an agent's self-reported confidence."
+    },
+    "limitation": {
+      "tr": "Ön baskıdaki sonuçlar yazarların deneylerine aittir; bu uygulamada yeniden üretilmiş performans yoktur.",
+      "en": "Preprint results belong to the authors' experiments; this app has not reproduced that performance."
+    },
+    "dossierIds": [
+      "ants",
+      "physarum"
+    ]
+  },
+  {
+    "id": "scaling-2025",
+    "title": "Towards a Science of Scaling Agent Systems",
+    "shortTitle": "Scaling agent systems",
+    "authors": "Yubin Kim et al.",
+    "year": 2025,
+    "publishedAt": "2025-12-09",
+    "revisedAt": "2026-04-08",
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2512.08296v3",
+    "venue": "arXiv:2512.08296v3",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "v3, altı benchmarkta 260 yapılandırmayı karşılaştırır; koordinasyonun yararı görev yapısına ve iletişim maliyetine bağlıdır.",
+      "en": "Version 3 compares 260 configurations across six benchmarks; coordination benefits depend on task structure and communication overhead."
+    },
+    "takeaway": {
+      "tr": "Tek agent, bağımsız paralel ve koordine sürüyü eşit toplam bütçeyle karşılaştır.",
+      "en": "Compare single-agent, independent parallel and coordinated teams at the same aggregate budget."
+    },
+    "limitation": {
+      "tr": "Makale sürümleri sayıları değiştiriyor; burada v3 temel alındı. Bulgular evrensel ölçekleme yasası değildir.",
+      "en": "Reported counts changed between versions; this entry uses v3. Findings are not a universal scaling law."
+    },
+    "dossierIds": [
+      "bees",
+      "starlings",
+      "fish",
+      "bacteria"
+    ]
+  },
+  {
+    "id": "meta-team-2026",
+    "title": "Evolve as a Team: Collaborative Self-Evolution for LLM-based Multi-Agent Systems",
+    "shortTitle": "Meta-Team",
+    "authors": "Zhezheng Hao et al.",
+    "year": 2026,
+    "publishedAt": "2026-05-28",
+    "revisedAt": null,
+    "reviewedAt": "2026-09-06",
+    "url": "https://arxiv.org/abs/2605.29790v1",
+    "venue": "arXiv:2605.29790v1",
+    "kind": "agents",
+    "format": "arxiv",
+    "depth": "abstract",
+    "finding": {
+      "tr": "Meta-Team, yürütme bağlamını koruyup görev sonrası iletişimle agent davranışını, koordinasyonu ve takım düzenini geliştirmeyi önerir.",
+      "en": "Meta-Team preserves execution context and uses post-task communication to improve agent behavior, coordination and team organization."
+    },
+    "takeaway": {
+      "tr": "Geriye dönük değerlendirmeyi bir sonraki sürümde sınanacak küçük protokol değişikliklerine çevir.",
+      "en": "Turn retrospectives into small protocol changes to evaluate in the next version."
+    },
+    "limitation": {
+      "tr": "2026 ön baskısı; görevden öğrenme ile test verisine uyum göstermeyi ayrı ölçmek gerekir.",
+      "en": "A 2026 preprint; distinguish learning from execution from adaptation to test data."
+    },
+    "dossierIds": [
+      "physarum",
+      "fireflies"
+    ]
+  }
+]

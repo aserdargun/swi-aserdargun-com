@@ -1,5 +1,9 @@
 # Roadmap
 
+> Revision 02 (2026-09-06): [current implementation and boundaries](revision-02.md).
+> The planning sections below retain the original foundation direction;
+> simulation, ingestion and future database proposals are not shipped features.
+
 ## Phase 0 — Foundation
 
 Define the product thesis, architecture, taxonomy, evidence rules, experiment

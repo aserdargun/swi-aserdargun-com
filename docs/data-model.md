@@ -1,5 +1,9 @@
 # Data model
 
+> Revision 02 (2026-09-06): [current implementation and boundaries](revision-02.md).
+> The planning sections below retain the original foundation direction;
+> simulation, ingestion and future database proposals are not shipped features.
+
 ## Conventions
 
 - IDs and slugs are immutable lowercase kebab-case strings.

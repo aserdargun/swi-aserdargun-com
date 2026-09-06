@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useSyncExternalStore } from 'react'
+import { Fragment, useEffect, useSyncExternalStore } from 'react'
 import { usePathname } from 'next/navigation'
 import { getCopy } from '@/i18n/copy'
 import { localizedPath, locales, type Locale } from '@/i18n/locales'
@@ -21,6 +21,7 @@ function currentPath() {
 
 export function LocaleSwitcher({ locale }: Readonly<{ locale: Locale }>) {
   const pathname = usePathname()
+  useEffect(() => { window.dispatchEvent(new Event('swi:locationchange')) }, [pathname])
   const path = useSyncExternalStore(subscribe, currentPath, () => pathname ?? `/${locale}/`)
   return (
     <nav className="locale-switcher" aria-label={getCopy(locale).navigation.language}>
