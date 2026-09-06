@@ -156,6 +156,58 @@ describe('catalog parsing and indexes', () => {
     expect(() => parseCatalog(raw)).toThrow(/at least one claim id/i)
   })
 
+  it('rejects an evidence relationship backed only by an unsourced hypothesis', () => {
+    const raw = makeValidRawCatalog()
+    raw.claims[0]!.kind = 'hypothesis'
+    raw.claims[0]!.evidenceIds = []
+    raw.evidence = []
+
+    expect(() => parseCatalog(raw)).toThrow(/relationship.*directly supported evidence claim/i)
+  })
+
+  it.each(['contextualizes', 'challenges'] as const)(
+    'rejects an evidence relationship whose evidence only %s its claim',
+    (relation) => {
+      const raw = makeValidRawCatalog()
+      raw.evidence[0]!.relation = relation
+
+      expect(() => parseCatalog(raw)).toThrow(/relationship.*directly supported evidence claim/i)
+    },
+  )
+
+  it('rejects a sourced synthesis claim labelled as a direct evidence relationship', () => {
+    const raw = makeValidRawCatalog()
+    raw.claims[0]!.kind = 'synthesis'
+
+    expect(() => parseCatalog(raw)).toThrow(/relationship.*directly supported evidence claim/i)
+  })
+
+  it('rejects a synthesis relationship whose claims have no evidence', () => {
+    const raw = makeValidRawCatalog()
+    raw.relationships[0]!.status = 'synthesis'
+    raw.claims[0]!.kind = 'synthesis'
+    raw.claims[0]!.evidenceIds = []
+    raw.evidence = []
+
+    expect(() => parseCatalog(raw)).toThrow(/relationship.*sourced evidence/i)
+  })
+
+  it('accepts synthesis using contextual source evidence and mixed claim kinds', () => {
+    const raw = makeValidRawCatalog()
+    raw.relationships[0]!.status = 'synthesis'
+    raw.claims[0]!.kind = 'synthesis'
+    raw.evidence[0]!.relation = 'contextualizes'
+    raw.claims.push({
+      ...raw.claims[0]!,
+      id: 'proposed-extension',
+      kind: 'hypothesis',
+      evidenceIds: [],
+    })
+    raw.relationships[0]!.claimIds.push('proposed-extension')
+
+    expect(() => parseCatalog(raw)).not.toThrow()
+  })
+
   it('indexes outgoing and incoming edges', () => {
     const catalog = parseCatalog(makeValidRawCatalog())
 

@@ -171,4 +171,27 @@ export function validateCatalogReferences(catalog: RawCatalog): void {
     assertReferencesExist('Evidence', evidence.id, [evidence.claimId], claimsById, 'claim')
     assertReferencesExist('Evidence', evidence.id, [evidence.sourceId], sourcesById, 'source')
   }
+
+  // Resolve support only after validating the claim/evidence/source links above.
+  for (const relationship of catalog.relationships) {
+    const claims = relationship.claimIds.map((id) => claimsById.get(id)!)
+    if (relationship.status === 'evidence') {
+      for (const claim of claims) {
+        const hasDirectSupport = claim.evidenceIds.some(
+          (id) => evidenceById.get(id)!.relation === 'supports',
+        )
+        if (claim.kind !== 'evidence' || !hasDirectSupport) {
+          throw new Error(
+            `Relationship ${relationship.id} requires a directly supported evidence claim: ${claim.id}`,
+          )
+        }
+      }
+    }
+    if (
+      relationship.status === 'synthesis' &&
+      !claims.some((claim) => claim.evidenceIds.length > 0)
+    ) {
+      throw new Error(`Relationship ${relationship.id} requires sourced evidence through its claims`)
+    }
+  }
 }
