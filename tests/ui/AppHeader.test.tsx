@@ -23,7 +23,18 @@ afterEach(() => {
 })
 
 describe('localized application shell', () => {
-  it.each([['en', 'Open navigation', 'Close navigation'], ['tr', 'Gezinmeyi aç', 'Gezinmeyi kapat']] as const)(
+  it.each([
+    ['en', 'Menu', false], ['en', 'Menu', true],
+    ['tr', 'Menü', false], ['tr', 'Menü', true],
+  ] as const)('keeps %s visible label "%s" in the accessible name (open=%s)', async (locale, visibleLabel, open) => {
+    const user = userEvent.setup()
+    shell(locale)
+    const trigger = screen.getByText(visibleLabel).closest('button')!
+    if (open) await user.click(trigger)
+    expect(trigger).toHaveAccessibleName(new RegExp(visibleLabel))
+  })
+
+  it.each([['en', 'Menu: Open navigation', 'Menu: Close navigation'], ['tr', 'Menü: Gezinmeyi aç', 'Menü: Gezinmeyi kapat']] as const)(
     'exposes %s menu state and restores focus on close', async (locale, openLabel, closeLabel) => {
       const user = userEvent.setup()
       shell(locale)
@@ -50,9 +61,9 @@ describe('localized application shell', () => {
     const user = userEvent.setup()
     document.body.style.overflow = 'clip'
     const view = shell()
-    await user.click(screen.getByRole('button', { name: 'Open navigation' }))
+    await user.click(screen.getByRole('button', { name: 'Menu: Open navigation' }))
     const links = within(screen.getByRole('dialog')).getAllByRole('link')
-    const close = screen.getByRole('button', { name: 'Close navigation' })
+    const close = screen.getByRole('button', { name: 'Menu: Close navigation' })
     await user.keyboard('{Shift>}{Tab}{/Shift}')
     expect(close).toHaveFocus()
     await user.keyboard('{Shift>}{Tab}{/Shift}')
