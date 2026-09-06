@@ -17,6 +17,7 @@ import { notFound } from 'next/navigation'
 import { isLocale, locales } from '@/i18n/locales'
 import { AppHeader } from '@/ui/AppHeader'
 import { AppFooter } from '@/ui/AppFooter'
+import { LocalePreference } from '@/ui/LocalePreference'
 
 export const dynamicParams = false
 
@@ -46,7 +47,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body><AppHeader locale={locale} />{children}<AppFooter locale={locale} /></body>
+      <body><LocalePreference locale={locale} /><AppHeader locale={locale} />{children}<AppFooter locale={locale} /></body>
     </html>
   )
 }

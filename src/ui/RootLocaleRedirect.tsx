@@ -1,16 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
-
-const localeStorageKey = 'swi-locale'
+import { readPreferredLocale } from '@/i18n/locale-preference'
 
 export function RootLocaleRedirect() {
   useEffect(() => {
-    const locale = window.localStorage.getItem(localeStorageKey)
-
-    if (locale === 'en' || locale === 'tr') {
-      location.replace('/' + locale + '/')
-    }
+    const locale = readPreferredLocale()
+    window.location.replace(`/${locale}/${window.location.search}${window.location.hash}`)
   }, [])
 
   return null

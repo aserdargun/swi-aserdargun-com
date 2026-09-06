@@ -65,6 +65,13 @@ This pattern scan is a limited safeguard, not a proof that every possible
 credential is absent. Browser checks exercise bilingual traversal, evidence,
 search, graph/list links, mobile overflow/navigation, and accessibility.
 
+The root entry uses the last visited language (`swi-locale`), then the browser's
+first supported Turkish/English language, falling back to English. Language
+changes are remembered when the destination loads; blocked storage never blocks
+navigation. A styled, keyboard-accessible language chooser remains available
+without JavaScript. Entry tests cover mobile/desktop layouts, remembered and
+invalid preferences, blocked storage, and missing application scripts.
+
 Local validation does not publish the application. GitHub, Azure, DNS and
 root-portfolio integration require separate authorization.
 

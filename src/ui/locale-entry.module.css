@@ -1,0 +1,50 @@
+.entry {
+  display: grid;
+  align-items: center;
+  padding-block: clamp(32px, 8vh, 96px);
+}
+
+.card {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+  border-block: 1px solid var(--rule);
+  padding-block: clamp(32px, 6vw, 64px);
+}
+
+.wordmark {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
+
+.wordmark span {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--muted-ink);
+}
+
+.title {
+  font-size: clamp(40px, 7vw, 72px);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.description {
+  display: grid;
+  gap: 8px;
+  margin-block: 24px 32px;
+  color: var(--muted-ink);
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.choices a { min-width: 144px; }
+
+@media (max-width: 479px) {
+  .choices { flex-direction: column; }
+}
