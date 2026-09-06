@@ -1,13 +1,22 @@
-import '@fontsource/ibm-plex-mono/400.css'
-import '@fontsource/manrope/400.css'
-import '@fontsource/manrope/700.css'
-import '@fontsource/source-serif-4/400.css'
+import '@fontsource/inter/latin-400.css'
+import '@fontsource/inter/latin-ext-400.css'
+import '@fontsource/inter/latin-500.css'
+import '@fontsource/inter/latin-ext-500.css'
+import '@fontsource/inter/latin-600.css'
+import '@fontsource/inter/latin-ext-600.css'
+import '@fontsource/inter/latin-700.css'
+import '@fontsource/inter/latin-ext-700.css'
+import '@fontsource/source-serif-4/latin-400.css'
+import '@fontsource/source-serif-4/latin-ext-400.css'
+import '../globals.css'
 
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { notFound } from 'next/navigation'
 
 import { isLocale, locales } from '@/i18n/locales'
+import { AppHeader } from '@/ui/AppHeader'
+import { AppFooter } from '@/ui/AppFooter'
 
 export const dynamicParams = false
 
@@ -36,7 +45,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>{children}</body>
+      <body><AppHeader locale={locale} />{children}<AppFooter locale={locale} /></body>
     </html>
   )
 }

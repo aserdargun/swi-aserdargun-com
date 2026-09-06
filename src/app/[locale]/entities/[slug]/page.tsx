@@ -51,7 +51,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
   const ui = getCopy(locale)
 
   return (
-    <main>
+    <main id="main-content" className="container page-content" tabIndex={-1}>
       <Link href={`/${locale}/`}>{ui.entity.backToExplore}</Link>
       <h1>{entity.title[locale]}</h1>
       <p>{entity.summary[locale]}</p>

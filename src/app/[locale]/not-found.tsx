@@ -10,7 +10,7 @@ export function LocalizedNotFoundContent({ locale }: Readonly<{ locale: Locale }
   const ui = getCopy(locale)
 
   return (
-    <main>
+    <main id="main-content" className="container page-content" tabIndex={-1}>
       <h1>{ui.notFound.title}</h1>
       <p>{ui.notFound.summary}</p>
       <Link href={`/${locale}/`}>{ui.notFound.action}</Link>

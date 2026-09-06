@@ -12,7 +12,11 @@ export interface UiCopy {
     readonly openMenu: string
     readonly closeMenu: string
     readonly language: string
+    readonly primary: string
+    readonly menu: string
+    readonly skipToContent: string
   }
+  readonly theme: { readonly light: string; readonly dark: string }
   readonly search: {
     readonly label: string
     readonly placeholder: string
@@ -84,7 +88,11 @@ export const copy: Record<Locale, UiCopy> = {
       openMenu: 'Open navigation',
       closeMenu: 'Close navigation',
       language: 'Language',
+      primary: 'Primary navigation',
+      menu: 'Menu',
+      skipToContent: 'Skip to content',
     },
+    theme: { light: 'Use light theme', dark: 'Use dark theme' },
     search: {
       label: 'Search the research catalog',
       placeholder: 'Search entities, claims, and sources',
@@ -154,7 +162,11 @@ export const copy: Record<Locale, UiCopy> = {
       openMenu: 'Gezinmeyi aç',
       closeMenu: 'Gezinmeyi kapat',
       language: 'Dil',
+      primary: 'Ana gezinme',
+      menu: 'Menü',
+      skipToContent: 'İçeriğe geç',
     },
+    theme: { light: 'Açık temayı kullan', dark: 'Koyu temayı kullan' },
     search: {
       label: 'Araştırma kataloğunda ara',
       placeholder: 'Varlıkları, iddiaları ve kaynakları ara',
