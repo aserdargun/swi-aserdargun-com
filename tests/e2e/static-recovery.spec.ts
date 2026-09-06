@@ -118,7 +118,7 @@ test.describe('exported unknown-route recovery', () => {
 
       expect(response?.status()).toBe(404)
       await expect(page.locator('html')).toHaveAttribute('lang', language)
-      await expect(page).toHaveTitle(`${heading} — SWI`)
+      await expect(page).toHaveTitle(`${heading} - SWI`)
       await expect(page.locator('head title')).toHaveCount(1)
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(heading)
       await expect(page.getByText(summary, { exact: true })).toBeVisible()

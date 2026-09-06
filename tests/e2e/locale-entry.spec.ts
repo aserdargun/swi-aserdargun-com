@@ -67,7 +67,7 @@ test('without JavaScript the styled language choices remain accessible on mobile
     for (const width of [320, 390, 1440]) {
       await page.setViewportSize({ width, height: 900 })
       await page.goto('/')
-      await expect(page).toHaveTitle('SWI — Swarm Intelligence')
+      await expect(page).toHaveTitle('SWI - Swarm Intelligence')
       await expect(page.getByRole('heading', { level: 1 })).toHaveText('Swarm Intelligence')
       await expect(page.locator('body')).toHaveCSS('margin', '0px')
       await expect(page.locator('html')).toHaveCSS('background-color', 'rgb(247, 248, 243)')

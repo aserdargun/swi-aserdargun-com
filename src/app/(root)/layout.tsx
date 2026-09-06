@@ -15,7 +15,7 @@ import type { ReactNode } from 'react'
 
 export const metadata: Metadata = {
   icons: { icon: '/favicon.svg' },
-  title: 'SWI — Swarm Intelligence',
+  title: 'SWI - Swarm Intelligence',
   description:
     'A bilingual research instrument for studying collective intelligence.',
 }
