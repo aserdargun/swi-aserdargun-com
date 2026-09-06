@@ -182,6 +182,18 @@ export const RelationshipSchema = z
     reviewedAt: IsoDateSchema,
   })
   .strict()
+  .superRefine((relationship, context) => {
+    if (
+      (relationship.status === 'evidence' || relationship.status === 'synthesis') &&
+      relationship.claimIds.length === 0
+    ) {
+      context.addIssue({
+        code: 'custom',
+        path: ['claimIds'],
+        message: 'Evidence and synthesis relationships require at least one claim id',
+      })
+    }
+  })
 
 export const SourceAccessSchema = z.enum(['available', 'unavailable', 'superseded'])
 

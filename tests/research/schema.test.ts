@@ -5,6 +5,7 @@ import {
   EntitySchema,
   LocaleTextSchema,
   RawCatalogSchema,
+  RelationshipSchema,
   SourceSchema,
 } from '@/research/schema'
 
@@ -151,6 +152,27 @@ describe('research record schemas', () => {
       evidenceIds: [],
       reviewedAt: '2026-09-06',
     })).toThrow()
+  })
+
+  it.each(['evidence', 'synthesis'] as const)(
+    'rejects a %s relationship with no claim ids',
+    (status) => {
+      expect(() => RelationshipSchema.parse({
+        ...validCatalog.relationships[0]!,
+        status,
+        claimIds: [],
+      })).toThrow()
+    },
+  )
+
+  it('allows a hypothesis relationship with no claim ids', () => {
+    const relationship = RelationshipSchema.parse({
+      ...validCatalog.relationships[0]!,
+      status: 'hypothesis',
+      claimIds: [],
+    })
+
+    expect(relationship.claimIds).toEqual([])
   })
 
   it.each([
