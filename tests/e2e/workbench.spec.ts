@@ -6,6 +6,29 @@ test.beforeEach(async({page})=>{
   page.on('pageerror',error=>{throw error})
 })
 
+test('recipe controls wait for scripts before accepting configuration',async({page})=>{
+  let releaseScripts:()=>void=()=>{}
+  const scriptsReady=new Promise<void>(resolve=>{releaseScripts=resolve})
+  await page.route('**/_next/**/*.js',async route=>{await scriptsReady;await route.continue()})
+  try {
+    await page.goto('/tr/recipes/bees/',{waitUntil:'commit'})
+    await expect(page.getByRole('heading',{level:1})).toBeVisible()
+    await expect(page.getByRole('textbox',{name:'Görevin',exact:true})).toBeDisabled()
+    await expect(page.getByRole('spinbutton',{name:'Agent sayısı',exact:true})).toBeDisabled()
+    await expect(page.getByRole('button',{name:'Görev paketini hazırla',exact:true})).toBeDisabled()
+    await expect(page.getByRole('button',{name:'JSON indir',exact:true})).toBeDisabled()
+    releaseScripts()
+    await page.getByRole('textbox',{name:'Görevin',exact:true}).fill('Üç mimariyi bağımsız kanıtlarla karşılaştır ve eksikleri raporla.')
+    await page.getByRole('spinbutton',{name:'Agent sayısı',exact:true}).fill('9')
+    await page.getByRole('spinbutton',{name:/Toplam token bütçesi/}).fill('18007')
+    await page.getByRole('button',{name:'Görev paketini hazırla',exact:true}).click()
+    await page.getByRole('button',{name:'JSON',exact:true}).click()
+    const preview=JSON.parse(await page.locator('.wb-code').innerText())
+    expect(preview.agents).toHaveLength(9)
+    expect(preview.budget.aggregateTokenLimit).toBe(18007)
+  } finally { releaseScripts() }
+})
+
 test('a biology path produces the configured portable package and an agenda experiment',async({page})=>{
   await page.goto('/tr/atlas/')
   await page.getByRole('searchbox',{name:'Mekanizma veya problem ara'}).fill('arı')
