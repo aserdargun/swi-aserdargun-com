@@ -1,0 +1,101 @@
+[
+  {
+    "id": "evidence-ant-trails",
+    "claimId": "claim-ant-stigmergy",
+    "sourceId": "source-goss-1989",
+    "relation": "supports",
+    "locator": "pp. 579–580, bridge experiment and choice-and-mark model. Reviewed author-uploaded original: https://www.researchgate.net/publication/215444190_Self-organized_shortcuts_in_the_Argentine_Ant_Naturwissenschaften_76_579-581",
+    "note": {
+      "tr": "Arjantin karıncasının köprü deneyine özgüdür; bütün karıncalara veya her zaman en kısa yola genellenmez.",
+      "en": "Specific to the Argentine-ant bridge experiment; not generalized to all ants or guaranteed shortest paths."
+    }
+  },
+  {
+    "id": "evidence-ant-stigmergy-definition",
+    "claimId": "claim-ant-stigmergy",
+    "sourceId": "source-theraulaz-bonabeau-1999",
+    "relation": "supports",
+    "locator": "Section 4, p. 111. Reviewed original PDF: https://static.ias.edu/pitp/archive/2012files/29.pdf#page=15",
+    "note": {
+      "tr": "Feromon izleri çevresel geri bildirim örneğidir.",
+      "en": "Pheromone trails exemplify environmental feedback."
+    }
+  },
+  {
+    "id": "evidence-stigmergy-definition",
+    "claimId": "claim-stigmergy-definition",
+    "sourceId": "source-theraulaz-bonabeau-1999",
+    "relation": "supports",
+    "locator": "Section 4, p. 111. Reviewed original PDF: https://static.ias.edu/pitp/archive/2012files/29.pdf#page=15",
+    "note": {
+      "tr": "Tanım, çevre değişikliklerinin sonraki davranışı etkilemesine dayanır.",
+      "en": "The definition concerns environmental changes influencing subsequent behavior."
+    }
+  },
+  {
+    "id": "evidence-ant-system-formulation",
+    "claimId": "claim-ant-system-formulation",
+    "sourceId": "source-dorigo-maniezzo-colorni-1996",
+    "relation": "supports",
+    "locator": "Sections I–II, equations (1)–(4); reviewed manuscript PDF pp. 2–6: https://jmvidal.cse.sc.edu/library/dorigo96a.pdf#page=2",
+    "note": {
+      "tr": "Ant System formülasyonu; tüm ACO çeşitleri için performans iddiası değildir.",
+      "en": "The Ant System formulation; not a performance claim for every ACO variant."
+    }
+  },
+  {
+    "id": "evidence-stigmergy-aco-principle",
+    "claimId": "claim-stigmergy-aco-synthesis",
+    "sourceId": "source-theraulaz-bonabeau-1999",
+    "relation": "contextualizes",
+    "locator": "Section 4, p. 111. https://static.ias.edu/pitp/archive/2012files/29.pdf#page=15",
+    "note": {
+      "tr": "Kavramsal eşlemenin biyolojik tarafı.",
+      "en": "The biological side of the conceptual mapping."
+    }
+  },
+  {
+    "id": "evidence-stigmergy-aco-formulation",
+    "claimId": "claim-stigmergy-aco-synthesis",
+    "sourceId": "source-dorigo-maniezzo-colorni-1996",
+    "relation": "supports",
+    "locator": "Sections I–II; reviewed manuscript PDF pp. 2–6: https://jmvidal.cse.sc.edu/library/dorigo96a.pdf#page=2",
+    "note": {
+      "tr": "Çalışma karınca davranışından esinlendiğini belirtir; stigmerji eşlemesi SWI yorumudur.",
+      "en": "The paper states its ant-behavior inspiration; the stigmergy mapping is SWI interpretation."
+    }
+  },
+  {
+    "id": "evidence-antnet-coordination",
+    "claimId": "claim-antnet-coordination",
+    "sourceId": "source-di-caro-dorigo-1998",
+    "relation": "supports",
+    "locator": "Publisher abstract, https://jair.org/index.php/jair/article/view/10217",
+    "note": {
+      "tr": "Yayıncı özeti ağ aracılı iletişimi açıkça belirtir; kapsam AntNet'tir.",
+      "en": "The publisher abstract explicitly identifies network-mediated communication; the scope is AntNet."
+    }
+  },
+  {
+    "id": "evidence-coordination-ant-system",
+    "claimId": "claim-aco-coordination-synthesis",
+    "sourceId": "source-dorigo-maniezzo-colorni-1996",
+    "relation": "contextualizes",
+    "locator": "Section II; reviewed manuscript PDF pp. 5–6: https://jmvidal.cse.sc.edu/library/dorigo96a.pdf#page=5",
+    "note": {
+      "tr": "Yapay iz değişkenleri, sentezin optimizasyon örneğini sağlar.",
+      "en": "Artificial trail variables provide the optimization example for the synthesis."
+    }
+  },
+  {
+    "id": "evidence-coordination-antnet",
+    "claimId": "claim-aco-coordination-synthesis",
+    "sourceId": "source-di-caro-dorigo-1998",
+    "relation": "supports",
+    "locator": "Publisher abstract, https://jair.org/index.php/jair/article/view/10217",
+    "note": {
+      "tr": "AntNet karşılaştırmanın yönlendirme örneğidir; modern LLM ajanlarına aktarım test edilmemiştir.",
+      "en": "AntNet supplies the routing example; transfer to modern LLM agents is untested."
+    }
+  }
+]

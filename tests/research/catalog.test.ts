@@ -5,6 +5,30 @@ import { getClaimEvidence, getEntityBySlug, getEntityRelationships } from '@/res
 
 import { makeValidRawCatalog } from './fixtures'
 
+describe('canonical research content', () => {
+  it('contains the complete first chain with evidence-visible edges', async () => {
+    const { catalog } = await import('@/research/raw-content')
+
+    expect(catalog.entities).toHaveLength(4)
+    expect(catalog.relationships).toHaveLength(3)
+    const edges = ['ant', 'stigmergy', 'ant-colony-optimization'].map((id) =>
+      catalog.outgoingByEntityId.get(id)?.[0],
+    )
+    expect(edges.map((edge) => edge?.targetEntityId)).toEqual([
+      'stigmergy',
+      'ant-colony-optimization',
+      'artificial-agent-coordination',
+    ])
+    expect(edges.every((edge) => edge && edge.claimIds.length > 0)).toBe(true)
+    for (const edge of edges) {
+      for (const claimId of edge!.claimIds) {
+        expect(getClaimEvidence(catalog, claimId).length).toBeGreaterThan(0)
+      }
+    }
+    expect(edges[2]?.status).toBe('synthesis')
+  })
+})
+
 describe('catalog parsing and indexes', () => {
   it('rejects duplicate record ids', () => {
     const raw = makeValidRawCatalog()

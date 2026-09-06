@@ -1,0 +1,122 @@
+[
+  {
+    "id": "ant",
+    "slug": "ant",
+    "type": "species",
+    "title": {
+      "tr": "Karınca",
+      "en": "Ant"
+    },
+    "summary": {
+      "tr": "Feromonla besin aramanın biyolojik başlangıç noktası.",
+      "en": "The biological starting point for pheromone-guided foraging."
+    },
+    "description": {
+      "tr": "Bu kayıt karıncaları topluca ele alır; buradaki deneysel kanıt Arjantin karıncasıyla sınırlıdır.",
+      "en": "This entry groups ants collectively; the experimental evidence here is limited to the Argentine ant."
+    },
+    "topicIds": [
+      "nature",
+      "environmental-memory"
+    ],
+    "claimIds": [
+      "claim-ant-stigmergy"
+    ],
+    "status": "current",
+    "createdAt": "2026-09-06",
+    "updatedAt": "2026-09-06",
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "stigmergy",
+    "slug": "stigmergy",
+    "type": "principle",
+    "principleClass": "coordination",
+    "title": {
+      "tr": "Stigmerji",
+      "en": "Stigmergy"
+    },
+    "summary": {
+      "tr": "Çevresel izler üzerinden dolaylı koordinasyon.",
+      "en": "Indirect coordination through environmental traces."
+    },
+    "description": {
+      "tr": "Bırakılan iz, sonraki eylem için yerel bir uyaran olur. Bu ilke bilgi zincirinin biyoloji ile hesaplama arasındaki bağlantısını kurar.",
+      "en": "A deposited trace becomes a local stimulus for subsequent action. This principle connects biology and computation in the knowledge chain."
+    },
+    "topicIds": [
+      "nature",
+      "environmental-memory"
+    ],
+    "claimIds": [
+      "claim-stigmergy-definition",
+      "claim-ant-stigmergy",
+      "claim-stigmergy-aco-synthesis"
+    ],
+    "status": "current",
+    "createdAt": "2026-09-06",
+    "updatedAt": "2026-09-06",
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "ant-colony-optimization",
+    "slug": "ant-colony-optimization",
+    "type": "algorithm",
+    "algorithmFamily": "Ant colony optimization (ACO)",
+    "title": {
+      "tr": "Karınca Kolonisi Optimizasyonu",
+      "en": "Ant Colony Optimization"
+    },
+    "summary": {
+      "tr": "İlk durak: 1996 Ant System formülasyonu.",
+      "en": "First stop: the 1996 Ant System formulation."
+    },
+    "description": {
+      "tr": "ACO burada Ant System üzerinden incelenir. Yapay izler biyolojik feromonun hesaplamalı karşılığıdır; yöntemin bütün çeşitleri bu ilk kaydın kapsamında değildir.",
+      "en": "ACO is examined here through Ant System. Artificial trails are a computational counterpart of biological pheromone; this first entry does not cover every variant."
+    },
+    "topicIds": [
+      "optimization",
+      "environmental-memory"
+    ],
+    "claimIds": [
+      "claim-ant-system-formulation",
+      "claim-stigmergy-aco-synthesis",
+      "claim-aco-coordination-synthesis"
+    ],
+    "status": "current",
+    "createdAt": "2026-09-06",
+    "updatedAt": "2026-09-06",
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "artificial-agent-coordination",
+    "slug": "artificial-agent-coordination",
+    "type": "ai-technique",
+    "coordinationMode": "stigmergic",
+    "title": {
+      "tr": "Yapay Ajan Koordinasyonu",
+      "en": "Artificial-Agent Coordination"
+    },
+    "summary": {
+      "tr": "Ortam aracılı koordinasyon için AntNet örneği.",
+      "en": "AntNet as an example of environment-mediated coordination."
+    },
+    "description": {
+      "tr": "Bu kayıt stigmerjik koordinasyonla sınırlıdır. Modern LLM ajanları için başarı veya doğrudan aktarım iddiası içermez.",
+      "en": "This entry is limited to stigmergic coordination. It makes no claim of success or direct transfer to modern LLM agents."
+    },
+    "topicIds": [
+      "multi-agent-systems",
+      "environmental-memory"
+    ],
+    "claimIds": [
+      "claim-antnet-coordination",
+      "claim-aco-coordination-synthesis"
+    ],
+    "status": "current",
+    "createdAt": "2026-09-06",
+    "updatedAt": "2026-09-06",
+    "reviewedAt": "2026-09-06"
+  }
+]

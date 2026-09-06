@@ -1,0 +1,62 @@
+[
+  {
+    "id": "nature",
+    "slug": "nature",
+    "taxonomyId": "domain",
+    "parentTopicId": null,
+    "title": {
+      "tr": "Doğa",
+      "en": "Nature"
+    },
+    "description": {
+      "tr": "Biyolojik kolektiflerin gözlenmesi.",
+      "en": "Observation of biological collectives."
+    },
+    "order": 0
+  },
+  {
+    "id": "optimization",
+    "slug": "optimization",
+    "taxonomyId": "domain",
+    "parentTopicId": null,
+    "title": {
+      "tr": "Optimizasyon",
+      "en": "Optimization"
+    },
+    "description": {
+      "tr": "Hesaplamalı çözüm arama yöntemleri.",
+      "en": "Computational methods for searching for solutions."
+    },
+    "order": 1
+  },
+  {
+    "id": "multi-agent-systems",
+    "slug": "multi-agent-systems",
+    "taxonomyId": "domain",
+    "parentTopicId": null,
+    "title": {
+      "tr": "Çok ajanlı sistemler",
+      "en": "Multi-agent systems"
+    },
+    "description": {
+      "tr": "Birden çok yapay ajanın etkileşimi.",
+      "en": "Interaction among multiple artificial agents."
+    },
+    "order": 2
+  },
+  {
+    "id": "environmental-memory",
+    "slug": "environmental-memory",
+    "taxonomyId": "mechanism",
+    "parentTopicId": null,
+    "title": {
+      "tr": "Çevresel bellek",
+      "en": "Environmental memory"
+    },
+    "description": {
+      "tr": "Sonraki eylemleri etkileyen çevresel izler.",
+      "en": "Environmental traces influencing subsequent actions."
+    },
+    "order": 0
+  }
+]

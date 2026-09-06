@@ -1,0 +1,104 @@
+[
+  {
+    "id": "claim-ant-stigmergy",
+    "kind": "evidence",
+    "statement": {
+      "tr": "İncelenen Arjantin karıncası besin arama deneyinde feromon izleri yol seçimini çevre üzerinden etkiler; bu, stigmerjik koordinasyon örneğidir.",
+      "en": "In the studied Argentine-ant foraging experiment, pheromone trails influence path choice through the environment, an instance of stigmergic coordination."
+    },
+    "subjectEntityIds": [
+      "ant",
+      "stigmergy"
+    ],
+    "confidence": "high",
+    "evidenceIds": [
+      "evidence-ant-trails",
+      "evidence-ant-stigmergy-definition"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-stigmergy-definition",
+    "kind": "evidence",
+    "statement": {
+      "tr": "Stigmerjide bireylerin çevrede bıraktığı değişiklikler sonraki eylemleri etkileyerek dolaylı koordinasyona aracılık eder.",
+      "en": "In stigmergy, environmental changes left by individuals influence subsequent actions, mediating indirect coordination."
+    },
+    "subjectEntityIds": [
+      "stigmergy"
+    ],
+    "confidence": "high",
+    "evidenceIds": [
+      "evidence-stigmergy-definition"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-ant-system-formulation",
+    "kind": "evidence",
+    "statement": {
+      "tr": "1996 Ant System formülasyonunda yapay karıncalar, kombinatoryal aramada olasılıklı seçimler ve güncellenen ortak iz değerleri kullanır.",
+      "en": "In the 1996 Ant System formulation, artificial ants use probabilistic choices and updated shared trail values in combinatorial search."
+    },
+    "subjectEntityIds": [
+      "ant-colony-optimization"
+    ],
+    "confidence": "high",
+    "evidenceIds": [
+      "evidence-ant-system-formulation"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-stigmergy-aco-synthesis",
+    "kind": "synthesis",
+    "statement": {
+      "tr": "SWI, stigmerjinin çevresel geri bildirim ilkesini Ant System'in yapay izleriyle eşleştirerek ACO'ya uzanan bir esin bağlantısı kurar.",
+      "en": "SWI maps stigmergy's environmental feedback principle to Ant System's artificial trails, forming an inspiration link to ACO."
+    },
+    "subjectEntityIds": [
+      "stigmergy",
+      "ant-colony-optimization"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-stigmergy-aco-principle",
+      "evidence-stigmergy-aco-formulation"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-antnet-coordination",
+    "kind": "evidence",
+    "statement": {
+      "tr": "AntNet'te yapay ajanlar, ağ üzerinden dolaylı ve eşzamansız iletişim kurarak yönlendirme bilgisi paylaşır.",
+      "en": "In AntNet, artificial agents share routing information through indirect, asynchronous communication mediated by the network."
+    },
+    "subjectEntityIds": [
+      "artificial-agent-coordination"
+    ],
+    "confidence": "high",
+    "evidenceIds": [
+      "evidence-antnet-coordination"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-aco-coordination-synthesis",
+    "kind": "synthesis",
+    "statement": {
+      "tr": "SWI, Ant System ve AntNet'i birlikte okuyarak ortak çevresel durumun yapay ajan koordinasyonu için bir tasarım örüntüsü olabileceğini çıkarır.",
+      "en": "Reading Ant System and AntNet together, SWI infers that shared environmental state can serve as a design pattern for artificial-agent coordination."
+    },
+    "subjectEntityIds": [
+      "ant-colony-optimization",
+      "artificial-agent-coordination"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-coordination-ant-system",
+      "evidence-coordination-antnet"
+    ],
+    "reviewedAt": "2026-09-06"
+  }
+]
