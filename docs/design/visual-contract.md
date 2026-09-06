@@ -1,14 +1,15 @@
-# SWI proposed visual contract
+# SWI accepted visual contract
 
 Date: 2026-09-06
-Status: **Proposed — user visual approval pending.**
+Status: **Accepted — all six visual references explicitly approved by the user.**
+Approval date: 2026-09-06
 Scope: Task 1, design only. No application implementation or browser validation is claimed.
 
 The six coordinated concepts express “scientific field station × living topology”.
-They are review references, not accepted production UI. The exact values below
-resolve raster ambiguity into a proposed implementation contract. User approval
-of the six references and these recorded deviations is required before Tasks 7–11
-consume this as an accepted contract.
+They are the accepted design references. The exact values below resolve raster
+ambiguity into the implementation contract, including the recorded accessibility
+and copy corrections. Tasks 7–11 may consume this accepted contract. Visual
+approval does not constitute application implementation or browser validation.
 
 ## References and canvas
 
@@ -43,7 +44,7 @@ aspect ratios. Every final image was opened with view_image at original detail.
 | inverse-ink | #F7F8F3 | Graph labels and primary-button text |
 
 The first seven values are the task brief's verbatim palette. The final four are
-explicit proposed derived tokens, not colors asserted to be sampled exactly from
+explicit derived tokens, not colors asserted to be sampled exactly from
 the raster. Approximate WCAG contrast calculations against canvas: ink 17.01:1,
 evidence 5.52:1, interaction 5.70:1, muted-ink 6.20:1, watch-ink 6.39:1.
 Watch itself is only 2.94:1: pair it with an ink label and a shape, or use watch-ink.
@@ -80,7 +81,7 @@ and self-host without a runtime font CDN.
 
 Fallbacks: Inter, Arial, sans-serif; Source Serif 4, Georgia, serif.
 Use sentence case. Avoid all-caps pretitles. The concept's exact font shapes are
-approximate; these declared families and metrics are the proposed source of truth.
+approximate; these declared families and metrics are the accepted source of truth.
 No body or interface text below 14px. Controls must have deliberate typography.
 Scientific prose stays within 68ch, with a 72ch hard maximum.
 
@@ -97,15 +98,20 @@ brand row 48px, utility row 56px. The utility row holds locale choices and Menu.
 At widths below 1200px primary navigation collapses into Menu; never shrink
 labels or allow the six-link desktop header to overflow.
 
-Home desktop: two-column hero with 56% text and 44% topology field, 48px gap,
-64px top and bottom breathing room. Hero text maximum 720px. Follow with an
+Home desktop: two-column hero with 56:44 fractional tracks for text and topology,
+applied to the space remaining after the 48px gap. Use
+`grid-template-columns: minmax(0, 56fr) minmax(0, 44fr)` with `gap: 48px`;
+do not add a gap to percentage tracks totaling 100%.
+Use 64px top and bottom breathing room. Hero text maximum 720px. Follow with an
 open five-stage band, 32px vertical padding, and the first-chain band.
 At 390px: heading, full-width primary, full-width secondary, static 90px trail
 field, five ordered rows, then first-chain continuation. Use natural page scroll;
 never shrink typography or 44px targets merely to fit the 844px screenshot.
 
-Explore desktop: semantic list approximately 2/3 and preview 1/3, separated by
-32px gap and a single rule. Four seed rows; no filler records to increase density.
+Explore desktop: semantic list and preview use 62:38 fractional tracks applied
+to the space remaining after the 32px gap. Use
+`grid-template-columns: minmax(0, 62fr) minmax(0, 38fr)` with `gap: 32px` and
+a single separating rule. Four seed rows; no filler records to increase density.
 Entity desktop: article and first-chain rail in 8:3 proportions with 40px gap.
 Graph desktop: graph and semantic rail in 7:3 proportions with 24px gap;
 field target height 650px. Horizontal graph fits its bounded frame at first load.
@@ -206,7 +212,7 @@ Graph failure leaves the entire list usable. Color is never the sole identifier.
 
 ## Allowed first-viewport English copy
 
-The following copy is the proposed allowlist; no extra hero eyebrow, badge,
+The following copy is the accepted allowlist; no extra hero eyebrow, badge,
 statistic, marketing subtitle or research claim is allowed.
 
 Shared desktop: SWI / Swarm Intelligence; Home; Explore; Research; Timeline;
@@ -262,11 +268,11 @@ Graph:
 
 EN and TR are parallel locale routes. Locale changes preserve entity and selected
 state. Translate content labels, retain stable IDs and proper algorithm names
-where the glossary requires it. Proposed hero translation:
+where the glossary requires it. Hero translation:
 “Basit ajanların karmaşık kolektif zekâyı nasıl ortaya çıkardığını inceleyin.”
 Primary: “Haritayı keşfet”; secondary: “Yöntemi oku”.
 Five stages: “Doğa → Kolektif davranış → İlkeler → Algoritmalar → Yapay ajanlar”.
-Turkish is not visually approved by an English raster. Validate Turkish line
+The approved English references do not validate Turkish rendering. Validate Turkish line
 lengths separately; no smaller typography or hidden navigation to force parity.
 
 ## Responsive continuation and motion
@@ -282,15 +288,15 @@ Trail animation, if later introduced, is restrained: linear drift with 8s cycle,
 maximum 12px translation, no flashing, no reactive physics implied. Stop while
 hidden. prefers-reduced-motion and mobile default use a static field. General
 interaction transitions: 120ms ease-out; disclosure: no animated height required.
-The proposed references do not authorize simulation controls or an experiment.
+The accepted references do not authorize simulation controls or an experiment.
 
-## Review ledger and explicit proposed deviations
+## Review ledger and explicit implementation corrections
 
-- Approval remains pending. These concepts cannot be called user-approved.
+- All six visual references were explicitly approved by the user on 2026-09-06.
 - Native raster sizes approximate the requested viewports; CSS dimensions above
   govern later checks.
 - Home desktop adds Observe, Measure, Analyze, Synthesize at the next-band edge.
-  These are omitted from the allowlist and proposed implementation.
+  These are omitted from the allowlist and implementation.
 - Explore adds short explanatory role sentences that have not been researched.
   They are omitted from the allowlist pending Task 6 evidence work.
 - Entity uses amber for small text in the raster; use ink/watch-ink for accessible
