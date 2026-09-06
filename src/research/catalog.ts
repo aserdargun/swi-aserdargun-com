@@ -37,16 +37,48 @@ export interface Catalog {
 type IdentifiedRecord = { id: string }
 type SluggedRecord = IdentifiedRecord & { slug: string }
 
+function createReadonlyMap<K, V>(entries: Iterable<readonly [K, V]>): ReadonlyMap<K, V> {
+  const backingMap = new Map<K, V>(entries)
+  const readonlyMap: ReadonlyMap<K, V> = {
+    get size() {
+      return backingMap.size
+    },
+    get(key) {
+      return backingMap.get(key)
+    },
+    has(key) {
+      return backingMap.has(key)
+    },
+    entries() {
+      return backingMap.entries()
+    },
+    keys() {
+      return backingMap.keys()
+    },
+    values() {
+      return backingMap.values()
+    },
+    forEach(callback, thisArg) {
+      backingMap.forEach((value, key) => callback.call(thisArg, value, key, readonlyMap))
+    },
+    [Symbol.iterator]() {
+      return backingMap.entries()
+    },
+  }
+
+  return Object.freeze(readonlyMap)
+}
+
 function sortById<T extends IdentifiedRecord>(records: readonly T[]): readonly T[] {
   return Object.freeze([...records].sort((left, right) => left.id.localeCompare(right.id)))
 }
 
 function mapById<T extends IdentifiedRecord>(records: readonly T[]): ReadonlyMap<string, T> {
-  return new Map(records.map((record) => [record.id, record]))
+  return createReadonlyMap(records.map((record) => [record.id, record] as const))
 }
 
 function mapBySlug<T extends SluggedRecord>(records: readonly T[]): ReadonlyMap<string, T> {
-  return new Map(records.map((record) => [record.slug, record]))
+  return createReadonlyMap(records.map((record) => [record.slug, record] as const))
 }
 
 function mapRelationshipsByEntity(
@@ -63,8 +95,8 @@ function mapRelationshipsByEntity(
     groups.get(entityId(relationship))?.push(relationship)
   }
 
-  return new Map(
-    [...groups.entries()].map(([id, records]) => [id, sortById(records)]),
+  return createReadonlyMap(
+    [...groups.entries()].map(([id, records]) => [id, sortById(records)] as const),
   )
 }
 
@@ -81,8 +113,8 @@ function mapEvidenceByClaim(
     groups.get(record.claimId)?.push(record)
   }
 
-  return new Map(
-    [...groups.entries()].map(([id, records]) => [id, sortById(records)]),
+  return createReadonlyMap(
+    [...groups.entries()].map(([id, records]) => [id, sortById(records)] as const),
   )
 }
 
@@ -100,11 +132,11 @@ function mapClaimsBySource(
     claimIdsBySource.get(record.sourceId)?.add(record.claimId)
   }
 
-  return new Map(
+  return createReadonlyMap(
     [...claimIdsBySource.entries()].map(([sourceId, claimIds]) => [
       sourceId,
       sortById([...claimIds].map((claimId) => claimById.get(claimId)!)),
-    ]),
+    ] as const),
   )
 }
 

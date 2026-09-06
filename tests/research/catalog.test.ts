@@ -13,6 +13,20 @@ describe('catalog parsing and indexes', () => {
     expect(() => parseCatalog(raw)).toThrow(/duplicate.*ant/i)
   })
 
+  it('rejects duplicate entity slugs', () => {
+    const raw = makeValidRawCatalog()
+    raw.entities[1]!.slug = 'ant'
+
+    expect(() => parseCatalog(raw)).toThrow(/duplicate.*slug.*ant/i)
+  })
+
+  it('rejects duplicate ids shared by different record families', () => {
+    const raw = makeValidRawCatalog()
+    raw.sources[0]!.id = 'ant'
+
+    expect(() => parseCatalog(raw)).toThrow(/duplicate.*catalog.*ant/i)
+  })
+
   it('rejects a relationship whose source does not exist', () => {
     const raw = makeValidRawCatalog()
     raw.relationships[0]!.sourceEntityId = 'missing-entity'
@@ -32,6 +46,27 @@ describe('catalog parsing and indexes', () => {
     raw.relationships[0]!.claimIds = ['missing-claim']
 
     expect(() => parseCatalog(raw)).toThrow(/relationship.*missing-claim/i)
+  })
+
+  it('rejects an entity that references an unknown topic', () => {
+    const raw = makeValidRawCatalog()
+    raw.entities[0]!.topicIds = ['missing-topic']
+
+    expect(() => parseCatalog(raw)).toThrow(/entity.*missing-topic/i)
+  })
+
+  it('rejects a claim that references unknown evidence', () => {
+    const raw = makeValidRawCatalog()
+    raw.claims[0]!.evidenceIds = ['missing-evidence']
+
+    expect(() => parseCatalog(raw)).toThrow(/claim.*missing-evidence/i)
+  })
+
+  it('rejects evidence that references an unknown source', () => {
+    const raw = makeValidRawCatalog()
+    raw.evidence[0]!.sourceId = 'missing-source'
+
+    expect(() => parseCatalog(raw)).toThrow(/evidence.*missing-source/i)
   })
 
   it('rejects evidence attached to a different claim', () => {
@@ -63,8 +98,35 @@ describe('catalog parsing and indexes', () => {
     expect(() => parseCatalog(raw)).toThrow(/taxonomy.*cycle/i)
   })
 
+  it('rejects a topic whose parent belongs to another taxonomy', () => {
+    const raw = makeValidRawCatalog()
+    raw.taxonomies.push({
+      id: 'mechanism',
+      title: { tr: 'Mekanizma', en: 'Mechanism' },
+      description: { tr: 'Mekanizma sınıfları.', en: 'Mechanism classifications.' },
+      order: 1,
+    })
+    raw.topics.push({
+      ...raw.topics[0]!,
+      id: 'indirect-coordination',
+      slug: 'indirect-coordination',
+      taxonomyId: 'mechanism',
+      parentTopicId: 'nature',
+    })
+
+    expect(() => parseCatalog(raw)).toThrow(/different taxonomy.*nature/i)
+  })
+
   it('rejects an evidence relationship with no claims', () => {
     const raw = makeValidRawCatalog()
+    raw.relationships[0]!.claimIds = []
+
+    expect(() => parseCatalog(raw)).toThrow(/at least one claim id/i)
+  })
+
+  it('rejects a synthesis relationship with no claims', () => {
+    const raw = makeValidRawCatalog()
+    raw.relationships[0]!.status = 'synthesis'
     raw.relationships[0]!.claimIds = []
 
     expect(() => parseCatalog(raw)).toThrow(/at least one claim id/i)
@@ -83,6 +145,30 @@ describe('catalog parsing and indexes', () => {
     expect(catalog.entityBySlug.get('ant')?.id).toBe('ant')
     expect(catalog.sourceToClaims.get('ant-study')?.map((claim) => claim.id)).toEqual(['ant-local-signals'])
     expect(catalog.claimToEvidence.get('ant-local-signals')?.map((evidence) => evidence.id)).toEqual(['ant-study-evidence'])
+  })
+
+  it('exposes runtime read-only indexes with normal map lookup and iteration semantics', () => {
+    const catalog = parseCatalog(makeValidRawCatalog())
+
+    expect(catalog.entityById.size).toBe(2)
+    expect(catalog.entityById.has('ant')).toBe(true)
+    expect(catalog.entityById.get('ant')?.id).toBe('ant')
+    expect([...catalog.entityById].map(([id]) => id)).toEqual(['ant', 'stigmergy'])
+  })
+
+  it('does not allow hostile runtime map mutators to change indexes', () => {
+    const catalog = parseCatalog(makeValidRawCatalog())
+    const entityIndex = catalog.entityById as unknown as {
+      set: (id: string, entity: (typeof catalog.entities)[number]) => void
+      delete: (id: string) => void
+      clear: () => void
+    }
+
+    expect(() => entityIndex.set('missing-entity', catalog.entities[0]!)).toThrow()
+    expect(() => entityIndex.delete('ant')).toThrow()
+    expect(() => entityIndex.clear()).toThrow()
+    expect(catalog.entityById.size).toBe(2)
+    expect(catalog.entityById.get('ant')?.id).toBe('ant')
   })
 })
 
@@ -103,5 +189,17 @@ describe('catalog selectors', () => {
 
     expect(getEntityRelationships(catalog, 'ant')).toHaveLength(1)
     expect(getClaimEvidence(catalog, 'ant-local-signals')).toHaveLength(1)
+  })
+
+  it('throws for an unknown entity id in a required relationship lookup', () => {
+    const catalog = parseCatalog(makeValidRawCatalog())
+
+    expect(() => getEntityRelationships(catalog, 'missing-entity')).toThrow(/unknown entity id.*missing-entity/i)
+  })
+
+  it('throws for an unknown claim id in a required evidence lookup', () => {
+    const catalog = parseCatalog(makeValidRawCatalog())
+
+    expect(() => getClaimEvidence(catalog, 'missing-claim')).toThrow(/unknown claim id.*missing-claim/i)
   })
 })

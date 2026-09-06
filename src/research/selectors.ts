@@ -6,6 +6,10 @@ export function getEntityBySlug(catalog: Catalog, slug: string): Entity | undefi
 }
 
 export function getEntityRelationships(catalog: Catalog, entityId: string): Relationship[] {
+  if (!catalog.entityById.has(entityId)) {
+    throw new Error(`Unknown entity id: ${entityId}`)
+  }
+
   const relationshipsById = new Map<string, Relationship>()
 
   for (const relationship of catalog.outgoingByEntityId.get(entityId) ?? []) {
@@ -19,5 +23,9 @@ export function getEntityRelationships(catalog: Catalog, entityId: string): Rela
 }
 
 export function getClaimEvidence(catalog: Catalog, claimId: string): Evidence[] {
+  if (!catalog.claimById.has(claimId)) {
+    throw new Error(`Unknown claim id: ${claimId}`)
+  }
+
   return [...(catalog.claimToEvidence.get(claimId) ?? [])]
 }
