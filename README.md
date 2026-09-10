@@ -4,9 +4,8 @@ SWI is a bilingual, evidence-based living map of swarm intelligence. It connects
 observations from nature to general principles, computational algorithms,
 robotics, and emerging artificial-agent systems.
 
-The project is being established as part of the wider `aserdargun.com` research
-ecosystem. Its first public release will be a research and learning platform,
-not a full scientific simulator.
+The project is part of the wider `aserdargun.com` research ecosystem. It is a
+research and learning platform, not a full scientific simulator.
 
 ## Product thesis
 
@@ -61,6 +60,23 @@ backup to move it or protect against browser storage removal. There is no cloud
 sync, automatic source download or automatic publication. Limits: 1 MB per file,
 100,000 characters per note, 500 entries, 1 MB total serialized agenda. Storage
 failures expose temporary-session and recovery flows.
+
+The maintenance update preserves temporary agenda edits when another tab changes
+the saved backup, rejects stale editor writes, and provides a retry when storage
+recovers. Unsaved agenda changes trigger the browser's leave-page protection.
+Imports reject invalid UTF-8 atomically. Agenda search and status filters survive
+language changes through the URL; on small screens the editor precedes the list.
+
+Recipe drafts stay in this tab's session storage across reloads and language
+changes. When session storage is blocked, drafts remain in memory until the page
+is unloaded. Drafts never enter the URL. Adding an unchanged experiment plan
+again preserves the existing agenda record. No recipe is executed by SWI.
+
+Content validation checks both directions of study/dossier links, duplicate
+references, and publication/revision chronology. Static verification resolves
+local page links, fragment targets and referenced assets in the exported HTML.
+These checks do not constitute a new review of the scientific literature; the
+source-review date remains 6 September 2026.
 
 The first design was rejected by the user. The revision-02 visual direction is
 an implementation choice for that requested redesign, not a new user approval.

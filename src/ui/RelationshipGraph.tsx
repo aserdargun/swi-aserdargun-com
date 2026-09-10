@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import type { KnowledgeGraph } from '@/graph/types'
 import { graphCopy } from '@/i18n/graph-copy'
 import type { Locale } from '@/i18n/locales'
@@ -20,6 +20,7 @@ export function RelationshipGraph({ graph, locale }: { graph: KnowledgeGraph; lo
   const copy = graphCopy[locale]
   const [selected, setSelected] = useState(graph.nodes[0]?.id ?? '')
   const [zoom, setZoom] = useState(1)
+  const viewport = useRef<HTMLDivElement>(null)
   const marker = useId().replaceAll(':', '')
   useEffect(() => {
     const sync = () => {
@@ -34,7 +35,7 @@ export function RelationshipGraph({ graph, locale }: { graph: KnowledgeGraph; lo
     setSelected(id)
     const url = new URL(window.location.href)
     url.searchParams.set('entity', id)
-    window.history.replaceState(null, '', url)
+    window.history.replaceState(window.history.state, '', url)
     window.dispatchEvent(new Event('swi:locationchange'))
   }
   const current = graph.nodes.find(node => node.id === selected)
@@ -44,7 +45,8 @@ export function RelationshipGraph({ graph, locale }: { graph: KnowledgeGraph; lo
       <RelationshipList graph={graph} locale={locale} focusedEntityId={selected} />
       <section className={styles.visual} aria-label={copy.chain}>
         <div className={styles.desktop}>
-          <svg className={styles.svg} viewBox={`${450 - 450 / zoom} ${325 - 325 / zoom} ${900 / zoom} ${650 / zoom}`} role="group" aria-label={copy.chain}>
+          <div ref={viewport} className={styles.viewport} tabIndex={0} role="region" aria-label={locale==='tr'?'Graf görünümü':'Graph viewport'}>
+          <svg className={styles.svg} style={{width:`${zoom*100}%`,height:650*zoom}} viewBox="0 0 900 650" role="group" aria-label={copy.chain}>
             <defs><marker id={marker} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M1 1 9 5 1 9" fill="none" stroke="#DDE3DA" strokeWidth="1.5" /></marker></defs>
             {graph.edges.map(edge => {
               const from = positions.get(edge.source)! + 176
@@ -63,7 +65,8 @@ export function RelationshipGraph({ graph, locale }: { graph: KnowledgeGraph; lo
               </g>
             })}
           </svg>
-          <div className={styles.controls}><button type="button" disabled={zoom >= 1.5} onClick={() => setZoom(value => Math.min(1.5, value + .25))}>{copy.zoomIn}</button><button type="button" disabled={zoom <= .75} onClick={() => setZoom(value => Math.max(.75, value - .25))}>{copy.zoomOut}</button><button type="button" onClick={() => setZoom(1)}>{copy.reset}</button></div>
+          </div>
+          <div className={styles.controls}><button type="button" disabled={zoom >= 1.5} onClick={() => setZoom(value => Math.min(1.5, value + .25))}>{copy.zoomIn}</button><button type="button" disabled={zoom <= .75} onClick={() => setZoom(value => Math.max(.75, value - .25))}>{copy.zoomOut}</button><button type="button" onClick={() => {setZoom(1);viewport.current?.scrollTo({left:0,top:0,behavior:'instant'})}}>{copy.reset}</button></div>
           <p className={styles.selection} aria-live="polite">{current && <><span>{copy.selected}: {current.label}</span><a href={current.href}>{copy.open}</a></>}</p>
         </div>
         <svg className={styles.mobile} viewBox="0 0 350 205" role="img" aria-label={graph.edges.map(edge => `${graph.nodes.find(node => node.id === edge.source)!.label} ${edge.label} ${graph.nodes.find(node => node.id === edge.target)!.label}, ${edge.statusLabel}`).join('; ')}>

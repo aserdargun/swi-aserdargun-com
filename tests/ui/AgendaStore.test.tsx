@@ -1,4 +1,4 @@
-import { act, cleanup, renderHook } from '@testing-library/react'
+import { act, cleanup, render, renderHook } from '@testing-library/react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { AGENDA_KEY, exportAgenda, makeAgendaEntry, parseAgendaBackup } from '@/research/agenda'
 
@@ -25,6 +25,51 @@ it('keeps temporary edits available for export when storage is full',async()=>{
   expect(result.current.entries[0]?.notes).toBe('Unsaved edit')
   expect(parseAgendaBackup(exportAgenda(result.current.entries))[0]?.notes).toBe('Unsaved edit')
   expect(parseAgendaBackup(localStorage.getItem(AGENDA_KEY)!)[0]?.notes).toBe('Original')
+})
+it('never replaces temporary edits with another tab or overwrites its newer backup',async()=>{
+  localStorage.setItem(AGENDA_KEY,exportAgenda([entry]))
+  const {useAgenda,changeAgenda}=await import('@/ui/workbench/agendaStore')
+  const {result}=renderHook(()=>useAgenda())
+  const write=vi.spyOn(Storage.prototype,'setItem').mockImplementation(()=>{throw new Error('Full')})
+  act(()=>{changeAgenda(current=>current.map(value=>({...value,notes:'Unsaved local work'})))})
+  write.mockRestore()
+  const other=exportAgenda([{...entry,notes:'Saved in another tab'}])
+  act(()=>{localStorage.setItem(AGENDA_KEY,other);window.dispatchEvent(new StorageEvent('storage',{key:AGENDA_KEY}))})
+  expect(result.current.entries[0]?.notes).toBe('Unsaved local work')
+  expect(()=>changeAgenda(current=>current)).toThrow('conflict')
+  expect(localStorage.getItem(AGENDA_KEY)).toBe(other)
+})
+it('retries temporary edits when storage recovers without losing them',async()=>{
+  localStorage.setItem(AGENDA_KEY,exportAgenda([entry]))
+  const {useAgenda,changeAgenda}=await import('@/ui/workbench/agendaStore')
+  const {result}=renderHook(()=>useAgenda())
+  const write=vi.spyOn(Storage.prototype,'setItem').mockImplementation(()=>{throw new Error('Full')})
+  act(()=>{changeAgenda(current=>current.map(value=>({...value,notes:'Keep this draft'})))})
+  write.mockRestore()
+  act(()=>{expect(changeAgenda(current=>current)).toBe('saved')})
+  expect(result.current.entries[0]?.notes).toBe('Keep this draft')
+  expect(parseAgendaBackup(localStorage.getItem(AGENDA_KEY)!)[0]?.notes).toBe('Keep this draft')
+})
+it('does not write over data it could not read',async()=>{
+  localStorage.setItem(AGENDA_KEY,'unreadable original')
+  const {changeAgenda}=await import('@/ui/workbench/agendaStore')
+  const read=vi.spyOn(Storage.prototype,'getItem').mockImplementation(()=>{throw new Error('Read blocked')})
+  expect(changeAgenda(()=>[entry])).toBe('temporary')
+  read.mockRestore()
+  expect(localStorage.getItem(AGENDA_KEY)).toBe('unreadable original')
+  expect(()=>changeAgenda(current=>current)).toThrow('conflict')
+})
+it('warns before leaving only while agenda changes remain unsaved',async()=>{
+  const {changeAgenda}=await import('@/ui/workbench/agendaStore')
+  const {AgendaPersistenceGuard}=await import('@/ui/workbench/AgendaPersistenceGuard')
+  render(<AgendaPersistenceGuard />)
+  expect(window.dispatchEvent(new Event('beforeunload',{cancelable:true}))).toBe(true)
+  const write=vi.spyOn(Storage.prototype,'setItem').mockImplementation(()=>{throw new Error('Full')})
+  act(()=>{changeAgenda(()=>[entry])})
+  expect(window.dispatchEvent(new Event('beforeunload',{cancelable:true}))).toBe(false)
+  write.mockRestore()
+  act(()=>{changeAgenda(current=>current)})
+  expect(window.dispatchEvent(new Event('beforeunload',{cancelable:true}))).toBe(true)
 })
 it('preserves unreadable bytes and refuses changes until recovery is backed up',async()=>{
   const raw='{broken personal notes'

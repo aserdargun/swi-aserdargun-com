@@ -9,7 +9,14 @@ let transientTheme: Theme | undefined
 const subscribers = new Set<() => void>()
 function subscribe(onChange: () => void) {
   subscribers.add(onChange)
-  return () => { subscribers.delete(onChange) }
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === null || event.key === 'swi-theme') {
+      transientTheme = undefined
+      onChange()
+    }
+  }
+  window.addEventListener('storage', onStorage)
+  return () => { subscribers.delete(onChange); window.removeEventListener('storage', onStorage) }
 }
 function storedTheme(): Theme {
   if (transientTheme) return transientTheme

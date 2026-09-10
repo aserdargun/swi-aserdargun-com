@@ -33,7 +33,16 @@ export function makeAgendaEntry(input: AgendaInput, now = new Date().toISOString
   return AgendaEntrySchema.parse({ ...input, id, createdAt:now, updatedAt:now })
 }
 export function exportAgenda(entries: AgendaEntry[], now = new Date().toISOString()) {
-  return JSON.stringify(AgendaBackupSchema.parse({ app:'SWI', version:1, exportedAt:now, entries }), null, 2)
+  const encoded = JSON.stringify(AgendaBackupSchema.parse({ app:'SWI', version:1, exportedAt:now, entries }), null, 2)
+  if (new TextEncoder().encode(encoded).length > MAX_IMPORT_BYTES) throw new Error('too-large')
+  return encoded
+}
+export function updateAgendaEntry(current: AgendaEntry[], expected: AgendaEntry, input: AgendaInput, now = new Date().toISOString()) {
+  const latest = current.find(entry => entry.id === expected.id)
+  // Compare the record, since two edits can share the same timestamp.
+  if (!latest || Object.keys(expected).some(key => latest[key as keyof AgendaEntry] !== expected[key as keyof AgendaEntry])) throw new Error('conflict')
+  const updated = AgendaEntrySchema.parse({ ...latest, ...input, updatedAt: now })
+  return current.map(entry => entry.id === expected.id ? updated : entry)
 }
 export function parseAgendaBackup(text: string): AgendaEntry[] {
   if (new TextEncoder().encode(text).length > MAX_IMPORT_BYTES) throw new Error('too-large')

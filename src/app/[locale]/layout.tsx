@@ -19,6 +19,7 @@ import { isLocale, locales } from '@/i18n/locales'
 import { AppHeader } from '@/ui/AppHeader'
 import { AppFooter } from '@/ui/AppFooter'
 import { LocalePreference } from '@/ui/LocalePreference'
+import { AgendaPersistenceGuard } from '@/ui/workbench/AgendaPersistenceGuard'
 
 export const dynamicParams = false
 
@@ -48,7 +49,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className="app-body"><LocalePreference locale={locale} /><AppHeader locale={locale} />{children}<AppFooter locale={locale} /></body>
+      <body className="app-body"><LocalePreference locale={locale} /><AgendaPersistenceGuard /><AppHeader locale={locale} />{children}<AppFooter locale={locale} /></body>
     </html>
   )
 }

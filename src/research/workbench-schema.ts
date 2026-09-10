@@ -61,14 +61,24 @@ export type Topology = Protocol['topology']
 export function validateWorkbench(studies: Study[], dossiers: Dossier[]) {
   const studyIds = new Set(studies.map(study => study.id))
   const dossierIds = new Set(dossiers.map(dossier => dossier.id))
+  const dossierById = new Map(dossiers.map(dossier => [dossier.id, dossier]))
   if (studyIds.size !== studies.length || dossierIds.size !== dossiers.length) throw new Error('Duplicate workbench ID')
   for (const study of studies) {
-    for (const id of study.dossierIds) if (!dossierIds.has(id)) throw new Error(`${study.id}: unknown dossier ${id}`)
+    if (new Set(study.dossierIds).size !== study.dossierIds.length) throw new Error(`${study.id}: duplicate dossier link`)
+    for (const id of study.dossierIds) {
+      if (!dossierIds.has(id)) throw new Error(`${study.id}: unknown dossier ${id}`)
+      if (!dossierById.get(id)!.studyIds.includes(study.id)) throw new Error(`${study.id}: missing reverse dossier link ${id}`)
+    }
+    if (study.publishedAt && Number(study.publishedAt.slice(0, 4)) !== study.year) throw new Error(`${study.id}: inconsistent publication year`)
+    if (study.publishedAt && study.revisedAt && study.revisedAt < study.publishedAt) throw new Error(`${study.id}: revision before publication`)
     if (study.publishedAt && study.publishedAt > study.reviewedAt) throw new Error(`${study.id}: future publication`)
     if (study.revisedAt && study.revisedAt > study.reviewedAt) throw new Error(`${study.id}: future revision`)
   }
-  for (const dossier of dossiers) for (const id of dossier.studyIds) {
-    if (!studyIds.has(id)) throw new Error(`${dossier.id}: unknown study ${id}`)
-    if (!studies.find(study => study.id === id)!.dossierIds.includes(dossier.id)) throw new Error(`${dossier.id}: missing reverse study link ${id}`)
+  for (const dossier of dossiers) {
+    if (new Set(dossier.studyIds).size !== dossier.studyIds.length) throw new Error(`${dossier.id}: duplicate study link`)
+    for (const id of dossier.studyIds) {
+      if (!studyIds.has(id)) throw new Error(`${dossier.id}: unknown study ${id}`)
+      if (!studies.find(study => study.id === id)!.dossierIds.includes(dossier.id)) throw new Error(`${dossier.id}: missing reverse study link ${id}`)
+    }
   }
 }

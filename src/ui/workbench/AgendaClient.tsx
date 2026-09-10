@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import type { Locale } from '@/i18n/locales'
 import { localizedPath } from '@/i18n/locales'
-import { agendaKinds, agendaStatuses, AgendaEntrySchema, exportAgenda, importAgendaText, makeAgendaEntry, MAX_IMPORT_BYTES, mergeAgenda, type AgendaEntry, type AgendaInput } from '@/research/agenda'
+import { agendaKinds, agendaStatuses, exportAgenda, importAgendaText, makeAgendaEntry, MAX_IMPORT_BYTES, mergeAgenda, updateAgendaEntry, type AgendaEntry, type AgendaInput } from '@/research/agenda'
 import { changeAgenda, recoverAgenda, useAgenda } from './agendaStore'
 import { downloadText } from './download'
 import { Icon } from './Icon'
@@ -20,7 +20,9 @@ function AgendaForm({ locale, entry, onSave, onCancel }: { locale: Locale; entry
     const form=new FormData(event.currentTarget)
     const input={ title:String(form.get('title')??'').trim(), url:String(form.get('url')??'').trim(), notes:String(form.get('notes')??''), kind:String(form.get('kind')) as AgendaEntry['kind'],status:String(form.get('status')) as AgendaEntry['status'],dossierId:String(form.get('dossierId')) as AgendaEntry['dossierId'],sourceStudyId:entry?.sourceStudyId??'' }
     try { makeAgendaEntry(input); onSave(input); setError('') }
-    catch { setError(tx(locale,'Kaydedilemedi. Başlığı, HTTP/HTTPS bağlantısını ve not boyutunu kontrol et.','Could not save. Check the title, HTTP/HTTPS link and note size.')) }
+    catch (cause) { setError(cause instanceof Error && cause.message==='conflict'
+      ? tx(locale,'Kayıt başka bir sekmede değişti. Notunu koru, düzenleyiciyi kapat ve güncel kaydı yeniden aç.','This record changed in another tab. Keep your note, close the editor and reopen the latest record.')
+      : tx(locale,'Kaydedilemedi. Başlığı, HTTP/HTTPS bağlantısını ve not boyutunu kontrol et. Toplam sınır: 500 kayıt / 1 MB.','Could not save. Check the title, HTTP/HTTPS link and note size. Total limit: 500 items / 1 MB.')) }
   }
   return <section className="wb-add-form" id="agenda-editor" aria-labelledby="agenda-form-title"><h2 id="agenda-form-title">{entry?tx(locale,'Gündemi düzenle','Edit agenda item'):tx(locale,'Yeni gündem','New agenda item')}</h2><form className="wb-form" onSubmit={submit}>
     <label>{tx(locale,'Başlık','Title')}<input name="title" required maxLength={240} defaultValue={entry?.title??''} autoComplete="off" /></label>
@@ -36,26 +38,29 @@ function AgendaForm({ locale, entry, onSave, onCancel }: { locale: Locale; entry
 export function AgendaClient({ locale }: { locale: Locale }) {
   const {values,update} = useUrlState()
   const {entries,mode,raw} = useAgenda()
-  const [filter,setFilter]=useState('')
-  const [query,setQuery]=useState('')
+  const requestedStatus=values.get('status')??''
+  const filter=agendaStatuses.includes(requestedStatus as AgendaEntry['status'])?requestedStatus:''
+  const query=values.get('q')??''
   const [editing,setEditing]=useState<AgendaEntry|undefined>()
   const [message,setMessage]=useState('')
   const [error,setError]=useState('')
   const [busy,setBusy]=useState(false)
   const [undo,setUndo]=useState<{id:string;status:AgendaEntry['status']}|null>(null)
   const upload=useRef<HTMLInputElement>(null)
-  const editorOpen=!!editing||values.get('new')==='1'
+  const addButton=useRef<HTMLButtonElement>(null)
+  const editorOpen=mode!=='loading'&&mode!=='corrupt'&&(!!editing||values.get('new')==='1')
+  const unavailable=mode==='loading'||mode==='corrupt'||busy
   useEffect(()=>{
     if(editorOpen) document.querySelector<HTMLInputElement>('#agenda-editor input[name=title]')?.focus()
   },[editorOpen,editing?.id])
   const filtered=entries.filter(entry=>(filter?entry.status===filter:entry.status!=='archived')&&normalizeSearch(`${entry.title} ${entry.notes}`).includes(normalizeSearch(query))).sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt))
   function announce(savedMode:string, text:string) { setError(''); setMessage(savedMode==='temporary'?tx(locale,'Oturumda tutuluyor; kalıcı depolama kullanılamıyor. Yedeğini indir.','Kept in this session; persistent storage is unavailable. Export a backup.'):text) }
-  function close() { setEditing(undefined); update({new:''}) }
+  function close() { setEditing(undefined); update({new:''}); addButton.current?.focus({preventScroll:true}) }
   function save(input: AgendaInput) {
-    const item=editing?AgendaEntrySchema.parse({...editing,...input,updatedAt:new Date().toISOString()}):makeAgendaEntry(input)
     let added=true
     const savedMode=changeAgenda(current=>{
-      if(editing) return current.map(value=>value.id===editing.id?item:value)
+      if(editing) return updateAgendaEntry(current,editing,input)
+      const item=makeAgendaEntry(input)
       const merged=mergeAgenda(current,[item]); added=merged.added>0; return merged.entries
     })
     announce(savedMode,added?tx(locale,'Gündem kaydedildi.','Agenda item saved.'):tx(locale,'Bu kaynak zaten gündeminde. Mevcut kaydı düzenleyebilirsin.','This source is already in your agenda. You can edit the existing item.'))
@@ -69,13 +74,14 @@ export function AgendaClient({ locale }: { locale: Locale }) {
     } catch { setError(tx(locale,'Durum kaydedilemedi; depolama kaydını kontrol et.','Status could not be saved; check the storage record.')); return false }
   }
   async function importFiles(files:FileList|null) {
-    if(!files?.length) return
+    if(!files?.length||unavailable) return
     setBusy(true); setError('')
     try {
       const incoming:AgendaEntry[]=[]
       for(const file of Array.from(files)) {
         if(file.size>MAX_IMPORT_BYTES) throw new Error('too-large')
-        incoming.push(...importAgendaText(file.name,await file.text()))
+        const text=new TextDecoder('utf-8',{fatal:true}).decode(await file.arrayBuffer())
+        incoming.push(...importAgendaText(file.name,text))
       }
       let added=0
       const savedMode=changeAgenda(current=>{const merged=mergeAgenda(current,incoming);added=merged.added;return merged.entries})
@@ -86,19 +92,29 @@ export function AgendaClient({ locale }: { locale: Locale }) {
   }
   function restore() {
     if(!undo) return
-    try { changeAgenda(current=>current.map(item=>item.id===undo.id?{...item,status:undo.status,updatedAt:new Date().toISOString()}:item));setUndo(null);setMessage(tx(locale,'Kayıt geri alındı.','Item restored.')) }
+    try { const savedMode=changeAgenda(current=>current.map(item=>item.id===undo.id?{...item,status:undo.status,updatedAt:new Date().toISOString()}:item));setUndo(null);announce(savedMode,tx(locale,'Kayıt geri alındı.','Item restored.')) }
     catch { setError(tx(locale,'Geri alma kaydedilemedi.','Restore could not be saved.')) }
   }
+  function retryStorage() {
+    try { announce(changeAgenda(current=>current),tx(locale,'Gündem bu tarayıcıya kaydedildi.','Agenda saved in this browser.')) }
+    catch { setError(tx(locale,'Depolamadaki kayıt değişti. Bu oturumun yedeğini indir, ardından güncel kaydı almak için sayfayı yenile.','The stored record changed. Export this session, then reload to read the latest saved agenda.')) }
+  }
+  function exportBackup() {
+    try { downloadText('swi-agenda.json',exportAgenda(entries),'application/json') }
+    catch { setError(tx(locale,'Yedek oluşturulamadı; kayıtlar korunuyor.','Could not create a backup; your records are preserved.')) }
+  }
   return <><PageIntro title={tx(locale,'Gündemim','My agenda')} description={tx(locale,'Okumalarını topla, deneylerini takip et.','Collect your reading. Follow your experiments.')}>
-    <button type="button" className="action action-primary" onClick={()=>{setEditing(undefined);update({new:'1'})}} disabled={mode==='corrupt'}><Icon name="plus" />{tx(locale,'Gündem ekle','Add item')}</button>
-    <button type="button" className="action action-outlined" onClick={()=>upload.current?.click()} disabled={busy||mode==='corrupt'}><Icon name="upload" />{tx(locale,'Dosya yükle','Import file')}</button>
-    <button type="button" className="action action-secondary" onClick={()=>downloadText('swi-agenda.json',exportAgenda(entries),'application/json')} disabled={mode==='corrupt'}><Icon name="download" />{tx(locale,'Yedek indir','Export backup')}</button>
-  </PageIntro><div className="wb-upload"><label className="sr-only" htmlFor="agenda-upload">{tx(locale,'Gündem dosyası yükle','Import agenda file')}</label><input ref={upload} className="sr-only" id="agenda-upload" type="file" multiple accept=".md,.markdown,.txt,.json" onChange={event=>void importFiles(event.target.files)} /><span className="wb-result-count">{tx(locale,'Markdown, metin veya SWI JSON yedeği · 1 MB / dosya','Markdown, text or SWI JSON backup · 1 MB / file')}</span></div>
+    <button ref={addButton} type="button" className="action action-primary" onClick={()=>{setEditing(undefined);update({new:'1'})}} disabled={unavailable}><Icon name="plus" />{tx(locale,'Gündem ekle','Add item')}</button>
+    <button type="button" className="action action-outlined" onClick={()=>upload.current?.click()} disabled={unavailable}><Icon name="upload" />{tx(locale,'Dosya yükle','Import file')}</button>
+    <button type="button" className="action action-secondary" onClick={exportBackup} disabled={unavailable}><Icon name="download" />{tx(locale,'Yedek indir','Export backup')}</button>
+  </PageIntro><div className="wb-upload"><label className="sr-only" htmlFor="agenda-upload">{tx(locale,'Gündem dosyası yükle','Import agenda file')}</label><input ref={upload} disabled={unavailable} tabIndex={-1} className="sr-only" id="agenda-upload" type="file" multiple accept=".md,.markdown,.txt,.json" onChange={event=>void importFiles(event.target.files)} /><span className="wb-result-count">{tx(locale,'Markdown, metin veya SWI JSON yedeği · 1 MB / dosya','Markdown, text or SWI JSON backup · 1 MB / file')}</span></div>
     <p className="wb-agenda-info">{mode==='temporary'?tx(locale,'Geçici oturum: tarayıcı depolaması kullanılamıyor. Sayfayı yenilemeden önce yedeğini indir.','Temporary session: browser storage is unavailable. Export before refreshing.'):tx(locale,'Bu tarayıcıda saklanır. Yedeğini dışa aktarabilirsin.','Stored in this browser. You can export a backup.')}</p>
+    {mode==='temporary'&&<button type="button" className="action action-outlined" onClick={retryStorage}>{tx(locale,'Kalıcı kaydı yeniden dene','Retry saving')}</button>}
     {mode==='corrupt'&&<div className="wb-error" role="alert"><p>{tx(locale,'Gündem kaydı okunamıyor. Özgün veri korunuyor.','The agenda record cannot be read. Original data is preserved.')}</p><div className="wb-actions"><button type="button" className="action action-outlined" onClick={()=>downloadText('swi-agenda-recovery.txt',raw??'')}>{tx(locale,'Özgün veriyi indir','Download original data')}</button><button type="button" className="action action-outlined" onClick={()=>{try{recoverAgenda();setMessage(tx(locale,'Özgün kayıt ayrı bir kurtarma anahtarında saklandı. Boş gündem açıldı.','Original data was saved under a separate recovery key. An empty agenda is ready.'))}catch{setError(tx(locale,'Kurtarma yedeği kaydedilemedi; özgün veri değişmedi.','Recovery backup failed; original data is unchanged.'))}}}>{tx(locale,'Özgünü yedekle ve boş gündem aç','Back up original and start empty')}</button></div></div>}
     {error&&<p className="wb-error" role="alert">{error}</p>}<div className="wb-status" role="status">{busy?tx(locale,'Dosyalar inceleniyor…','Reading files…'):message}{undo&&<button type="button" className="action action-secondary" onClick={restore}>{tx(locale,'Geri al','Undo')}</button>}</div>
-    <div className="wb-toolbar"><div className="wb-filter-group" role="group" aria-label={tx(locale,'Gündem durumu filtresi','Agenda status filter')}><button type="button" aria-pressed={!filter} onClick={()=>setFilter('')}>{tx(locale,'Tümü','All')}</button>{agendaStatuses.map(state=><button key={state} type="button" aria-pressed={filter===state} onClick={()=>setFilter(state)}>{statusLabels[state][locale]}</button>)}</div><span className="wb-result-count">{filtered.length} {tx(locale,'kayıt','items')}</span></div>
-    <div className="wb-search" role="search"><Icon name="search" /><label className="sr-only" htmlFor="agenda-search">{tx(locale,'Gündemimde ara','Search my agenda')}</label><input id="agenda-search" type="search" value={query} onChange={event=>setQuery(event.target.value)} placeholder={tx(locale,'Başlık ve notlarda ara…','Search titles and notes…')} /></div>
+    <div className="wb-toolbar"><div className="wb-filter-group" role="group" aria-label={tx(locale,'Gündem durumu filtresi','Agenda status filter')}><button type="button" aria-pressed={!filter} onClick={()=>update({status:''})}>{tx(locale,'Aktif kayıtlar','Active items')}</button>{agendaStatuses.map(state=><button key={state} type="button" aria-pressed={filter===state} onClick={()=>update({status:state})}>{statusLabels[state][locale]}</button>)}</div><span className="wb-result-count">{filtered.length} {tx(locale,'kayıt','items')}</span></div>
+    <div className="wb-search" role="search"><Icon name="search" /><label className="sr-only" htmlFor="agenda-search">{tx(locale,'Gündemimde ara','Search my agenda')}</label><input id="agenda-search" type="search" value={query} onChange={event=>update({q:event.target.value})} placeholder={tx(locale,'Başlık ve notlarda ara…','Search titles and notes…')} /></div>
+    {(query||filter)&&<button type="button" className="action action-secondary" onClick={()=>update({q:'',status:''})}>{tx(locale,'Filtreleri temizle','Clear filters')}</button>}
     <div className="wb-agenda-grid" style={{marginTop:24}}><section aria-label={tx(locale,'Gündem kayıtları','Agenda items')}>
       {mode!=='loading'&&!filtered.length&&<div className="wb-empty"><h2>{entries.length?tx(locale,'Bu görünümde kayıt yok','No items in this view'):tx(locale,'İlk araştırmanı buraya getir','Bring your first study here')}</h2><p style={{marginTop:16}}>{tx(locale,'Bir bağlantı ve not ekle, Markdown dosyanı yükle veya araştırma kütüphanesinden bir çalışma seç.','Add a link and note, import a Markdown file or choose a study from the research library.')}</p><TextLink href={localizedPath('/research/',locale)}>{tx(locale,'Araştırmaları incele','Browse research')}</TextLink></div>}
       {filtered.map(entry=><article className="wb-agenda-row" key={entry.id}><div><h2>{entry.title}</h2><p className="wb-meta-line">{kindLabels[entry.kind][locale]} · <time dateTime={entry.updatedAt}>{entry.updatedAt.slice(0,10)}</time></p>{entry.notes.length>300?<details><summary>{tx(locale,'Notun tamamını oku','Read the full note')}</summary><p>{entry.notes}</p></details>:<p>{entry.notes}</p>}{entry.dossierId&&<TextLink href={localizedPath(`/recipes/${entry.dossierId}/`,locale)}>{dossierLabels[entry.dossierId][locale]}</TextLink>}</div>

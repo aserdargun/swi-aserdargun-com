@@ -4,7 +4,7 @@
 .app-header { position:fixed; inset:0 auto 0 0; width:216px; background:#152E29; color:#F6F7F4; border:0; z-index:30; }
 .header-inner { padding:24px 12px 20px; height:100dvh; min-height:0; display:flex; flex-direction:column; align-items:stretch; gap:28px; overflow:auto; }
 .wordmark { display:flex; flex-direction:column; align-items:flex-start; gap:2px; padding:0 14px; color:#F6F7F4; white-space:normal; }
-.wordmark strong { font:400 64px/1 var(--font-editorial); letter-spacing:-.04em; }
+.wordmark strong { font:400 64px/1 var(--font-editorial); letter-spacing:0; }
 .wordmark span { font:400 14px/1.5 var(--font-ui); letter-spacing:0; }
 .desktop-nav { display:flex; flex:1; flex-direction:column; gap:7px; }
 .desktop-nav a { flex-shrink:0; display:flex; gap:12px; align-items:center; min-height:52px; padding:12px 14px; color:#F6F7F4; white-space:normal; font-size:14px; line-height:22px; border:0; border-left:3px solid transparent; border-radius:3px; }
@@ -25,7 +25,8 @@
 .wb-topline a { text-decoration:none; font-weight:600; }
 .wb-date { color:var(--muted-ink); display:flex; align-items:center; gap:6px; font-size:14px; }
 .wb-intro { display:flex; gap:24px; align-items:flex-end; justify-content:space-between; padding:36px 0 28px; }
-.wb-intro h1 { font-size:48px; line-height:1.16; max-width:100%; }
+.wb-intro h1 { font-size:42px; line-height:1.2; max-width:100%; }
+.wb-intro > div { min-width:0; }
 .wb-intro p { margin-top:14px; max-width:68ch; color:var(--muted-ink); }
 .wb-actions { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
 .wb-actions .action, .wb-button { min-height:46px; padding:10px 18px; font-size:14px; line-height:24px; }
@@ -35,7 +36,7 @@
 .wb-source-link svg { width:16px; height:16px; }
 .wb-home-hero { display:grid; grid-template-columns:minmax(0,46fr) minmax(0,54fr); align-items:stretch; padding:0; border-bottom:1px solid var(--rule); }
 .wb-hero-copy { padding:46px 30px 42px 0; align-self:center; }
-.wb-hero-copy h1 { font-size:clamp(40px,3.9vw,58px); line-height:1.12; letter-spacing:-.04em; }
+.wb-hero-copy h1 { font-size:48px; line-height:1.16; letter-spacing:0; }
 .wb-hero-copy p { font-size:17px; line-height:1.65; margin-top:24px; color:var(--muted-ink); max-width:40ch; }
 .wb-hero-copy .wb-actions { margin-top:32px; }
 .wb-hero-art { position:relative; margin:0; overflow:hidden; min-width:0; background:#152E29; }
@@ -152,7 +153,7 @@
 .wb-toc a { min-height:44px; display:flex; align-items:center; font-size:14px; }
 .wb-form { display:grid; gap:18px; }
 .wb-form label { display:grid; gap:7px; font-size:14px; line-height:1.5; }
-.wb-form input, .wb-form select, .wb-form textarea { width:100%; border:1px solid var(--rule); padding:10px 12px; background:var(--surface); border-radius:3px; min-height:46px; font-size:15px; }
+.wb-form input, .wb-form select, .wb-form textarea { width:100%; min-width:0; border:1px solid var(--rule); padding:10px 12px; background:var(--surface); border-radius:3px; min-height:46px; font-size:16px; }
 .wb-form textarea { min-height:110px; resize:vertical; }
 .wb-form small { font-size:14px; color:var(--muted-ink); }
 .wb-form .action { width:100%; }
@@ -170,7 +171,7 @@
 .wb-status:empty { min-height:0; margin-top:0; }
 .wb-error { color:var(--watch-ink); border-left:3px solid; padding:12px; background:var(--selected-surface); font-size:14px; }
 .wb-agenda-info { background:var(--selected-surface); padding:16px 20px; font-size:14px; margin:22px 0; }
-.wb-agenda-grid { display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:36px; align-items:start; }
+.wb-agenda-grid { display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:28px; align-items:start; }
 .wb-agenda-row { display:grid; grid-template-columns:minmax(0,1fr) 170px; gap:16px 24px; border-top:1px solid var(--rule); padding:24px 0; }
 .wb-agenda-row h2 { font-size:24px; line-height:1.4; overflow-wrap:anywhere; }
 .wb-agenda-row p { font-size:14px; line-height:1.75; color:var(--muted-ink); margin-top:8px; white-space:pre-wrap; overflow-wrap:anywhere; }
@@ -180,7 +181,7 @@
 .wb-agenda-row .wb-actions { grid-column:1/-1; }
 .wb-agenda-row button { font-size:14px; padding:8px 12px; border-color:var(--rule); }
 .wb-agenda-row .wb-actions a { margin-right:auto; }
-.wb-add-form { padding:22px; background:var(--surface); border:1px solid var(--rule); scroll-margin-top:24px; }
+.wb-add-form { padding:22px; background:var(--surface); border:1px solid var(--rule); scroll-margin-top:24px; min-width:0; }
 .wb-add-form h2 { font-size:27px; margin-bottom:20px; }
 .wb-upload { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 .wb-upload input:not(.sr-only) { width:100%; font-size:14px; min-height:44px; border-color:var(--rule); padding:6px; }
@@ -208,6 +209,7 @@
 }
 @media(max-width:950px) {
  .wb-split,.wb-article-layout,.wb-agenda-grid { grid-template-columns:minmax(0,1fr); }
+ .wb-agenda-grid > .wb-add-form { order:-1; }
  .wb-reading-rail { border-left:0; padding:24px 0 0; border-top:1px solid var(--rule); }
  .wb-article-layout > .wb-reading-rail { order:-1; padding:20px; background:var(--selected-surface); border:0; }
  .wb-article-layout > .wb-reading-rail.wb-config { order:0; background:transparent; padding:24px 0 0; }

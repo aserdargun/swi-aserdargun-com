@@ -3,21 +3,25 @@ import { useSyncExternalStore } from 'react'
 import { AGENDA_KEY, exportAgenda, parseAgendaBackup, type AgendaEntry } from '@/research/agenda'
 
 type Mode = 'loading' | 'saved' | 'temporary' | 'corrupt'
-type Snapshot = { entries: AgendaEntry[]; mode: Mode; raw?: string }
+type Snapshot = { entries: AgendaEntry[]; mode: Mode; raw?: string; pending?: boolean }
 const serverSnapshot: Snapshot = { entries:[], mode:'loading' }
 let snapshot: Snapshot = serverSnapshot
 let cachedRaw: string | null | undefined
+let readable = false
 const eventName = 'swi:agenda-changed'
 
 function getSnapshot(): Snapshot {
+  if (snapshot.pending) return snapshot
   try {
     const raw = window.localStorage.getItem(AGENDA_KEY)
+    readable = true
     if (raw === cachedRaw && snapshot.mode !== 'loading') return snapshot
     cachedRaw = raw
     try { snapshot = { entries:raw ? parseAgendaBackup(raw) : [], mode:'saved' } }
     catch { snapshot = { entries:[], mode:'corrupt', raw:raw ?? '' } }
   } catch {
-    if (snapshot.mode !== 'temporary') snapshot = { entries:snapshot.entries, mode:'temporary' }
+    readable = false
+    if (snapshot.mode !== 'temporary' && snapshot.mode !== 'corrupt') snapshot = { entries:snapshot.entries, mode:'temporary' }
   }
   return snapshot
 }
@@ -30,16 +34,22 @@ function subscribe(callback: () => void) {
 export function changeAgenda(change: (current: AgendaEntry[]) => AgendaEntry[]) {
   const current = getSnapshot()
   if (current.mode === 'corrupt') throw new Error('corrupt')
+  if (current.pending) {
+    let raw: string | null = null
+    try { raw = window.localStorage.getItem(AGENDA_KEY); readable = true }
+    catch { readable = false }
+    // A failed write belongs to this session. Never replace another tab's work.
+    if (readable && raw !== (cachedRaw ?? null)) throw new Error('conflict')
+  }
   const entries = change(current.entries)
   const encoded = exportAgenda(entries)
-  // Any export is importable; exceeding backup size must never strand saved data.
-  if (new TextEncoder().encode(encoded).length > 1_048_576) throw new Error('too-large')
   try {
+    if (!readable) throw new Error('unreadable')
     window.localStorage.setItem(AGENDA_KEY, encoded)
     cachedRaw = encoded
     snapshot = { entries, mode:'saved' }
   } catch {
-    snapshot = { entries, mode:'temporary' }
+    snapshot = { entries, mode:'temporary', pending:true }
   }
   window.dispatchEvent(new Event(eventName))
   return snapshot.mode

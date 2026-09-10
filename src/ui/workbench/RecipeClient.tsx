@@ -5,7 +5,8 @@ import { localizedPath } from '@/i18n/locales'
 import type { Dossier, Study } from '@/research/workbench-schema'
 import { buildRecipePackage, recipeMarkdown, type RecipeConfig, type RecipePackage } from '@/research/recipe'
 import { makeAgendaEntry, type AgendaEntry } from '@/research/agenda'
-import { changeAgenda } from './agendaStore'
+import { changeAgenda, useAgenda } from './agendaStore'
+import { useRecipeDraft } from './useRecipeDraft'
 import { downloadText } from './download'
 import { MechanismDiagram } from './MechanismDiagram'
 import { Icon } from './Icon'
@@ -25,13 +26,16 @@ export function RecipeClient({ dossier, studies, locale }: { dossier: Dossier; s
   const laboratory=laboratoryForDossier(dossier.id)
   const {values,update}=useUrlState()
   const tab=['experiment','sources'].includes(values.get('tab')??'')?values.get('tab')!:'protocol'
-  const [config,setConfig]=useState<RecipeConfig>({task:p.exampleTask[locale],agents:6,rounds:3,tokenBudget:12000})
+  const {config,update:updateDraft}=useRecipeDraft(dossier.id,{task:p.exampleTask[locale],agents:6,rounds:3,tokenBudget:12000})
+  const agenda=useAgenda()
   const [prepared,setPrepared]=useState<RecipePackage|null>(null)
   const [message,setMessage]=useState('')
   const [error,setError]=useState('')
   const [previewFormat,setPreviewFormat]=useState<'markdown'|'json'>('markdown')
   const output=useRef<HTMLElement>(null)
-  function changeConfig(patch:Partial<RecipeConfig>) {setConfig(current=>({...current,...patch}));setPrepared(null);setMessage('')}
+  const preparedNotes=prepared?recipeMarkdown(prepared):null
+  const inAgenda=preparedNotes!==null&&agenda.entries.some(entry=>entry.kind==='experiment'&&entry.dossierId===dossier.id&&entry.notes===preparedNotes)
+  function changeConfig(patch:Partial<RecipeConfig>) {updateDraft(patch);setPrepared(null);setMessage('');setError('')}
   function prepare() {
     try { const pkg=buildRecipePackage(dossier,studies,locale,config);setPrepared(pkg);setError('');return pkg }
     catch {setError(tx(locale,'En az 10 karakterlik görev, 3–32 agent, 1–12 tur ve 1.000–1.000.000 toplam token gir.','Enter a task of at least 10 characters, 3–32 agents, 1–12 rounds and 1,000–1,000,000 total tokens.'));return null}
@@ -50,7 +54,7 @@ export function RecipeClient({ dossier, studies, locale }: { dossier: Dossier; s
     const pkg=prepare();if(!pkg)return
     try {
       const entry=makeAgendaEntry({title:`${p.title[locale]} — ${tx(locale,'deney','experiment')}`,url:'',notes:recipeMarkdown(pkg),kind:'experiment',status:'experiment',dossierId:dossier.id as AgendaEntry['dossierId'],sourceStudyId:''})
-      const mode=changeAgenda(current=>[entry,...current])
+      const mode=changeAgenda(current=>current.some(item=>item.kind==='experiment'&&item.dossierId===entry.dossierId&&item.notes===entry.notes)?current:[entry,...current])
       setMessage(mode==='temporary'?tx(locale,'Deney oturumda tutuluyor; gündem yedeğini indir.','Experiment is kept in this session; export your agenda backup.'):tx(locale,'Deney planı gündemine eklendi.','Experiment plan added to your agenda.'))
     } catch {setError(tx(locale,'Gündeme eklenemedi. Depolamayı kontrol et veya paketi indir.','Could not add to agenda. Check storage or download the package.'))}
   }
@@ -70,6 +74,6 @@ export function RecipeClient({ dossier, studies, locale }: { dossier: Dossier; s
       <label>{tx(locale,'Toplam token bütçesi','Total token budget')}<input disabled={!ready} type="number" min="1000" max="1000000" step="1" value={Number.isFinite(config.tokenBudget)?config.tokenBudget:''} onChange={event=>changeConfig({tokenBudget:event.target.valueAsNumber})} required /><small>{tx(locale,'Bütçe tüm sürü içindir; planlama ve doğrulama dahildir.','Budget covers the entire swarm, including planning and verification.')}</small></label>
       <button disabled={!ready} type="submit" className="action action-primary">{tx(locale,'Görev paketini hazırla','Prepare task package')}</button>
     </form>{error&&<p className="wb-error" role="alert" style={{marginTop:18}}>{error}</p>}<p className="wb-status" role="status">{message}</p><div className="wb-note"><strong>{tx(locale,'Uyarlama / SWI deney önerisi','Adaptation / SWI experiment proposal')}</strong>{tx(locale,'Biyolojik bulgu, LLM başarısı garantisi değildir. Paketteki sınırları çalıştırdığın ortam uygular.','Biological evidence does not guarantee LLM performance. Your execution environment enforces the package limits.')}</div><dl className="wb-definition-list"><dt>{tx(locale,'Uygun olduğunda','Suitable when')}</dt><dd>{p.suitable[locale]}</dd><dt>{tx(locale,'Uygun olmadığında','Unsuitable when')}</dt><dd>{p.unsuitable[locale]}</dd></dl><TextLink href={localizedPath(`/atlas/${dossier.id}/`,locale)}>{tx(locale,'Biyolojik dosyaya dön','Back to the biology dossier')}</TextLink></aside></div>
-    {prepared&&<section ref={output} className="wb-package" tabIndex={-1} style={{marginTop:36,scrollMarginTop:20}} aria-labelledby="package-title"><div className="wb-section-heading"><h2 id="package-title">{tx(locale,'Görev paketin','Your task package')}</h2><div className="wb-filter-group" role="group" aria-label={tx(locale,'Paket biçimi','Package format')}><button disabled={!ready} type="button" aria-pressed={previewFormat==='markdown'} onClick={()=>setPreviewFormat('markdown')}>Markdown</button><button disabled={!ready} type="button" aria-pressed={previewFormat==='json'} onClick={()=>setPreviewFormat('json')}>JSON</button></div></div><pre className="wb-code"><code>{previewFormat==='markdown'?recipeMarkdown(prepared):JSON.stringify(prepared,null,2)}</code></pre><div className="wb-actions"><button disabled={!ready} className="action action-primary" type="button" onClick={()=>download(previewFormat)}><Icon name="download" />{tx(locale,'Paketi indir','Download package')}</button><button disabled={!ready} className="action action-outlined" type="button" onClick={toAgenda}><Icon name="plus" />{tx(locale,'Deney planını gündeme ekle','Add experiment plan to agenda')}</button></div></section>}
+    {prepared&&<section ref={output} className="wb-package" tabIndex={-1} style={{marginTop:36,scrollMarginTop:20}} aria-labelledby="package-title"><div className="wb-section-heading"><h2 id="package-title">{tx(locale,'Görev paketin','Your task package')}</h2><div className="wb-filter-group" role="group" aria-label={tx(locale,'Paket biçimi','Package format')}><button disabled={!ready} type="button" aria-pressed={previewFormat==='markdown'} onClick={()=>setPreviewFormat('markdown')}>Markdown</button><button disabled={!ready} type="button" aria-pressed={previewFormat==='json'} onClick={()=>setPreviewFormat('json')}>JSON</button></div></div><pre className="wb-code"><code>{previewFormat==='markdown'?preparedNotes:JSON.stringify(prepared,null,2)}</code></pre><div className="wb-actions"><button disabled={!ready} className="action action-primary" type="button" onClick={()=>download(previewFormat)}><Icon name="download" />{tx(locale,'Paketi indir','Download package')}</button><button disabled={!ready||inAgenda||agenda.mode==='corrupt'} className="action action-outlined" type="button" onClick={toAgenda}><Icon name={inAgenda?'check':'plus'} />{inAgenda?tx(locale,'Gündemde','In agenda'):tx(locale,'Deney planını gündeme ekle','Add experiment plan to agenda')}</button></div></section>}
   </main>
 }

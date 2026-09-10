@@ -12,7 +12,7 @@ export function CatalogClient({ locale, dossiers, mode='atlas' }: { locale: Loca
   const {values,update} = useUrlState()
   const query = values.get('q') ?? ''
   const category = values.get('category') ?? ''
-  const activeCategory = category in categoryLabels ? category : ''
+  const activeCategory = Object.hasOwn(categoryLabels, category) ? category : ''
   const filtered = dossiers.filter(dossier => (!activeCategory || dossier.category === activeCategory) && normalizeSearch([dossier.name.tr,dossier.name.en,dossier.scientificName,dossier.mechanism.tr,dossier.mechanism.en,dossier.question.tr,dossier.question.en,dossier.protocol.title.tr,dossier.protocol.title.en].join(' ')).includes(normalizeSearch(query)))
   const recipes = mode==='recipes'
   return <>

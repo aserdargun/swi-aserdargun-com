@@ -1,11 +1,23 @@
 import { describe, expect, it } from 'vitest'
-import { AgendaEntrySchema, exportAgenda, importAgendaText, makeAgendaEntry, MAX_IMPORT_BYTES, mergeAgenda, parseAgendaBackup, type AgendaInput } from '@/research/agenda'
+import { AgendaEntrySchema, exportAgenda, importAgendaText, makeAgendaEntry, MAX_IMPORT_BYTES, mergeAgenda, parseAgendaBackup, updateAgendaEntry, type AgendaInput } from '@/research/agenda'
 
 const now='2026-09-06T12:00:00.000Z'
 const input:AgendaInput={title:'Karşı kanıtı koru',url:'https://example.org/paper',notes:'İtirazlar\n<script>untrusted text</script>\n“Kanıt” 🐝',kind:'paper',status:'reading',dossierId:'bees',sourceStudyId:'seeley-2012'}
 const entry=(id:string,patch:Partial<AgendaInput>={})=>makeAgendaEntry({...input,...patch},now,id)
 
 describe('agenda portability and preservation',()=>{
+  it('rejects stale edits and removed entries without changing the latest record',()=>{
+    const original=entry('one')
+    const latest={...original,notes:'Changed in another tab'}
+    expect(()=>updateAgendaEntry([latest],original,{...input,notes:'Stale editor'})).toThrow('conflict')
+    expect(()=>updateAgendaEntry([],original,input)).toThrow('conflict')
+    expect(updateAgendaEntry([original],original,{...input,notes:'New note'},now)[0]?.notes).toBe('New note')
+    expect(latest.notes).toBe('Changed in another tab')
+  })
+  it('does not export a backup that its own importer rejects for size',()=>{
+    const entries=Array.from({length:12},(_,i)=>entry(String(i),{url:'',notes:'a'.repeat(100_000)}))
+    expect(()=>exportAgenda(entries,now)).toThrow('too-large')
+  })
   it('round-trips Unicode, newlines, notes and archived state without interpretation',()=>{
     const records=[entry('one'),entry('two',{url:'',status:'archived'})]
     expect(parseAgendaBackup(exportAgenda(records,now))).toEqual(records)
