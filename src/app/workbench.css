@@ -265,4 +265,9 @@
  .wb-map-row > a { font-size:19px; } .wb-map-row small { font-size:14px; }
 }
 @media(max-width:359px) { :root{--gutter:16px;} .header-inner{padding-inline:16px;gap:4px}.header-utilities{gap:2px}.wb-hero-copy h1{font-size:38px}.wb-form-row{grid-template-columns:1fr}.wb-dossier-row{grid-template-columns:1fr}.wb-dossier-row .mechanism-diagram{max-width:150px;margin:0}.menu-trigger{gap:4px;padding:6px} }
+.wb-ecosystem { border-top:1px solid var(--rule); padding:32px 0; }
+.wb-ecosystem > p { max-width:85ch; }
+.wb-ecosystem-paths { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin:24px 0; }
+.wb-ecosystem-paths h3 { font-size:22px; margin-bottom:12px; }
+@media(max-width:767px) { .wb-ecosystem-paths { grid-template-columns:minmax(0,1fr); } }
 @media(prefers-contrast:more){.wb-note,.wb-agenda-info{border:1px solid currentColor}.wb-meta-line{color:var(--ink)}}

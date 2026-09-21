@@ -1,89 +1,47 @@
 # Roadmap
 
-> Revision 02 (2026-09-06): [current implementation and boundaries](revision-02.md).
-> The planning sections below retain the original foundation direction;
-> simulation, ingestion and future database proposals are not shipped features.
+Current status reviewed on 21 September 2026. Original phase proposals remain
+in `docs/superpowers/`; they are not acceptance claims for the current product.
 
-## Phase 0 — Foundation
+## Available locally
 
-Define the product thesis, architecture, taxonomy, evidence rules, experiment
-boundaries, release scope, and ecosystem integration contract. Exit requires a
-reviewed design specification and ordered implementation plan.
+- Bilingual static research workspace and the source-linked four-entity chain:
+  Ant → Stigmergy → Ant Colony Optimization → Artificial Agent Coordination.
+- Eight biological dossiers, 21 selected studies and eight static agent
+  experiment templates with visible evidence, synthesis and transfer limits.
+- Search, field filters, chronology, knowledge map and graph/list alternatives.
+- Versioned Markdown/JSON recipe packages with task, roster, aggregate budget,
+  stopping conditions, controls, ablations and no fabricated results.
+- Local agenda with manual intake, import/export, statuses, archive and recovery.
+- ANT/BEE observation exercises, learning-system context and root-portfolio links.
+- Content, component, browser and static-export verification.
 
-## Phase 1 — Application foundation
+## Maintenance priorities
 
-Establish the static-first Next.js application, bilingual routing, design
-system, content schemas, catalog validation, local preview lifecycle, tests, and
-static artifact contract.
+1. Revisit fast-moving agent studies without refreshing unrelated review dates.
+2. Preserve biological observation, mathematical model, engineering hypothesis
+   and externally measured result as separate kinds of evidence.
+3. Keep root-portfolio descriptions aligned with actual SWI behavior and the
+   independent ownership of ANT/BEE simulations.
+4. Preserve Turkish/English parity, source provenance, export compatibility,
+   keyboard access, mobile layout and local-state recovery.
 
-## Phase 2 — First knowledge chain
+## Candidate research work
 
-Publish the fully sourced chain:
+New mechanisms or studies enter the catalog only after source review, bilingual
+scope checks and reciprocal dossier links. Wider coverage of PSO, artificial
+bee colony algorithms, robotics and multi-model experiments is a research
+candidate list, not implemented functionality or a content quota.
 
-```text
-Ant → Stigmergy → Ant Colony Optimization → Artificial Agent Coordination
-```
+Automatic source discovery, full-text extraction, cross-device agenda sync and
+editorial publishing tools need separate designs before implementation. Colony
+simulation development belongs to ANT/BEE. Real agent execution is outside
+SWI's observer contract; any future runtime must be scoped separately.
 
-Exit requires entity pages, visible evidence, relationship traversal, localized
-copy, search discovery, and an accessible graph/list equivalent.
+## Release boundary
 
-## Phase 3 — MVP knowledge breadth
-
-Expand carefully researched coverage toward:
-
-- species: ants, honeybees, birds, fish, termites;
-- principles: emergence, self-organization, stigmergy, decentralization,
-  consensus, positive feedback, negative feedback, robustness;
-- algorithms: ACO, PSO, Artificial Bee Colony, Boids;
-- artificial agents: multi-agent systems, LLM agents, LLM swarms, collective
-  reasoning.
-
-These are research targets, not quotas. A record is omitted until its claims and
-sources meet the evidence contract.
-
-## Phase 4 — Research navigation
-
-Add the unified Explore experience, filters, shareable URL state, research
-updates, evidence-backed timeline, open questions, methodology, and a broader
-relationship graph.
-
-## Phase 5 — Interactive learning
-
-Release the Ant Foraging and Stigmergy experiment with deterministic simulation
-tests, device-aware performance limits, accessible controls, and explicit
-educational limitations.
-
-## Phase 6 — Public release readiness
-
-Complete desktop/mobile browser acceptance, accessibility checks, artifact
-verification, security headers, release identity, documentation, and repository
-cleanliness. GitHub, Azure Static Web Apps, DNS, and root-portfolio integration
-are performed only with explicit authorization and live verification.
-
-## Later phases
-
-- richer two-dimensional simulations;
-- research-update discovery assistance;
-- persistent editorial workflow and PostgreSQL;
-- datasets and benchmarks;
-- swarm robotics laboratory;
-- advanced 3D environments;
-- reproducible artificial-agent and Small Model Swarm experiments.
-
-## MVP acceptance criteria
-
-The first public release is complete when:
-
-- every public editorial record has Turkish and English content;
-- every substantive evidence claim resolves to visible sources;
-- the first chain and its inverse traversal are correct;
-- search combines entity types and preserves shareable state;
-- the graph and its semantic list expose equivalent information;
-- timeline entries have evidence-bearing claims;
-- open questions cannot be mistaken for findings;
-- the ant experiment remains responsive and measurable on supported mobile and
-  desktop viewports;
-- keyboard, focus, reduced motion, touch-target, and overflow checks pass;
-- unit, component, data, browser, build, and artifact checks pass;
-- the production artifact contains no runtime secrets or unapproved third-party
-  services.
+Local checks and content updates do not publish. A release requires explicit
+authorization, passing `npm run validate:codex`, a clean whitespace diff review,
+and independent verification of the intended remote commit, deployment and
+live routes. Portfolio research dates, local edit dates and release identity
+must remain distinct.

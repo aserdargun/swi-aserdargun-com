@@ -9,6 +9,11 @@ reading depth and separate bilingual finding / takeaway / limitation fields.
 `content/dossiers.json` links each biological observation to these studies and
 to a proposed agent protocol. See [revision 02](revision-02.md).
 
+On 21 September 2026, the version-specific abstracts and publication metadata
+for MAST v3, SwarmSys v1, Scaling Agent Systems v3 and Meta-Team v1 were
+rechecked. Only these four review dates advance; the remaining records retain
+their earlier dates. See [review scope](content-review-2026-09-21.md).
+
 Publication-record and abstract reviews are explicitly labeled; neither claims
 a full-text audit. Null exact dates mean the day was not verified. arXiv records
 remain version-labeled without an inferred peer-review status. The Scaling

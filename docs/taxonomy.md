@@ -24,10 +24,10 @@ is translated.
 | `project` | Implementation or research project | source repository or laboratory project |
 | `dataset` | Research dataset | later release |
 | `benchmark` | Evaluation definition and results context | later release |
-| `experiment` | SWI experiment definition | ant foraging |
-| `simulation` | Runnable model associated with an experiment | ant-foraging simulation engine |
+| `experiment` | Future research classification; not a current entity type | static recipe plans are modeled separately |
+| `simulation` | External laboratory model; not a current SWI entity type | ANT/BEE own their engines |
 
-The TypeScript model will use a discriminated union so type-specific attributes
+The implemented entity schema uses a discriminated union so type-specific attributes
 remain explicit. Empty subtype fields are not added solely for visual symmetry.
 
 ## Topic families

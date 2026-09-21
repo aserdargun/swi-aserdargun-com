@@ -52,7 +52,8 @@ function startStaticExportServer() {
 beforeAll(async () => {
   await execFileAsync('npm', ['run', 'build'], { env: process.env })
   await startStaticExportServer()
-}, 30_000)
+// This setup compiles the full static site, including on shared development hosts.
+}, 120_000)
 
 afterAll(async () => {
   if (!server) {

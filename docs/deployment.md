@@ -1,7 +1,9 @@
 # SWI deployment
 
 The existing production target was verified on 2026-09-06 before publishing
-revision 02. The user's explicit deployment request authorizes this update.
+revision 02 under authorization for that historical release. This record does
+not authorize a new deployment; each future publication requires current user
+authorization and independent live verification.
 
 | Setting | Verified target |
 | --- | --- |

@@ -9,8 +9,8 @@ research and learning platform, not a full scientific simulator.
 
 ## Product thesis
 
-> Observe nature → extract principles → formalize mechanisms → simulate them →
-> apply them to artificial agents.
+> Observe nature → inspect sources → propose a mechanism → design an experiment
+> → export a plan for evaluation in your own environment.
 
 SWI treats relationships as first-class research records. A visitor should be
 able to move through a chain such as:
@@ -26,7 +26,7 @@ Each substantive statement and relationship must be traceable to explicit
 claims and sources. Synthesis, hypotheses, and open research questions must not
 be presented as settled evidence.
 
-## Status — revision 02, 6 September 2026
+## Status — content alignment, 21 September 2026
 
 SWI now connects eight biological dossiers to 21 selected studies and eight
 framework-independent agent experiment recipes. The workspace has a biology
@@ -75,13 +75,28 @@ again preserves the existing agenda record. No recipe is executed by SWI.
 Content validation checks both directions of study/dossier links, duplicate
 references, and publication/revision chronology. Static verification resolves
 local page links, fragment targets and referenced assets in the exported HTML.
-These checks do not constitute a new review of the scientific literature; the
-source-review date remains 6 September 2026.
+The initial collection was reviewed on 6 September 2026. On 21 September, the
+version-specific abstracts and metadata for MAST v3, SwarmSys v1, Scaling Agent
+Systems v3 and Meta-Team v1 were rechecked. Other review dates remain unchanged;
+this is not a full literature refresh or a reproduction of results. See the
+[content review](docs/content-review-2026-09-21.md).
 
 The first design was rejected by the user. The revision-02 visual direction is
 an implementation choice for that requested redesign, not a new user approval.
 See [the revision brief](docs/revision-02.md) and
 [design contract](docs/design/revision-02/contract.md).
+
+## Place in the learning system
+
+LCL and CLD provide compute context. WFM and SWI are parallel research paths
+that inform ITL; ANT and BEE are SWI’s independent colony laboratories. These
+are learning relationships, not automatic runtime integrations. SWI does not
+dispatch agents, fetch laboratory outcomes or use agenda notes as generation
+inputs. The home page and footer link back to the localized aserdargun.com site.
+
+The local root-portfolio summary is maintained in
+`../aserdargun-com/data/living-system.json`, then regenerated with
+`npm run generate:site`. Local edits do not advance release verification fields.
 
 ## Local workflow
 
@@ -118,7 +133,7 @@ without JavaScript. Entry tests cover mobile/desktop layouts, remembered and
 invalid preferences, blocked storage, and missing application scripts.
 
 Local validation does not publish the application. GitHub, Azure, DNS and
-root-portfolio integration require separate authorization.
+external publication require separate authorization.
 
 ## Documentation
 

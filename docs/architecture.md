@@ -1,183 +1,89 @@
 # Architecture
 
-> Revision 02 (2026-09-06): [current implementation and boundaries](revision-02.md).
-> The planning sections below retain the original foundation direction;
-> simulation, ingestion and future database proposals are not shipped features.
+Current implementation reviewed on 21 September 2026. The original design in
+`docs/superpowers/` records historical proposals; it is not the shipped contract.
 
-## Decision
+## Application boundary
 
-SWI will begin as a static-first Next.js application using the App Router,
-React, strict TypeScript, Tailwind CSS, and Zod. Canonical research records will
-live in the repository and be validated during local checks and production
-builds. Interactive features will be isolated in focused client components.
+SWI is a static Next.js App Router application with React, strict TypeScript,
+Zod and bilingual repository content. It is the observer and research atlas in
+the aserdargun.com learning system. It does not run agents, fetch research on
+page requests, execute colony simulations or automatically consume lab results.
 
-This approach was selected over a Vite single-page application because SWI will
-have many durable entity and research routes that benefit from page-specific
-HTML and metadata. It was selected over a database-first application because
-the first release does not require accounts, editing, ingestion, or runtime
-secrets.
+ANT and BEE own their simulation engines, units, model versions and measurements
+in their own workspaces. SWI's lab links supply reading context and observation
+exercises. Connections to LCL, CLD, WFM and ITL describe learning relationships.
+WFM and SWI are parallel research paths; neither is a prerequisite for the other.
 
-## System flow
+## Content and modules
 
 ```text
-content records
-  → schema parsing
-  → referential and editorial validation
-  → normalized catalog
-  → graph/search/freshness indexes
-  → statically generated localized pages
-  → focused interactive client islands
+content/*.json
+  → src/research schemas and validation
+  → catalog / workbench records
+  → localized static pages and interactive views
+
+recipe dossier + task + agent count + rounds + aggregate token budget
+  → versioned Markdown / JSON experiment specification
+  → manual use in the reader's own execution environment
 ```
 
-No ordinary page request performs a research-data fetch in the first release.
-Invalid content fails the build rather than degrading silently in production.
+- `content/`: bilingual source, claim, evidence, entity, relationship, study and
+  dossier records. Public research is edited here and validated in `src/research`.
+- `src/research/`: parsing, schemas, validation, search, freshness, laboratory
+  context, recipe generation and the agenda backup contract. No React dependency.
+- `src/graph/`: relationship graph construction and types.
+- `src/i18n/`: UI text, locale helpers and documented review scope.
+- `src/ui/`: evidence views, navigation, research workbench and browser storage.
+- `src/app/`: static route composition, metadata and styles.
 
-## Module boundaries
+There is no `src/simulations/` or `src/experiments/` engine in SWI. Decorative
+swarm and protocol diagrams are explanatory visuals, not research measurements.
 
-```text
-content/
-  Repository-managed bilingual records.
+## Routes and localization
 
-src/research/
-  Schemas, parsing, validation, normalization, selectors, and freshness rules.
+Both `/tr/` and `/en/` expose the workspace, `atlas/`, `research/`, `recipes/`,
+`agenda/`, `map/`, `methodology/`, `explore/`, `graph/`, dossier and recipe detail
+pages, and the four original `entities/` pages. Slugs remain language-neutral.
+The root uses the remembered locale, then the first supported browser language,
+then English. A language chooser remains available without application scripts.
 
-src/graph/
-  Relationship vocabulary, adjacency indexes, traversal, and presentation data.
+Locale changes preserve equivalent paths, query filters and fragments. Source
+titles remain in the publication language. Explanations, limits, controls and
+metadata preserve Turkish/English meaning. Unknown routes use static recovery.
 
-src/experiments/
-  Experiment definitions, hypotheses, parameters, metrics, and run records.
+## Persistence and generation
 
-src/simulations/
-  Pure engines, deterministic random sources, worker protocol, and measurements.
+The agenda is local user state in `swi-agenda-v1`; it is not an input to recipe
+selection or generation. There is no account, cloud synchronization or automatic
+source download. Strict version 1 JSON backups support manual transfer. Invalid
+imports fail atomically; existing identities and URLs are preserved on merge.
+Blocked/full/corrupt storage exposes temporary-session and recovery flows.
 
-src/ui/
-  Accessible visual primitives and feature components.
+Recipe drafts use session storage with an in-memory fallback. A prepared export
+is a snapshot of its generation inputs with explicit schema and generator
+versions. The generated roster's token caps sum to the aggregate budget. The
+execution environment must enforce these caps: SWI does not enforce runtime
+budgets. No measured result is generated. See [Experiments](experiments.md).
 
-src/app/
-  Routes, metadata, server composition, and narrow client boundaries.
-```
+## Freshness and evidence
 
-`src/ui` may depend on public selectors from research, graph, and experiments.
-Research and graph code must not import React. Simulation engines must not
-import UI or browser APIs. Browser-worker integration belongs in a simulation
-adapter, not the engine.
+The original claim catalog computes freshness against an explicit date; static
+pages identify their build-time evaluation date. A rebuild does not refresh a
+source review. Study records show their own review date and depth. The initial
+collection date and later partial source reviews are distinct; see
+[the content review](content-review-2026-09-21.md).
 
-## Routing and localization
+## Verification and publication
 
-The first release will generate `/en` and `/tr` route families. English is the
-default for a visitor without a stored preference; switching languages preserves
-the current entity, filters, query, and fragment when an equivalent route exists.
+`npm run validate:codex` runs content validation, lint, type checks, unit and
+component tests, production export, artifact checks and Playwright acceptance.
+Browser checks cover all localized mobile routes, key accessible views, evidence
+navigation, recipe exports, agenda imports/persistence and recovery. Preview
+lifecycle checks process ownership before stopping a listener.
 
-Stable slugs and identifiers remain language-neutral. Visible titles,
-summaries, descriptions, relationship labels, UI labels, and explanatory notes
-are localized. Source titles and quoted excerpts remain in their source language
-and may include a clearly marked localized explanation.
-
-Planned route families:
-
-```text
-/{locale}
-/{locale}/explore
-/{locale}/nature
-/{locale}/principles
-/{locale}/algorithms
-/{locale}/ai-swarms
-/{locale}/robotics
-/{locale}/entities/{slug}
-/{locale}/research
-/{locale}/timeline
-/{locale}/questions
-/{locale}/experiments
-/{locale}/experiments/ant-foraging
-/{locale}/graph
-/{locale}/methodology
-```
-
-Unknown locales and missing records return a real not-found result. URL query
-state is parsed against a schema before use and serialized in one canonical
-order.
-
-## Static-first persistence boundary
-
-The initial `CatalogRepository` has one implementation backed by validated local
-records. Consumers receive a normalized immutable catalog rather than importing
-individual JSON files. A later PostgreSQL implementation can satisfy the same
-read contract without moving presentation rules into the database layer.
-
-This is a narrow migration seam, not a generic repository framework. Database
-tables, write APIs, authentication, and migrations will only be designed when a
-real editorial or ingestion workflow requires them.
-
-## Interactive boundaries
-
-Server-rendered/static by default:
-
-- landing and collection content;
-- entity identity, claims, evidence, and sources;
-- timeline and research-question text;
-- methodology and experiment documentation.
-
-Client-side only where interaction requires it:
-
-- global search and filters;
-- URL-synchronized exploration state;
-- expandable evidence details;
-- knowledge-graph pan, focus, and traversal;
-- ant-foraging controls and live metrics;
-- theme and locale preferences.
-
-Heavy graph or simulation code is loaded only on its route or after explicit
-interaction. The decorative homepage swarm must use a smaller implementation
-than the experiment engine and must stop when hidden.
-
-## Accessibility and responsive behavior
-
-- All navigation and filters are keyboard operable.
-- Interactive targets meet a minimum 44 by 44 CSS-pixel touch area on mobile.
-- The graph has a semantic relationship list exposing the same nodes and edges.
-- Simulation state has textual metrics and control labels; color is not the only
-  carrier of meaning.
-- Motion responds to `prefers-reduced-motion`; decorative motion can be paused.
-- Canvas and graph regions have bounded dimensions and never create page-level
-  horizontal overflow.
-- Focus is restored deliberately after mobile drawers and modal surfaces close.
-
-## Error handling
-
-Build-time errors include the record kind, stable ID, field, and failed
-constraint. Referential failures are fatal. Missing optional descriptions may
-render an explicitly labeled incomplete state; missing evidence for a record
-classified as evidence may not.
-
-At runtime, invalid URL filters fall back to a canonical safe state and replace
-the malformed URL. A graph rendering failure falls back to the relationship
-list. A worker failure stops the simulation, retains the last valid metrics, and
-offers a reset without affecting research content.
-
-## Security and deployment
-
-The first release has no runtime secrets, write endpoints, user-generated HTML,
-or third-party analytics requirement. Content is escaped by framework defaults.
-External links use HTTPS and visibly identify their publisher.
-
-Azure Static Web Apps receives a prebuilt, validated `out/` artifact. Security
-headers should deny framing and unused device permissions, restrict content
-sources, and apply immutable caching only to hashed assets. CI validates the
-same build that is eligible for deployment.
-
-GitHub, Azure, DNS, and root-portfolio mutations are separate release actions
-and require explicit authorization.
-
-## Verification strategy
-
-- Schema tests: individual record shapes and enums.
-- Catalog tests: unique IDs, foreign keys, localization parity, chronology, and
-  evidence requirements.
-- Selector tests: search, filters, adjacency, path traversal, and freshness.
-- Simulation tests: seeded determinism, movement bounds, deposition,
-  evaporation, food return, and metric integrity.
-- Component tests: filters, evidence disclosure, locale switching, and fallbacks.
-- Browser tests: landing-to-entity traversal, search, graph/list parity,
-  experiment controls, desktop/mobile overflow, and keyboard navigation.
-- Artifact tests: localized routes, metadata, assets, security configuration,
-  release identity, and static MIME behavior.
+Azure Static Web Apps receives the prebuilt `out/` artifact. Static security
+headers restrict framing and unused capabilities; hashed assets are immutable.
+Local validation does not publish. Every future release needs authorization for
+that release plus independent deployment verification; historical deployment
+notes do not authorize new releases.

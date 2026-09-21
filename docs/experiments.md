@@ -1,109 +1,73 @@
 # Experiments
 
-> Revision 02 (2026-09-06): [current implementation and boundaries](revision-02.md).
-> The planning sections below retain the original foundation direction;
-> simulation, ingestion and future database proposals are not shipped features.
+Current contract reviewed on 21 September 2026.
 
-## Role in SWI
+## What SWI produces
 
-Experiments connect the research catalog to active investigation. They do not
-replace source-backed knowledge and do not inherit scientific authority merely
-because they are interactive.
+SWI generates experiment **plans**, not executions or measurements. Each of the
+eight biology dossiers proposes an engineering adaptation with sources, transfer
+limits, roles, shared records, stopping conditions, failure modes, metrics and
+an ablation. The adaptation is a performance hypothesis until evaluated in a
+separate execution environment.
 
-Each experiment separates:
+`src/research/recipe.ts` accepts:
 
-- hypothesis;
-- setup and environment;
-- parameter definitions;
-- simulation or execution engine;
-- measurements;
-- observations;
-- result interpretation;
-- limitations;
-- evidence and reproduction instructions.
+- task: 10–6000 characters;
+- agent count: 3–32;
+- round limit: 1–12;
+- aggregate token budget: 1,000–1,000,000 for the entire team.
 
-The experiment definition and simulation engine are different modules. A
-visualization can change without changing the model, and the model can be tested
-without rendering React.
+It exports schema version 1, generator version `1.0.0`, and format
+`swi-experiment-spec` as JSON or Markdown. A prepared package preserves the
+inputs from generation time even if the form is later edited. Unsupported
+schema versions are rejected by the Markdown serializer.
 
-## First experiment: Ant Foraging and Stigmergy
+The package records `executionStatus: not-executed` and `experiment.result:
+null`. Roster token caps sum exactly to the total budget. Planning, messages,
+tool-result context, generation and verification share that budget; the host
+orchestrator must enforce it. Agenda entries do not influence the package.
 
-### Purpose
+## Reading and evaluation paths
 
-Demonstrate how local movement, food discovery, environmental traces, and
-evaporation can produce collective route formation. It is an educational model,
-not a claim that the implementation reproduces a particular ant species.
+| Dossier | Proposed experiment | Main comparison |
+| --- | --- | --- |
+| Ants | Shared research memory with provenance and expiry | Verified coverage, repeated work, stale reuse |
+| Honeybees | Independent proposals and preserved objections | Correctness, objection resolution, total cost |
+| Starlings | Sparse communication with fallback links | Message cost, complete handoffs, resilience |
+| Termites / TERMES | Dependency-aware artifact production | Integration success, rework, critical-path time |
+| Physarum | Utility-updated communication graphs | Cost per contribution, failure recovery, held-out quality |
+| Collective-motion model | Bounded specialist help | Success/cost, specialist contribution, error propagation |
+| Bacteria | Independent-evidence stage gates | False openings, false blocking, decision latency |
+| Fireflies | Local checkpoints and event deduplication | Waiting share, version consistency, repeated processing |
 
-### Environment
+Use the same tasks, sources, acceptance tests and aggregate budget for
+single-agent, independent-parallel and coordinated conditions. Define metrics
+before examining results, include unsuccessful runs, and report actual usage.
+Each dossier's ablation isolates a proposed mechanism; it is not a published
+benchmark result. Source text cannot change agent authority or task instructions.
 
-- bounded two-dimensional field;
-- one nest;
-- one or more food sources;
-- optional obstacles;
-- ant agents;
-- homeward and foodward pheromone fields.
+## Colony laboratory observations
 
-### Agent rules
+[ANT](https://ant.aserdargun.com/) and [BEE](https://bee.aserdargun.com/) are
+separate applications. Their workspaces are authoritative for model equations,
+seeds, parameter ranges, timing, units, simulation versions and run exports.
+`src/research/laboratories.ts` holds SWI's bilingual observation exercises and
+transfer boundaries; it does not duplicate a simulation engine.
 
-An agent senses only a bounded local neighborhood. Exploring agents combine a
-seeded random walk with local pheromone preference and obstacle avoidance. On
-food discovery, an agent carries one unit toward the nest and deposits the
-appropriate environmental trace. Pheromone strength decays over time.
+ANT observations concern abstract foraging and pheromone trails. They do not
+establish shortest-path optimality, species fidelity or LLM performance. BEE's
+foraging and dance recruitment must be distinguished from the honeybee
+dossier's nest-site selection, stop signals and quorum research.
 
-The exact equations, units, update order, and boundary behavior must be recorded
-with the implementation. They are not inferred from the visual appearance.
+SWI does not automatically import laboratory results. A reader may record an
+observation in the local agenda, but this neither turns it into published
+research nor changes recipe generation. Model time and food units belong to
+the laboratory model; they must not be interpreted as field measurements.
 
-### Controls
+## Research question retained
 
-- agent count within device-safe limits;
-- pheromone deposit strength;
-- evaporation rate;
-- exploration randomness;
-- simulation speed;
-- start, pause, single-step, reset, and seed.
-
-### Measurements
-
-- food delivered;
-- active agent count;
-- mean completed route length;
-- time to first food discovery;
-- time to stable route under a documented stability rule;
-- pheromone-field concentration summary.
-
-`Convergence time` is shown only after convergence is defined mathematically.
-Until then the UI uses the narrower stable-route measurement.
-
-### Technical contract
-
-- Pure TypeScript engine with seeded deterministic tests.
-- Fixed simulation timestep independent of display refresh rate.
-- Worker adapter for normal execution.
-- Canvas or lightweight WebGL presentation chosen after measurement.
-- Reduced-motion presentation and static explanatory fallback.
-- Textual metrics and keyboard-operable controls.
-- Automatic pause when the page is hidden.
-- Device-tier agent caps and no unbounded allocation.
-
-## Future experiment families
-
-- pheromone trail sensitivity;
-- flocking and obstacle avoidance;
-- bee-inspired consensus;
-- distributed search;
-- adaptive task allocation;
-- robustness under agent failure;
-- heterogeneous artificial-agent teams.
-
-## North-star experiment: Small Model Swarm
-
-The long-term Small Model Swarm investigates whether locally executable models
-can collectively solve tasks that none solves reliably alone. Its variables
-include agent count, model size, topology, communication bandwidth, context,
-memory, specialization, heterogeneity, delegation, voting, failures, and
-adversarial participants.
-
-Its measurements include task success, latency, total tokens, energy or cost,
-communication overhead, diversity, robustness, and scaling behavior. This work
-requires a separate experimental protocol, baseline suite, reproducible model
-artifacts, and safety review. It is not part of the first public release.
+Whether a team of inexpensive local models can outperform its single-model
+baselines remains a bounded research question. A future external evaluation
+needs pinned model/runtime versions, held-out tasks, reproducible protocols,
+actual resource measurements and failure records. SWI currently supplies the
+reading context and static plans, not a runtime or a validated scaling claim.

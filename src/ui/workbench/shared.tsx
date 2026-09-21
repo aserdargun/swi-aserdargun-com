@@ -11,7 +11,7 @@ export const categoryLabels = {
 }
 export const dossierNames: Record<string, {tr:string;en:string}> = {"ants": {"tr": "Karıncalar", "en": "Ants"}, "bees": {"tr": "Bal arıları", "en": "Honeybees"}, "starlings": {"tr": "Sığırcıklar", "en": "Starlings"}, "termites": {"tr": "Termitler", "en": "Termites"}, "physarum": {"tr": "Physarum", "en": "Physarum"}, "fish": {"tr": "Balık sürüleri", "en": "Fish schools"}, "bacteria": {"tr": "Bakteri toplulukları", "en": "Bacterial communities"}, "fireflies": {"tr": "Ateşböcekleri", "en": "Fireflies"}}
 export function WorkbenchTopline({ locale, section, children }: { locale: Locale; section: string; children?: ReactNode }) {
-  return <div className="wb-topline"><div><a href={localizedPath('/', locale)}>SWI</a><span aria-hidden="true">/</span><span>{section}</span></div>{children ?? <span className="wb-date"><Icon name="calendar" />{tx(locale, 'Araştırma kesiti', 'Research snapshot')} · <time dateTime="2026-09-06">06.09.2026</time></span>}</div>
+  return <div className="wb-topline"><div><a href={localizedPath('/', locale)}>SWI</a><span aria-hidden="true">/</span><span>{section}</span></div>{children ?? <span className="wb-date"><Icon name="calendar" />{tx(locale, 'İlk koleksiyon', 'Initial collection')} · <time dateTime="2026-09-06">06.09.2026</time></span>}</div>
 }
 export function PageIntro({ title, description, children }: { title: string; description: string; children?: ReactNode }) {
   return <header className="wb-intro"><div><h1>{title}</h1><p>{description}</p></div>{children && <div className="wb-actions">{children}</div>}</header>

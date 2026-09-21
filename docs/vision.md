@@ -68,5 +68,8 @@ identifiers, evidence counts, freshness, research cutoffs, and application
 relationships. Generic infrastructure should be reused through explicit
 contracts, not copied into SWI-specific variants.
 
-The root portfolio should only reference SWI after the application has a real
-public artifact and verified release identity.
+The root portfolio currently records SWI as an atlas alongside WFM, with
+LCL/CLD as upstream learning context, ITL downstream, and ANT/BEE as independent
+subordinate laboratories. These are educational relationships, not runtime
+integration. New release claims still require a verified public artifact and
+release identity. See [the current architecture](architecture.md).

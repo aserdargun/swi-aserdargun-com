@@ -1,5 +1,7 @@
 import { catalog } from '../src/research/raw-content'
-import { studies, dossiers, researchReviewedAt } from '../src/research/workbench'
+import { studies, dossiers } from '../src/research/workbench'
+
+const reviewDates = studies.map(study => study.reviewedAt).sort()
 
 const counts = {
   taxonomies: catalog.taxonomies.length,
@@ -12,7 +14,7 @@ const counts = {
   studies: studies.length,
   biologyDossiers: dossiers.length,
   experimentRecipes: dossiers.length,
-  researchReviewedAt,
+  studyReviewDates: { oldest: reviewDates[0], newest: reviewDates.at(-1) },
 }
 
 console.log(JSON.stringify(counts, null, 2))

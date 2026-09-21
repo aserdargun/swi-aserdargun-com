@@ -4,6 +4,15 @@
 > The planning sections below retain the original foundation direction;
 > simulation, ingestion and future database proposals are not shipped features.
 
+## Current authority
+
+`src/research/schema.ts` defines the original claim-level catalog;
+`workbench-schema.ts` defines the 21 studies and eight dossiers; `recipe.ts`
+defines generated plans; `agenda.ts` defines personal backups. The shapes below
+are historical design context. Current recipe schema and generator versions
+remain 1 and `1.0.0`; the September 21 copy/source-review update changes no
+export semantics. ANT/BEE simulation schemas belong to their own workspaces.
+
 ## Conventions
 
 - IDs and slugs are immutable lowercase kebab-case strings.

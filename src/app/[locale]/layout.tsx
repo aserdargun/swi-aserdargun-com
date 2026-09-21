@@ -23,11 +23,16 @@ import { AgendaPersistenceGuard } from '@/ui/workbench/AgendaPersistenceGuard'
 
 export const dynamicParams = false
 
-export const metadata: Metadata = {
-  icons: { icon: '/favicon.svg' },
-  title: 'SWI - Swarm Intelligence',
-  description:
-    'A bilingual research instrument for studying collective intelligence.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  if (!isLocale(locale)) notFound()
+  return {
+    icons: { icon: '/favicon.svg' },
+    title: locale === 'tr' ? 'SWI — Sürü Zekâsı' : 'SWI — Swarm Intelligence',
+    description: locale === 'tr'
+      ? 'aserdargun.com öğrenme sisteminin sürü zekâsı atlası: biyoloji dosyaları, kaynaklı araştırmalar ve kendi ortamında sınayacağın statik ajan deney şablonları.'
+      : 'The swarm intelligence atlas in the aserdargun.com learning system: biology dossiers, sourced research and static agent experiment templates to test in your own environment.',
+  }
 }
 
 export function generateStaticParams() {
