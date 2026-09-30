@@ -100,5 +100,119 @@
       "evidence-coordination-antnet"
     ],
     "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-bee-quorum-decision",
+    "kind": "evidence",
+    "statement": {
+      "tr": "Yuva seçiminde dansçı kovanlara dur sinyalleri gönderdi; kovan adaylar arasında karşı-olgusal bir karşılaştırmadır.",
+      "en": "Scouts sent stop signals to competing hives during nest selection; a hive is a counterfactual comparison among candidates."
+    },
+    "subjectEntityIds": [
+      "ant",
+      "stigmergy"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-seeley-2012"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-bacteria-quorum-sensing",
+    "kind": "evidence",
+    "statement": {
+      "tr": "Vibrio harveyi, iki otoindükleyicinin eşzamanlı sinyalini bir tutucu olarak kullanarak gen ifadesini düzenler.",
+      "en": "Vibrio harveyi regulates gene expression by using the coincidence of two autoinducer signals as a detector."
+    },
+    "subjectEntityIds": [
+      "artificial-agent-coordination"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-bassler-2003"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-firefly-synchronization",
+    "kind": "evidence",
+    "statement": {
+      "tr": "Doğal Photinus carolinus sürülerinde flaş kümelemesi, bitki örtüsünün biçimlendirdiği bir ortamda yerel aktarımla açıklanır.",
+      "en": "Flash clustering in natural Photinus carolinus swarms is explained by local transmission in a structured environment."
+    },
+    "subjectEntityIds": [
+      "artificial-agent-coordination"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-sarfati-2021"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-starling-local-rules",
+    "kind": "evidence",
+    "statement": {
+      "tr": "Yerel etkileşim kuralları, her bireyin yolunu tek tek yazmadan kolektif sürü davranışı üretir.",
+      "en": "Local interaction rules produce collective flocking without specifying any individual's path."
+    },
+    "subjectEntityIds": [
+      "artificial-agent-coordination"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-boids-1987"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-physarum-network-design",
+    "kind": "evidence",
+    "statement": {
+      "tr": "Physarum ağları, verimlilik, maliyet ve hata dayanıklılığı arasındaki ödünleşmeyi karşılaştırılabilir kılar.",
+      "en": "Physarum networks make the trade-off between efficiency, cost and fault tolerance comparable."
+    },
+    "subjectEntityIds": [
+      "ant-colony-optimization",
+      "artificial-agent-coordination"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-tero-2010"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-termite-construction",
+    "kind": "evidence",
+    "statement": {
+      "tr": "TERMES, istenen yapıdan yerel kurallar türetip otonom bir robot ekibinin paylaşılan çevrede koordinasyonunu sağlar.",
+      "en": "TERMES derives local rules from a target structure and lets an autonomous robot team coordinate in a shared environment."
+    },
+    "subjectEntityIds": [
+      "artificial-agent-coordination"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-werfel-2014"
+    ],
+    "reviewedAt": "2026-09-06"
+  },
+  {
+    "id": "claim-fish-interaction-range",
+    "kind": "evidence",
+    "statement": {
+      "tr": "Yalnızca komşularıyla etkileşen bireyler, sabit bir etkileşim yarıçapıyla büyük sürüler oluşturabilir.",
+      "en": "Individuals interacting only with neighbours can form large schools at a fixed interaction radius."
+    },
+    "subjectEntityIds": [
+      "artificial-agent-coordination"
+    ],
+    "confidence": "medium",
+    "evidenceIds": [
+      "evidence-couzin-2005"
+    ],
+    "reviewedAt": "2026-09-06"
   }
 ]

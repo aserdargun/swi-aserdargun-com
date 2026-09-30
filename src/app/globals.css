@@ -174,3 +174,8 @@ svg { flex-shrink: 0; }
   .mobile-nav-panel a[aria-current='page'], .entity-row.is-selected, .entity-row[aria-selected='true'] { border-inline-start-color: Highlight; }
   :focus-visible, .graph-field :focus-visible { outline-color: Highlight; }
 }
+
+/* Claim layer: a dossier without a bound claim says so instead of looking sourced. */
+.claim-layer { margin: 20px 0 24px; }
+.claim-layer h3 { margin: 0 0 10px; font-size: 0.95rem; }
+.claim-layer .wb-definition-list { margin: 0; }

@@ -97,5 +97,75 @@
       "tr": "AntNet karşılaştırmanın yönlendirme örneğidir; modern LLM ajanlarına aktarım test edilmemiştir.",
       "en": "AntNet supplies the routing example; transfer to modern LLM agents is untested."
     }
+  },
+  {
+    "id": "evidence-seeley-2012",
+    "claimId": "claim-bee-quorum-decision",
+    "sourceId": "source-seeley-2012",
+    "relation": "supports",
+    "note": {
+      "tr": "Dansçı sayısı ve yuva kalitesinin o saha koşullarına bağlıdır; genel bir doğruluk garantisi değildir.",
+      "en": "Scout count and nest quality depend on the field conditions; this is not a general guarantee of accuracy."
+    }
+  },
+  {
+    "id": "evidence-bassler-2003",
+    "claimId": "claim-bacteria-quorum-sensing",
+    "sourceId": "source-bassler-2003",
+    "relation": "supports",
+    "note": {
+      "tr": "Kimyasal yoğunluk bir güven puanı değildir; eşik sayıları ortama göre değişir.",
+      "en": "Chemical density is not a confidence score; thresholds vary with the environment."
+    }
+  },
+  {
+    "id": "evidence-sarfati-2021",
+    "claimId": "claim-firefly-synchronization",
+    "sourceId": "source-sarfati-2021",
+    "relation": "supports",
+    "note": {
+      "tr": "Gözlenen desen, küresel bir saat veya hata toleransı protokolü sağlamaz.",
+      "en": "The observed pattern does not imply a global clock or a fault-tolerance protocol."
+    }
+  },
+  {
+    "id": "evidence-boids-1987",
+    "claimId": "claim-starling-local-rules",
+    "sourceId": "source-boids-1987",
+    "relation": "supports",
+    "note": {
+      "tr": "Bu bir davranışsal modeldir; gerçek kuş etkileşim kurallarının keşfi değildir.",
+      "en": "This is a behavioural model, not a discovery of the real interaction rules of birds."
+    }
+  },
+  {
+    "id": "evidence-tero-2010",
+    "claimId": "claim-physarum-network-design",
+    "sourceId": "source-tero-2010",
+    "relation": "supports",
+    "note": {
+      "tr": "Physarum tek çekirdekli çok hücreli bir organizmadır; bağımsız ajanlardan oluşan bir koloni değildir.",
+      "en": "Physarum is a single multi-nucleate organism, not a colony of independent agents."
+    }
+  },
+  {
+    "id": "evidence-werfel-2014",
+    "claimId": "claim-termite-construction",
+    "sourceId": "source-werfel-2014",
+    "relation": "supports",
+    "note": {
+      "tr": "Robotik sonuç kısıtlı yapı kuralları altında geçerlidir; serbest biçimli kod üretimi aynı garantiyi taşımaz.",
+      "en": "The robotic result holds under constrained construction rules; free-form code generation carries no such guarantee."
+    }
+  },
+  {
+    "id": "evidence-couzin-2005",
+    "claimId": "claim-fish-interaction-range",
+    "sourceId": "source-couzin-2005",
+    "relation": "supports",
+    "note": {
+      "tr": "Model bir davranışsal açıklamadır; gerçek balık okulunun tüm kurallarını kapsamaz.",
+      "en": "The model is a behavioural explanation and does not cover every rule of real fish schooling."
+    }
   }
 ]

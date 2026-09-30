@@ -65,5 +65,105 @@
     "doi": "10.1613/jair.530",
     "identifier": "Journal of Artificial Intelligence Research 9, 317–365",
     "access": "available"
+  },
+  {
+    "id": "source-seeley-2012",
+    "title": "Stop signals provide cross inhibition in collective decision-making by honeybee swarms",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/22157081/",
+    "sourceType": "peer-reviewed-paper",
+    "authors": [
+      "Thomas D. Seeley et al."
+    ],
+    "organization": "Science 335(6064), 108–111",
+    "publicationDate": "2012-01-01",
+    "accessedAt": "2026-09-06",
+    "access": "available"
+  },
+  {
+    "id": "source-bassler-2003",
+    "title": "Vibrio harveyi quorum sensing: a coincidence detector for two autoinducers controls gene expression",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC145445/",
+    "sourceType": "peer-reviewed-paper",
+    "authors": [
+      "Kenny C. Mok",
+      "Ned S. Wingreen",
+      "Bonnie L. Bassler"
+    ],
+    "organization": "The EMBO Journal 22(4), 870–881",
+    "publicationDate": "2003-01-01",
+    "accessedAt": "2026-09-06",
+    "access": "available"
+  },
+  {
+    "id": "source-sarfati-2021",
+    "title": "Self-organization in natural swarms of Photinus carolinus synchronous fireflies",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8262802/",
+    "sourceType": "peer-reviewed-paper",
+    "authors": [
+      "Raphaël Sarfati",
+      "Julie C. Hayes",
+      "Orit Peleg"
+    ],
+    "organization": "Science Advances 7(28), eabg9259",
+    "publicationDate": "2021-01-01",
+    "accessedAt": "2026-09-06",
+    "access": "available"
+  },
+  {
+    "id": "source-boids-1987",
+    "title": "Flocks, Herds, and Schools: A Distributed Behavioral Model",
+    "url": "https://www.red3d.com/cwr/papers/1987/boids.html",
+    "sourceType": "peer-reviewed-paper",
+    "authors": [
+      "Craig W. Reynolds"
+    ],
+    "organization": "ACM SIGGRAPH 1987",
+    "publicationDate": "1987-01-01",
+    "accessedAt": "2026-09-06",
+    "access": "available"
+  },
+  {
+    "id": "source-tero-2010",
+    "title": "Rules for biologically inspired adaptive network design",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/20093467/",
+    "sourceType": "peer-reviewed-paper",
+    "authors": [
+      "Atsushi Tero et al."
+    ],
+    "organization": "Science 327(5964), 439–442",
+    "publicationDate": "2010-01-01",
+    "accessedAt": "2026-09-06",
+    "access": "available"
+  },
+  {
+    "id": "source-werfel-2014",
+    "title": "Designing Collective Behavior in a Termite-Inspired Robot Construction Team",
+    "url": "https://ssr.princeton.edu/publications/designing-collective-behavior-termite-inspired-robot-construction-team",
+    "sourceType": "peer-reviewed-paper",
+    "authors": [
+      "Justin Werfel",
+      "Kirstin Petersen",
+      "Radhika Nagpal"
+    ],
+    "organization": "Science 343(6172), 754–758",
+    "publicationDate": "2014-01-01",
+    "accessedAt": "2026-09-06",
+    "access": "available"
+  },
+  {
+    "id": "source-couzin-2005",
+    "title": "Effective leadership and decision-making in animal groups on the move",
+    "url": "https://www.nature.com/articles/nature03236",
+    "sourceType": "peer-reviewed-paper",
+    "authors": [
+      "Iain D. Couzin",
+      "Jens Krause",
+      "Nigel R. Franks",
+      "Simon A. Levin"
+    ],
+    "organization": "Nature 433, 513–516",
+    "publicationDate": "2005-01-01",
+    "accessedAt": "2026-09-06",
+    "access": "available"
   }
 ]
