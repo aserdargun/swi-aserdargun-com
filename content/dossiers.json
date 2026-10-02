@@ -33,7 +33,8 @@
       "ant-system-1996",
       "antnet-1998",
       "swarmsys-2025",
-      "mast-2025"
+      "mast-2025",
+      "arm-2026"
     ],
     "mappings": [
       {
@@ -495,7 +496,8 @@
     "studyIds": [
       "ballerini-2008",
       "boids-1987",
-      "scaling-2025"
+      "scaling-2025",
+      "syncsbc-2026"
     ],
     "mappings": [
       {
@@ -958,7 +960,8 @@
       "tero-2010",
       "antnet-1998",
       "swarmsys-2025",
-      "meta-team-2026"
+      "meta-team-2026",
+      "arm-2026"
     ],
     "mappings": [
       {
@@ -1191,7 +1194,8 @@
       "boids-1987",
       "debate-2023",
       "moa-2024",
-      "scaling-2025"
+      "scaling-2025",
+      "syncsbc-2026"
     ],
     "mappings": [
       {

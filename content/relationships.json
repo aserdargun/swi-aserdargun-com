@@ -12,7 +12,7 @@
       "tr": "Arjantin karıncasının feromon aracılı besin arama bağlamında.",
       "en": "Within Argentine-ant pheromone-mediated foraging."
     },
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "stigmergy-inspires-aco",
@@ -27,7 +27,7 @@
       "tr": "İlke ile Ant System arasındaki kavramsal eşleme SWI sentezidir.",
       "en": "The conceptual mapping between the principle and Ant System is SWI synthesis."
     },
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "aco-applies-to-agent-coordination",
@@ -42,6 +42,6 @@
       "tr": "Ant System ve AntNet üzerinden kurulan tasarım bağlantısı; genel performans sonucu değildir.",
       "en": "A design connection through Ant System and AntNet; not a general performance result."
     },
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   }
 ]

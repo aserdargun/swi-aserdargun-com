@@ -15,7 +15,7 @@
       "evidence-ant-trails",
       "evidence-ant-stigmergy-definition"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-stigmergy-definition",
@@ -31,7 +31,7 @@
     "evidenceIds": [
       "evidence-stigmergy-definition"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-ant-system-formulation",
@@ -47,7 +47,7 @@
     "evidenceIds": [
       "evidence-ant-system-formulation"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-stigmergy-aco-synthesis",
@@ -65,7 +65,7 @@
       "evidence-stigmergy-aco-principle",
       "evidence-stigmergy-aco-formulation"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-antnet-coordination",
@@ -81,7 +81,7 @@
     "evidenceIds": [
       "evidence-antnet-coordination"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-aco-coordination-synthesis",
@@ -99,7 +99,7 @@
       "evidence-coordination-ant-system",
       "evidence-coordination-antnet"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-bee-quorum-decision",
@@ -116,7 +116,7 @@
     "evidenceIds": [
       "evidence-seeley-2012"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-bacteria-quorum-sensing",
@@ -132,7 +132,7 @@
     "evidenceIds": [
       "evidence-bassler-2003"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-firefly-synchronization",
@@ -148,7 +148,7 @@
     "evidenceIds": [
       "evidence-sarfati-2021"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-starling-local-rules",
@@ -164,7 +164,7 @@
     "evidenceIds": [
       "evidence-boids-1987"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-physarum-network-design",
@@ -181,7 +181,7 @@
     "evidenceIds": [
       "evidence-tero-2010"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-termite-construction",
@@ -197,7 +197,7 @@
     "evidenceIds": [
       "evidence-werfel-2014"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   },
   {
     "id": "claim-fish-interaction-range",
@@ -213,6 +213,6 @@
     "evidenceIds": [
       "evidence-couzin-2005"
     ],
-    "reviewedAt": "2026-09-06"
+    "reviewedAt": "2026-10-02"
   }
 ]
