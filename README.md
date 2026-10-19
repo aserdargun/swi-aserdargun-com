@@ -81,10 +81,17 @@ Systems v3 and Meta-Team v1 were rechecked. On 2 October, every source
 identifier was resolved against its authoritative registry — DOI content
 negotiation, NCBI E-utilities, or the publisher page — to confirm the stored
 title and authors still match, and two 2026 studies were added, read at abstract
-level. The stored summaries for the nineteen earlier studies were not re-derived
-against their abstracts in that pass, so this is not a full literature refresh
-or a reproduction of results. See the
-[content reviews](docs/content-review-2026-10-02.md) and
+level. On 19 October that identity pass was repeated for all eleven sources:
+the three DOI records and the Science record were confirmed through Crossref,
+the two PubMed and two PMC records through their NCBI pages, the AntNet record
+through the JAIR page and the Boids record through the publisher page, while
+the Princeton page for the TERMES paper and the subscription wall on the
+Couzin paper were confirmed through the Crossref record and the article
+metadata instead. No study was added. The stored summaries for the studies
+were not re-derived against their abstracts in these passes, so these are not
+full literature refreshes or a reproduction of results. See the
+[content reviews](docs/content-review-2026-10-19.md),
+[the 2 October review](docs/content-review-2026-10-02.md) and
 [the earlier partial review](docs/content-review-2026-09-21.md).
 
 The first design was rejected by the user. The revision-02 visual direction is
