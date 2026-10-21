@@ -87,10 +87,25 @@ the two PubMed and two PMC records through their NCBI pages, the AntNet record
 through the JAIR page and the Boids record through the publisher page, while
 the Princeton page for the TERMES paper and the subscription wall on the
 Couzin paper were confirmed through the Crossref record and the article
-metadata instead. No study was added. The stored summaries for the studies
-were not re-derived against their abstracts in these passes, so these are not
-full literature refreshes or a reproduction of results. See the
-[content reviews](docs/content-review-2026-10-19.md),
+metadata instead. On 20 October that identity pass was repeated once more for
+all eleven sources: the Goss, Théraulaz, Dorigo and Werfel records were
+confirmed through Crossref, the Seeley and Tero records through NCBI
+E-utilities summaries for the same PMIDs, the AntNet, two PMC, Boids and Couzin
+records through their own pages, while the MIT Press, IEEE Xplore, PubMed and
+Princeton pages that blocked a plain request were confirmed through those
+registry records instead. On 21 October that identity pass was repeated once more for
+all eleven sources: the Goss, Théraulaz, Dorigo and Werfel records were
+confirmed through Crossref, the Seeley and Tero records through NCBI
+E-utilities summaries for the same PMIDs, the AntNet, two PMC, Boids and Couzin
+records through their own pages, and the Goss record once more through the
+Springer article page, while the MIT Press, IEEE Xplore, PubMed and Princeton
+pages that blocked a plain request were confirmed through those registry
+records instead. No study was added. The stored summaries for the
+studies were not re-derived against their abstracts in these passes, so these
+are not full literature refreshes or a reproduction of results. See the
+[content reviews](docs/content-review-2026-10-21.md),
+[the 20 October review](docs/content-review-2026-10-20.md),
+[the 19 October review](docs/content-review-2026-10-19.md),
 [the 2 October review](docs/content-review-2026-10-02.md) and
 [the earlier partial review](docs/content-review-2026-09-21.md).
 
