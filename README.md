@@ -100,10 +100,19 @@ E-utilities summaries for the same PMIDs, the AntNet, two PMC, Boids and Couzin
 records through their own pages, and the Goss record once more through the
 Springer article page, while the MIT Press, IEEE Xplore, PubMed and Princeton
 pages that blocked a plain request were confirmed through those registry
-records instead. No study was added. The stored summaries for the
+records instead. On 24 October that pass was repeated once more for all eleven
+sources, and the version pin behind every arXiv study record was checked as
+well: the Goss, Théraulaz, Dorigo and Werfel records were confirmed through
+Crossref, the Seeley and Tero records through NCBI E-utilities summaries for
+the same PMIDs, the Bassler and Sarfati records through NCBI summaries for the
+same PMC records, and the AntNet, Boids and Couzin records through their own
+pages. The only upstream change was the Meta-Team preprint, which was re-posted
+as v2 on 13 October 2026 with an abstract identical to v1, so that record now
+pins v2 and its revision date. No study was added. The stored summaries for the
 studies were not re-derived against their abstracts in these passes, so these
 are not full literature refreshes or a reproduction of results. See the
-[content reviews](docs/content-review-2026-10-21.md),
+[content reviews](docs/content-review-2026-10-24.md),
+[the 21 October review](docs/content-review-2026-10-21.md),
 [the 20 October review](docs/content-review-2026-10-20.md),
 [the 19 October review](docs/content-review-2026-10-19.md),
 [the 2 October review](docs/content-review-2026-10-02.md) and

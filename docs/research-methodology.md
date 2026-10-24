@@ -18,7 +18,8 @@ Publication-record and abstract reviews are explicitly labeled; neither claims
 a full-text audit. Null exact dates mean the day was not verified. arXiv records
 remain version-labeled without an inferred peer-review status. The Scaling
 Agent Systems record uses v3 (2026-04-08; 260 configurations / 6 benchmarks),
-not an older abstract's 180 / 4 figures. MAST uses v3 (2025-10-26).
+not an older abstract's 180 / 4 figures. MAST uses v3 (2025-10-26). The
+Meta-Team record uses v2 (2026-10-13), whose abstract is unchanged from v1.
 
 The original ant chain uses granular claim/evidence records. The expanded
 reading library uses source-level summaries and marked engineering synthesis;
