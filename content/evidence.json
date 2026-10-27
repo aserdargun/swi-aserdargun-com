@@ -167,5 +167,17 @@
       "tr": "Model bir davranışsal açıklamadır; gerçek balık okulunun tüm kurallarını kapsamaz.",
       "en": "The model is a behavioural explanation and does not cover every rule of real fish schooling."
     }
+  },
+  {
+    "id": "evidence-boids-1987-interaction-radius",
+    "claimId": "claim-fish-interaction-range",
+    "sourceId": "source-boids-1987",
+    "relation": "supports",
+    "locator": "SIGGRAPH '87 paper, \"Flocks, Herds, and Schools\", the neighbourhood-definition and flock-size passages: https://www.cs.toronto.edu/~dt/siggraph97-course/cwr87/",
+    "excerpt": "In the current implementation, the neighborhood is defined as a spherical zone of sensitivity centered at the boid's local origin. The magnitude of the sensitivity is defined as an inverse exponential of distance. Hence the neighborhood is defined by two parameters: a radius and exponent. [...] These speculations about the \"computational complexity\" of flocking are meant to suggest that birds can flock with any number of flockmates because they are using what would be called in formal computer science a constant time algorithm.",
+    "note": {
+      "tr": "Yarıçap model parametresidir ve duyarlılık mesafeyle ters üstel azalır; ölçülmüş gerçek bir etkileşim eşiği değildir.",
+      "en": "The radius is a model parameter and sensitivity falls off as an inverse exponential of distance; it is not a measured real-world interaction threshold."
+    }
   }
 ]

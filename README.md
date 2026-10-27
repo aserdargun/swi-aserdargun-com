@@ -108,10 +108,21 @@ the same PMIDs, the Bassler and Sarfati records through NCBI summaries for the
 same PMC records, and the AntNet, Boids and Couzin records through their own
 pages. The only upstream change was the Meta-Team preprint, which was re-posted
 as v2 on 13 October 2026 with an abstract identical to v1, so that record now
-pins v2 and its revision date. No study was added. The stored summaries for the
+pins v2 and its revision date. No study was added. On 27 October that pass was
+repeated once more for all eleven sources, and each source's own text was read
+for the first time rather than only its identity: the Théraulaz, Dorigo,
+Seeley and Tero records were read through NCBI E-utilities for the same PMIDs,
+the Bassler and Sarfati records through the PubMed Central full texts, the
+AntNet, Boids and Couzin records through their own pages, and the Goss and
+Werfel pages that block a plain request were read in a browser. One claim
+binding changed as a result: the radius wording of
+`claim-fish-interaction-range` was carried by the Couzin abstract, which does
+not state it, so the Reynolds record that does state it now sits beside the
+Couzin one. The stored summaries for the
 studies were not re-derived against their abstracts in these passes, so these
 are not full literature refreshes or a reproduction of results. See the
-[content reviews](docs/content-review-2026-10-24.md),
+[content reviews](docs/content-review-2026-10-27.md),
+[the 24 October review](docs/content-review-2026-10-24.md),
 [the 21 October review](docs/content-review-2026-10-21.md),
 [the 20 October review](docs/content-review-2026-10-20.md),
 [the 19 October review](docs/content-review-2026-10-19.md),
