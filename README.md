@@ -118,10 +118,18 @@ Werfel pages that block a plain request were read in a browser. One claim
 binding changed as a result: the radius wording of
 `claim-fish-interaction-range` was carried by the Couzin abstract, which does
 not state it, so the Reynolds record that does state it now sits beside the
-Couzin one. The stored summaries for the
+Couzin one. On 28 October that pass was repeated once more for all eleven sources: every
+one of the 13 catalog claims was checked against the text its cited source
+actually carries, the nine tracked DOIs were confirmed through Crossref with no
+corrections or retractions against them, the Seeley and Tero records through
+NCBI E-utilities for the same PMIDs, the AntNet, Boids and Couzin records
+through their own pages, and the Théraulaz record and the Goss record's
+ResearchGate locator, which block a plain request, through Crossref instead.
+No claim binding changed and no statement text was rewritten. The stored summaries for the
 studies were not re-derived against their abstracts in these passes, so these
 are not full literature refreshes or a reproduction of results. See the
-[content reviews](docs/content-review-2026-10-27.md),
+[content reviews](docs/content-review-2026-10-28.md),
+[the 27 October review](docs/content-review-2026-10-27.md),
 [the 24 October review](docs/content-review-2026-10-24.md),
 [the 21 October review](docs/content-review-2026-10-21.md),
 [the 20 October review](docs/content-review-2026-10-20.md),
